@@ -33,13 +33,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run Tests
-        env:
-          DEBUG: ${{ secrets.DEBUG }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DB_ENGINE: ${{ secrets.DB_ENGINE }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          BASE_WEATHER_API_URL: ${{ secrets.BASE_WEATHER_API_URL }}
-          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: |
           cd yacareer
           python manage.py test
