@@ -1,3 +1,7 @@
+pyc
+.vscode/
+.idea/
+.env
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -44,13 +48,13 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+cache
 nosetests.xml
 coverage.xml
 *.cover
 *.py,cover
 .hypothesis/
 .pytest_cache/
-
 # Translations
 *.mo
 *.pot
@@ -58,7 +62,6 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
 db.sqlite3-journal
 
 # Flask stuff:
