@@ -38,3 +38,4 @@ DEBUG=boolean_value
 ```
 
 ## Структура базы данных
+![image](https://user-images.githubusercontent.com/68695859/207120454-3d36001d-ce96-4fe4-b703-923af3f3e5db.png)
