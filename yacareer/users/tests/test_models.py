@@ -19,7 +19,6 @@ class TestsForModels(TestCase):
         for text in ['client@gmail.com',
                      'bad_mail.com',
                      'check_validation_of_email',
-                     1234567
                      ]:
             with self.assertRaises(ValidationError):
                 self.new_profile = Profile(
