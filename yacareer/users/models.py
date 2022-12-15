@@ -16,7 +16,7 @@ class Profile(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='эл. почта')
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
     class Meta:
         verbose_name = 'пользователь'
