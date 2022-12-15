@@ -1,16 +1,29 @@
-{% comment %} {% load static %} {% endcomment %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="ru">
   <head>
+    <title>YaCareer</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'style/script.js' %}"></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
   </head>
   <body>
-    {% include "includes/header.html" %}
     <div class="container">
-      {% include "includes/users_birthday.html" %}
+    {% include "includes/header.html" %}
       <main>
         {% block content %}
-        
+        Контент не подвезли
         {% endblock %}
       </main>
     </div>

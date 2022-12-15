@@ -1,0 +1,53 @@
+{% load static %}
+
+<header>
+  {% with request.resolver_match.view_name as view_name %}
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'homepage:home' %}">
+          <img src="{% static 'img/main_logo.png' %}" alt="Cat" id="header_logo">
+          YaCareer
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
+  
+            <li class="nav-item">
+              <a 
+                class="{% if view_name == 'homepage:home' %}nav-link disabled{% else %}nav-link{% endif %}"
+                href="{% url 'homepage:home' %}"
+              >Главная</a>
+            </li>
+  
+            <li class="nav-item">
+              <a 
+                class="nav-link"
+                href="#"
+              >Другие</a>
+            </li>
+        
+            <li class="nav-item">
+              <a 
+                class="nav-link"
+                href="#"
+              >Переходы</a>
+            </li>
+            
+          </ul>
+  
+          <ul class="navbar-nav col-md-1 text-end">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><img src="{% static 'img/user.png' %}" alt="user" id="user_img"></a>
+               <ul class="dropdown-menu" id="header_dropdown">
+                <li><a class="dropdown-item" href="{% url 'auth:login' %}">Авторизация</a></li>
+              </ul>
+            </li>
+          </ul>
+  
+        </div>
+      </div>
+    </nav>
+  {% endwith %}
+</header>
