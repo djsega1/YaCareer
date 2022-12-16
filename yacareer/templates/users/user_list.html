@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Пользователи{% endblock title %}
+
+{% block content %}
+
+
+<table class="table table-primary table-striped table-bordered">
+    <thead>
+      <tr class="table-light">
+        <th scope="col">Имя пользователя</th>
+      </tr>
+    </thead>
+  <tbody>
+  {% for item in items %}
+      <tr>
+        <th  scope="row">
+          <a href="{% url 'users:user_detail' item.id %}" class="link-primary">{{item.email}}</a>
+        </th>
+        </tr>
+    {% empty %}
+      <div class="alert alert-primary" role="alert">
+     Пользователи отсутствуют
+    </div>
+
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

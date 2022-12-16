@@ -62,28 +62,3 @@ class Faculty(NamedModel):
 
     def __str__(self) -> str:
         return self.name
-
-
-class TestResult(models.Model):
-    specialization = models.ForeignKey(
-        Specialization, on_delete=models.CASCADE
-    )
-
-    class Meta:
-        verbose_name = 'результаты теста'
-        verbose_name_plural = 'результаты тестов'
-
-    def __str__(self) -> str:
-        return self.name
-
-
-class Test(models.Model):
-    question = models.CharField(max_length=300, verbose_name='вопрос')
-    variant_a = models.CharField(max_length=300, verbose_name='вопрос')
-    variant_b = models.CharField(max_length=300, verbose_name='вопрос')
-
-    class Meta:
-        verbose_name = 'тест'
-
-    def __str__(self) -> str:
-        return self.name

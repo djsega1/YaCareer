@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Пользователь{% endblock title %}
+
+{% block content %}
+<table class="table table-primary table-striped table-bordered">
+  <thead>
+    <tr class="table-light">
+      <th scope="col">Почта</th>
+      <th scope="col">Имя пользователя</th>
+      <th scope="col">Фамилия пользователя</th>
+      <th scope="col">Специализация</th>
+    </tr>
+  </thead>
+<tbody>
+    <tr>
+      <th scope="row">{{item.email}} </th>
+      <th>
+      {{item.first_name}}
+      </th>
+      <th>
+        {{item.last_name}}
+        </th>
+      <th>
+        {{item.test_result.specialization}}
+        </th>
+      </tr>
+</tbody>
+</table>
+
+{% endblock content %}
