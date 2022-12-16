@@ -1,8 +1,13 @@
-{% comment %} {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
 {% block content %}
-<h2>Вы вышли из аккаунта</h2>
 
-{% endblock %} {% endcomment %}
+<div>
+  <img src="{% static 'img/logout.jpg' %}" alt="logout" align="left">
+  <h2>Вы вышли из аккаунта</h2>
+  <p>Мы ждем вас!</p>
+</div>
+
+{% endblock %}

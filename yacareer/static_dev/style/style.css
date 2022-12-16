@@ -62,3 +62,6 @@ body {
     display: flex;
     flex-direction: column;
 }
+#img_logout {
+	width: 20px;
+}

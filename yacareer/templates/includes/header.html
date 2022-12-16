@@ -41,7 +41,18 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><img src="{% static 'img/user.png' %}" alt="user" id="user_img"></a>
                <ul class="dropdown-menu" id="header_dropdown">
-                <li><a class="dropdown-item" href="{% url 'auth:login' %}">Авторизация</a></li>
+                {% if user.is_authenticated %}
+                  <li><a class="dropdown-item" href="{% url 'users:profile' %}">Мой профиль</a></li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'auth:logout' %}">
+                      Выйти
+                      <img src="{% static 'img/logout.png' %}" alt="user" id="img_logout">
+                    </a>
+                  </li>
+                {% else %}
+                  <li><a class="dropdown-item" href="{% url 'auth:login' %}">Авторизация</a></li>
+                  <li><a class="dropdown-item" href="{% url 'users:signup' %}">Регистрация</a></li>
+                {% endif %}
               </ul>
             </li>
           </ul>

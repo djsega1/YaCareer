@@ -24,6 +24,9 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -31,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'users.apps.UsersConfig',
     'homepage.apps.HomepageConfig',
 ]
@@ -106,6 +110,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static_dev',
 ]
 STATIC_ROOT = 'static'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'send_mail'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
