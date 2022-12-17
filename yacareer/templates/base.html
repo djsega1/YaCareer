@@ -1,0 +1,19 @@
+{% comment %} {% load static %} {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+  </head>
+  <body>
+    {% include "includes/header.html" %}
+    <div class="container">
+      {% include "includes/users_birthday.html" %}
+      <main>
+        {% block content %}
+        
+        {% endblock %}
+      </main>
+    </div>
+    {% include "includes/footer.html" %}
+  </body>
+</html>

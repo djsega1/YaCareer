@@ -1,0 +1,18 @@
+{% comment %} {% extends "base.html" %} {% load static %} {% block content %}
+
+<h1>Вход</h1>
+<form method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  {% include "users/includes/form.html" %}
+  {% endfor %}
+  <button type="submit" class="btn btn-dark">Войти</button>
+  <a
+  href="{% url 'auth:password_reset' %}"
+  class="btn btn-outline-dark me-2"
+  role="button"
+  aria-pressed="true"
+  >Забыли пароль?</a
+>
+</form>
+{% endblock %} {% endcomment %}
