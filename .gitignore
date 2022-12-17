@@ -4,6 +4,7 @@ pyc
 .env
 *.sqlite3
 */media/*
+yacareer/send_mail/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
