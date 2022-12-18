@@ -17,11 +17,12 @@ class BaseModelDescription(models.Model):
 
 
 class BaseModelImage(models.Model):
-    upload = models.ImageField(
+    photo = models.ImageField(
         'фото',
-        upload_to='uploads/%Y/%m',
+        upload_to='images/%Y/%m',
         null=True,
         blank=True,
+        default='static_dev/img/user.png',
     )
 
     class Meta:
@@ -30,32 +31,32 @@ class BaseModelImage(models.Model):
     @property
     def get_img(self):
         return get_thumbnail(
-            self.upload,
+            self.photo,
             '300x300',
             crop='center',
             quality=51,
         )
 
     def image_tmb(self):
-        if self.upload:
+        if self.photo:
             return mark_safe(
-                f'<img src="{self.get_img.url}"',
+                f'<img src="{self.get_img.url}">',
             )
         return 'Нет изображения'
 
     @property
     def get_img_small(self):
         return get_thumbnail(
-            self.upload,
+            self.photo,
             '70x70',
             crop='center',
             quality=51
         )
 
     def image_tmb_small(self):
-        if self.upload:
+        if self.photo:
             return mark_safe(
-                f'<img src="{self.get_img_small.url}"',
+                f'<img src="{self.get_img_small.url}">',
             )
         return 'Нет изображения'
 

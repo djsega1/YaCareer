@@ -6,3 +6,4 @@ sqlparse==0.4.3
 django-widget-tweaks==1.4.12
 sorl-thumbnail==12.9.0
 django-debug-toolbar==3.7.0
+Pillow==9.3.0

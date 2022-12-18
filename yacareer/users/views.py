@@ -35,10 +35,16 @@ class ProfileView(LoginRequiredMixin, FormView):
 
     def post(self, request):
         form = self.form_class(
-            request.POST or None,
+            request.POST, request.FILES or None,
             instance=request.user,
         )
         if form.is_valid():
+            file = form.cleaned_data['photo']
+            from django.core.files.storage import FileSystemStorage
+            fs = FileSystemStorage()
+            filename = fs.save(file.name, file)
+            file_url = fs.url(filename)
+            print(file_url)
             self.model.objects.filter(id=request.user.id).update(
                 **form.cleaned_data,
             )

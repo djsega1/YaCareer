@@ -1,18 +1,21 @@
-<div class="card-header">
-  <h4>Информация о пользователе</h4>
+{% load static %}
+
+<div class="row">
+  <div class="col">
+    {% comment %} {{ user }}
+    {{ user.photo.get_img }} {% endcomment %}
+    {{ user.image_tmb }}
+    {% comment %} <img
+      class="img_item_detail"
+      src="{{ user.image_tmb }}"
+      alt="{{item.id}}"
+    > {% endcomment %}
+    {% comment %} <img src="{{ user.photo }}" alt="avatar" id="avatar" style="width: 50%"> {% endcomment %}
+  </div>
+  <div class="col">
+    2 of 3
+  </div>
+  <div class="col">
+    3 of 3
+  </div>
 </div>
-<div class="card-body">
-  <p class="card-text">
-    Почта: {{ user.email }}
-  </p>
-  <p class="card-text">
-    Почта: {{ user.username }}
-  </p>
-  {% if user.first_name %}
-    <p class="card-text">Имя: {{ user.first_name }}</p>
-  {% endif %}
-  
-  {% if user.last_name %}
-    <p class="card-text">Фамилия: {{ user.last_name }}</p>
-  {% endif %}
-  
