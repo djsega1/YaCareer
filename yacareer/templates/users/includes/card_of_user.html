@@ -1,25 +1,14 @@
 {% load static %}
 
-<div class="row">
-  <div class="col">
-    {% comment %} {{ user }}
-    {{ user.photo.get_img }} {% endcomment %}
+<div class="d-flex justify-content-start">
+  <div class="my-2 mx-5">
     {% if user.photo %}
-      {{ user.image_tmb }}
+      <img src="{{ user.get_img.url }}" class="rounded-circle border border-5">
     {% else %}
-      <img src="{% static 'img/user.png' %}"
+      <img src="{% static 'img/user.png' %}" class="rounded-circle border border-5">
     {% endif %}
-    {% comment %} <img
-      class="img_item_detail"
-      src="{{ user.image_tmb }}"
-      alt="{{item.id}}"
-    > {% endcomment %}
-    {% comment %} <img src="{{ user.photo }}" alt="avatar" id="avatar" style="width: 50%"> {% endcomment %}
   </div>
-  <div class="col">
-    2 of 3
-  </div>
-  <div class="col">
-    3 of 3
+  <div class="d-flex align-content-center flex-wrap">
+    <h1>Name</h1>
   </div>
 </div>
