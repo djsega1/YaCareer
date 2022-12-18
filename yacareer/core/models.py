@@ -9,6 +9,7 @@ class BaseModelDescription(models.Model):
         'описание',
         max_length=1024,
         null=True,
+        blank=True,
     )
 
     class Meta:
@@ -19,6 +20,8 @@ class BaseModelImage(models.Model):
     upload = models.ImageField(
         'фото',
         upload_to='uploads/%Y/%m',
+        null=True,
+        blank=True,
     )
 
     class Meta:

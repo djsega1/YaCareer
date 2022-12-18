@@ -11,7 +11,6 @@ class TestsForModels(TestCase):
         cls.profile = Profile.objects.create(
             email='client@gmail.com',
             password='fakfjknawef1323',
-            username='name_of_client',
         )
 
     def test_invalid(self):
@@ -25,7 +24,6 @@ class TestsForModels(TestCase):
                 new_profile = Profile(
                     email=text,
                     password='asfhgsg32afds',
-                    username=text,
                 )
                 new_profile.full_clean()
                 new_profile.save()
@@ -44,7 +42,6 @@ class TestsForModels(TestCase):
             new_profile = Profile(
                 email=text,
                 password='asfhgsg32afds',
-                username=text,
             )
             new_profile.full_clean()
             new_profile.save()
