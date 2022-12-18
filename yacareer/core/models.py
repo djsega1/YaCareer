@@ -1,25 +1,71 @@
 from django.db import models
+from django.utils.safestring import mark_safe
+from django_cleanup.signals import cleanup_pre_delete
+from sorl.thumbnail import delete, get_thumbnail
 
 
-class BaseModel(models.Model):
+class BaseModelDescription(models.Model):
     description = models.CharField(
         'описание',
         max_length=1024,
-    )
-    avatar = models.ImageField(
-        'аватар',
-        default='static_dev/img/user.png',
+        null=True,
     )
 
     class Meta:
         abstract = True
 
 
-class SlugModel(models.Model):
-    name = models.CharField(
-        'название',
-        max_length=70,
+class BaseModelImage(models.Model):
+    upload = models.ImageField(
+        'фото',
+        upload_to='uploads/%Y/%m',
     )
+
+    class Meta:
+        abstract = True
+
+    @property
+    def get_img(self):
+        return get_thumbnail(
+            self.upload,
+            '300x300',
+            crop='center',
+            quality=51,
+        )
+
+    def image_tmb(self):
+        if self.upload:
+            return mark_safe(
+                f'<img src="{self.get_img.url}"',
+            )
+        return 'Нет изображения'
+
+    @property
+    def get_img_small(self):
+        return get_thumbnail(
+            self.upload,
+            '70x70',
+            crop='center',
+            quality=51
+        )
+
+    def image_tmb_small(self):
+        if self.upload:
+            return mark_safe(
+                f'<img src="{self.get_img_small.url}"',
+            )
+        return 'Нет изображения'
+
+    image_tmb.short_description = 'превью'
+    image_tmb.allow_tags = True
+
+    def sorl_delete(**kwargs):
+        delete(kwargs['file'])
+
+    cleanup_pre_delete.connect(sorl_delete)
+
+
+class BaseModelSlug(models.Model):
     slug = models.SlugField(
         'ссылка',
         max_length=2048,
@@ -32,7 +78,7 @@ class SlugModel(models.Model):
         return self.name
 
 
-class BaseMedia(models.Model):
+class BaseModelMedia(models.Model):
     name = models.CharField(
         'название',
         max_length=256,
@@ -40,6 +86,7 @@ class BaseMedia(models.Model):
     description = models.CharField(
         'описание',
         max_length=4096,
+        null=True,
     )
     file = models.FileField(
         'media',

@@ -1,13 +1,17 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
-# from sorl.thumbnail import delete, get_thumbnail
 
-from core.models import BaseMedia, SlugModel, BaseModel
+from core.models import (
+    BaseModelImage, BaseModelDescription,
+    BaseModelMedia, BaseModelSlug,
+)
+from services.models import Service
 from users.managers import ProfileManager
 
 
-class Profile(AbstractBaseUser, PermissionsMixin, BaseModel):
+class Profile(AbstractBaseUser, PermissionsMixin,
+              BaseModelDescription, BaseModelImage):
     objects = ProfileManager()
 
     first_name = models.CharField(
@@ -29,6 +33,11 @@ class Profile(AbstractBaseUser, PermissionsMixin, BaseModel):
     is_active = models.BooleanField(
         'активная учетная запись',
         default=True,
+        null=True,
+    )
+    is_staff = models.BooleanField(
+        'персонал',
+        default=False,
         null=True,
     )
     is_superuser = models.BooleanField(
@@ -54,7 +63,7 @@ class Profile(AbstractBaseUser, PermissionsMixin, BaseModel):
         return self.email
 
 
-class ProfileMedia(BaseMedia):
+class ProfileMedia(BaseModelMedia):
     profile = models.ForeignKey(
         Profile,
         verbose_name='медиа',
@@ -67,20 +76,19 @@ class ProfileMedia(BaseMedia):
         verbose_name_plural = 'файлы'
 
 
-class ProfileContacts(SlugModel):
+class ProfileLinks(BaseModelSlug):
     profile = models.ForeignKey(
         Profile,
         verbose_name='ссылка на профиль',
         on_delete=models.CASCADE,
     )
-    # service = models.ForeignKey(
-
-    # )
-
-
-class ProfileLink(SlugModel):
-    profile = models.ForeignKey(
-        Profile,
-        verbose_name='ссылка на',
+    service = models.ForeignKey(
+        Service,
+        verbose_name='сервис',
         on_delete=models.CASCADE,
     )
+
+    class Meta:
+        verbose_name = 'ссылка'
+        verbose_name_plural = 'ссылки'
+        default_related_name = 'links'
