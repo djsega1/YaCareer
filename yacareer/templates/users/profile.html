@@ -4,11 +4,11 @@
 
 {% block content %}
 
-<div class="col-12">
+<div class="d-flex justify-content-between flex-column w-50 mx-auto">
   {% include "users/includes/card_of_user.html" %}
   <button
     type="button"
-    class="btn btn-primary"
+    class="btn btn-primary mb-2"
     data-bs-toggle="modal"
     data-bs-target="#modal-cart"
   >
@@ -42,7 +42,7 @@
             {% for field in form %}
               {% include "users/includes/form.html" %}
             {% endfor %}
-            <button type="submit" class="btn btn-primary">Отправить</button>
+            <button type="submit" class="btn btn-primary mt-2">Отправить</button>
           </form>
         </div>
       </div>

@@ -74,7 +74,6 @@ footer {
 
 html * {
 	font-family: "SF UI Text" !important;
-	font-size: 16pt;
     font-weight: normal;
 }
 
@@ -95,6 +94,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 #img_logout {
 	width: 20px;
 }
