@@ -4,7 +4,11 @@
   <div class="col">
     {% comment %} {{ user }}
     {{ user.photo.get_img }} {% endcomment %}
-    {{ user.image_tmb }}
+    {% if user.photo %}
+      {{ user.image_tmb }}
+    {% else %}
+      <img src="{% static 'img/user.png' %}"
+    {% endif %}
     {% comment %} <img
       class="img_item_detail"
       src="{{ user.image_tmb }}"

@@ -22,7 +22,6 @@ class BaseModelImage(models.Model):
         upload_to='images/%Y/%m',
         null=True,
         blank=True,
-        default='static_dev/img/user.png',
     )
 
     class Meta:
