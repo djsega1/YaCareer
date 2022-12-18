@@ -3,10 +3,11 @@ from django.db import models
 from django.utils import timezone
 # from sorl.thumbnail import delete, get_thumbnail
 
+from core.models import BaseMedia, SlugModel, BaseModel
 from users.managers import ProfileManager
 
 
-class Profile(AbstractBaseUser, PermissionsMixin):
+class Profile(AbstractBaseUser, PermissionsMixin, BaseModel):
     objects = ProfileManager()
 
     first_name = models.CharField(
@@ -41,10 +42,6 @@ class Profile(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
-    avatar = models.ImageField(
-        'аватар',
-        default='static_dev/img/user.png',
-    )
 
     USERNAME_FIELD = 'email'
 
@@ -55,3 +52,35 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+class ProfileMedia(BaseMedia):
+    profile = models.ForeignKey(
+        Profile,
+        verbose_name='медиа',
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        default_related_name = 'media'
+        verbose_name = 'файл'
+        verbose_name_plural = 'файлы'
+
+
+class ProfileContacts(SlugModel):
+    profile = models.ForeignKey(
+        Profile,
+        verbose_name='ссылка на профиль',
+        on_delete=models.CASCADE,
+    )
+    # service = models.ForeignKey(
+
+    # )
+
+
+class ProfileLink(SlugModel):
+    profile = models.ForeignKey(
+        Profile,
+        verbose_name='ссылка на',
+        on_delete=models.CASCADE,
+    )
