@@ -1,11 +1,11 @@
 {% load static %}
 
-<div class="d-flex align-items-center flex-column">
+<div class="d-flex align-items-center flex-column my-5">
   <div class="my-2 mx-5">
     {% if user.photo %}
-      <img src="{{ user.get_img.url }}" class="rounded-circle border border-5">
+      <img src="{{ user.get_img.url }}" class="rounded-circle border border-5" alt="Аватар">
     {% else %}
-      <img src="{% static 'img/user.png' %}" class="rounded-circle border border-5">
+      <img src="{% static 'img/user.png' %}" class="rounded-circle border border-5" alt="Аватар">
     {% endif %}
   </div>
   <div class="d-flex align-content-center flex-column my-auto">
