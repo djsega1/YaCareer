@@ -11,7 +11,7 @@ from users.forms import (
     ProfileMediaForm,
     ProfileLinksForm,
 )
-from users.models import Profile
+from users.models import Profile, ProfileLinks
 
 
 class SignUpView(FormView):
@@ -52,15 +52,45 @@ class ProfileView(LoginRequiredMixin, FormView):
         }
 
     def post(self, request):
+        self.profile_form(request)
+        self.link_form(request)
+        self.media_form(request)
+        return redirect('users:profile')
+
+    def link_form(self, request):
+        form = ProfileLinksForm(
+            request.POST or None,
+            instance=request.user,
+        )
+        if form.is_valid():
+            ProfileLinks.objects.create(
+                profile_id=request.user.id,
+                **form.cleaned_data,
+            )
+
+    def media_form(self, request):
+        ...
+        # form = self.form_class(
+        #     request.POST, request.FILES or None,
+        #     instance=request.user,
+        # )
+        # if form.is_valid():
+        #     file = form.cleaned_data['photo']
+        #     if file:
+        #         fs = FileSystemStorage()
+        #         fs.save(file.name, file)
+        #     form.save()
+
+    def profile_form(self, request):
         form = self.form_class(
             request.POST, request.FILES or None,
             instance=request.user,
         )
         if form.is_valid():
             file = form.cleaned_data['photo']
-            fs = FileSystemStorage()
-            fs.save(file.name, file)
+            if file:
+                fs = FileSystemStorage()
+                fs.save(file.name, file)
             self.model.objects.filter(id=request.user.id).update(
                 **form.cleaned_data,
             )
-        return redirect('users:profile')

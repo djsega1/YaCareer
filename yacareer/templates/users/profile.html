@@ -10,22 +10,22 @@
     type="button"
     class="btn btn-primary mb-2"
     data-bs-toggle="modal"
-    data-bs-target="#modal-cart"
+    data-bs-target="#modal-profile"
   >
     Редактировать профиль
   </button>
   <a href="{% url 'auth:password_change' %}" class="btn btn-outline-primary">Изменить пароль</a>
   <div
     class="modal fade"
-    id="modal-cart"
+    id="modal-profile"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="ProfileUpdate"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="exampleModalLabel">
+          <h5 class="modal-title" id="ProfileUpdate">
             Редактирование профиля
           </h5>
           <button
@@ -33,7 +33,6 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
-            id="close_modal"
           ></button>
         </div>
         <div class="modal-body">
@@ -42,18 +41,68 @@
             {% for field in profileform %}
               {% include "users/includes/form.html" %}
             {% endfor %}
-            <button type="submit" class="btn btn-primary mt-2">Отправить</button>
+            <button type="submit" class="btn btn-primary mt-2">Обновить</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<h3>Ссылки:</h3>
 {% for link in user.links.all %}
-  <p>сама ссылка: {{ link.slug }}</p>
-  <p>название: {{ link.service }}</p>
-  <p>картинка: {{ link.service.image_tmb_logo }}</p>
+  <a
+    class="fs-5 text-primary"
+    href="{{ link.slug }}"
+  >
+    <i class="{{ link.service.bootstrap_icon }}"></i>
+    {{ link.service }};
+  </a>
 {% endfor %}
+<button
+  type="button"
+  class="btn btn-outline-primary btn-sm"
+  data-bs-toggle="modal"
+  data-bs-target="#modal-links"
+><i class="bi bi-link-45deg"></i></button>
+
+<div
+  class="modal fade"
+  id="modal-links"
+  tabindex="-1"
+  aria-labelledby="ProfileLinks"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="ProfileLinks">
+          Добавление ссылки
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in linksform %}
+            {% include "users/includes/form.html" %}
+          {% endfor %}
+          <button type="submit" class="btn btn-primary mt-2">Создать</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% comment %} 
 
 {% for media in user.media.all %}
   <p>название достижения: {{ media.name }}</p>
@@ -69,5 +118,5 @@
 
 <h4>Если будешь делать модальные окна то вот тебе формы</h4>
 {{ mediaform.as_p }}
-{{ linksform.as_p }}
+{{ linksform.as_p }} {% endcomment %}
 {% endblock %}

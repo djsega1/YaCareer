@@ -1,10 +1,19 @@
 from django.db import models
 
-from core.models import BaseModelImage
 
-
-class Service(BaseModelImage):
-    name = models.CharField(max_length=150, verbose_name='сервис')
+class Service(models.Model):
+    name = models.CharField(
+        max_length=150,
+        verbose_name='сервис',
+        unique=True,
+    )
+    bootstrap_icon = models.CharField(
+        max_length=150,
+        verbose_name='иконка',
+        help_text='https://icons.bootstrap-5.ru/icons/\n'
+                  'Найдите на данном сайте нужную картинку и впишите название'
+                  '(на примеру: bi bi-telegram)',
+    )
 
     class Meta:
         verbose_name = 'сервис'

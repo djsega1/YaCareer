@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.forms import ModelForm
 
@@ -25,7 +26,20 @@ class UpdateProfileForm(UserChangeForm):
 
     class Meta:
         model = Profile
-        fields = ('email', 'first_name', 'last_name', 'photo', 'description')
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'birthday',
+            'photo',
+            'description',
+            'is_open_to_work',
+        )
+        CHOICES = [(True, 'Да'), (False, 'Нет')]
+        widgets = {
+            'birthday': forms.DateInput(attrs={'type': 'date'}),
+            'is_open_to_work': forms.Select(choices=CHOICES),
+        }
 
 
 class ProfileMediaForm(ModelForm):
@@ -50,3 +64,6 @@ class ProfileLinksForm(ModelForm):
         model = ProfileLinks
         fields = ('service', 'slug')
         exclude = ('profile',)
+        widgets = {
+            'slug': forms.URLInput(),
+        }

@@ -20,8 +20,8 @@ class BaseModelImage(models.Model):
     photo = models.ImageField(
         'фото',
         upload_to='images/%Y/%m',
-        null=True,
         blank=True,
+        default='False',
     )
 
     class Meta:
@@ -71,7 +71,8 @@ class BaseModelImage(models.Model):
     def image_tmb_logo(self):
         if self.photo:
             return mark_safe(
-                f'<img class="service_logo" src="{self.get_img_logo.url}">',
+                '<img class="rounded-circle border border-1 border-dark" '
+                f'src="{self.get_img_logo.url}">',
             )
         return 'Нет изображения'
 
