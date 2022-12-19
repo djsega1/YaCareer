@@ -64,7 +64,3 @@ class ProfileLinksForm(ModelForm):
     class Meta:
         model = ProfileLinks
         fields = ('service', 'slug',)
-        exclude = ('profile',)
-        widgets = {
-            'slug': forms.URLInput(),
-        }

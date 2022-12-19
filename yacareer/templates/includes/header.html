@@ -42,7 +42,13 @@
         
         <ul class="navbar-nav col-md-1 text-end">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><img src="{% static 'img/user.png' %}" alt="user" id="user_img"></a>
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+              <img
+                src="{% if user.photo != "False" %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
+                class="rounded-circle border border-1"
+                id="user_img"
+              >
+            </a>
             <ul class="dropdown-menu" id="header_dropdown">
               {% if user.is_authenticated %}
                 <li><a class="dropdown-item" href="{% url 'users:profile' %}">Мой профиль</a></li>

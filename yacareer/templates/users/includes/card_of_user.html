@@ -17,9 +17,21 @@
       Не указано
     {% endif %}
     </h1>
-    <p class="text-break text-center mb-2">ОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписаниеОписание</p>
+    {% if user.description %}
+      <p class="text-break text-center mb-2">{{ user.description }}</p>
+    {% endif %}
   </div>
 </div>
+
+<button
+  type="button"
+  class="btn btn-primary mt-5 mb-2"
+  data-bs-toggle="modal"
+  data-bs-target="#modal-links"
+>
+  Добавить ccылку
+</button>
+
 <div class="d-flex flex-row">
   <div class="dropdown w-50">
     <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -27,20 +39,16 @@
     </button>
     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
       <li>
+        
         {% for link in user.links.all %}
-          <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
-            <i class="{{ link.service.bootstrap_icon }}"></i>
-            {{ link.service }}
-          </a>
+          {% if link.service.is_contact %}
+            <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
+              <i class="{{ link.service.bootstrap_icon }}"></i>
+              {{ link.service }}
+            </a>
+          {% endif %}
         {% endfor %}
-      </li>
-      <li>
-        <a type="button"
-          class="dropdown-item text-center"
-          data-bs-toggle="modal"
-          data-bs-target="#modal-contacts"
-          href="#"
-        >Добавить контакт</a>
+
       </li>
     </ul>
   </div>
@@ -49,15 +57,14 @@
       Ресурсы
     </button>
     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item text-center" href="#">Действие</a></li>
-      <li>
-        <a type="button"
-          class="dropdown-item text-center"
-          data-bs-toggle="modal"
-          data-bs-target="#modal-links"
-          href="#"
-        >Добавить ресурс</a>
-      </li>
+      {% for link in user.links.all %}
+          {% if not link.service.is_contact %}
+            <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
+              <i class="{{ link.service.bootstrap_icon }}"></i>
+              {{ link.service }}
+            </a>
+          {% endif %}
+        {% endfor %}
     </ul>
   </div>
 </div>
@@ -66,14 +73,14 @@
   class="modal fade"
   id="modal-links"
   tabindex="-1"
-  aria-labelledby="ProfileLinks"
+  aria-labelledby="ResourcesLinks"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="ProfileLinks">
-          Изменение ссылок
+        <h5 class="modal-title" id="ResourcesLinks">
+          Изменение ссылок:
         </h5>
         <button
           type="button"
@@ -92,78 +99,21 @@
         </form>
 
         {% for link in user.links.all %}
-          {{ link.is_contact }}
-          {{ link }}
-          {% if link.is_contact %}
-            <div>
-              <a
-                class="fs-6 text-primary"
-                href="{{ link.slug }}"
-              >
-                <i class="{{ link.service.bootstrap_icon }}"></i>
-                {{ link.service }}
-              </a>
-              <a
-                href="{% url 'users:del_link' link.id %}"
-                class="fs-6 text-primary"
-              >
-                <i class="bi bi-trash"></i>
-              </a>
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</div>
-
-<div
-  class="modal fade"
-  id="modal-contacts"
-  tabindex="-1"
-  aria-labelledby="ProfileContacts"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="ProfileContacts">
-          Изменение ссылок
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form method="post">
-          {% csrf_token %}
-          {% for field in linksform %}
-            {% include "users/includes/form.html" %}
-          {% endfor %}
-          <button type="submit" class="btn btn-primary mt-2">Создать</button>
-        </form>
-
-        {% for link in user.links.all %}
-          {% if not link.is_contact %}
-            <div>
-              <a
-                class="fs-6 text-primary"
-                href="{{ link.slug }}"
-              >
-                <i class="{{ link.service.bootstrap_icon }}"></i>
-                {{ link.service }}
-              </a>
-              <a
-                href="{% url 'users:del_link' link.id %}"
-                class="fs-6 text-primary"
-              >
-                <i class="bi bi-trash"></i>
-              </a>
-            </div>
-          {% endif %}
+          <div>
+            <a
+              class="fs-6 text-primary"
+              href="{{ link.slug }}"
+            >
+              <i class="{{ link.service.bootstrap_icon }}"></i>
+              {{ link.service }}
+            </a>
+            <a
+              href="{% url 'users:del_link' link.id %}"
+              class="fs-6 text-primary"
+            >
+              <i class="bi bi-trash"></i>
+            </a>
+          </div>
         {% endfor %}
       </div>
     </div>

@@ -24,6 +24,10 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
 LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/'
 
@@ -124,7 +128,3 @@ AUTH_USER_MODEL = 'users.Profile'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
-
-if DEBUG:
-    import mimetypes
-    mimetypes.add_type('application/javascript', '.js', True)
