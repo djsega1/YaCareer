@@ -52,13 +52,14 @@
 <h3>Ссылки:</h3>
 {% for link in user.links.all %}
   <a
-    class="fs-5 text-primary"
+    class="fs-6 text-primary"
     href="{{ link.slug }}"
   >
     <i class="{{ link.service.bootstrap_icon }}"></i>
     {{ link.service }};
   </a>
 {% endfor %}
+
 <button
   type="button"
   class="btn btn-outline-primary btn-sm"
@@ -77,7 +78,7 @@
     <div class="modal-content">
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title" id="ProfileLinks">
-          Добавление ссылки
+          Изменение ссылок
         </h5>
         <button
           type="button"
@@ -87,13 +88,27 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post">
           {% csrf_token %}
           {% for field in linksform %}
             {% include "users/includes/form.html" %}
           {% endfor %}
           <button type="submit" class="btn btn-primary mt-2">Создать</button>
         </form>
+
+        {% for link in user.links.all %}
+          <form method="post">
+            {% csrf_token %}
+            <a
+              class="fs-6 text-primary"
+              href="{{ link.slug }}"
+            >
+              <i class="{{ link.service.bootstrap_icon }}"></i>
+              {{ link.service }}
+            </a>
+            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-trash"></i></button>
+          </form>
+        {% endfor %}
       </div>
     </div>
   </div>

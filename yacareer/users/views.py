@@ -9,7 +9,7 @@ from users.forms import (
     CreateProfileForm,
     UpdateProfileForm,
     ProfileMediaForm,
-    ProfileLinksForm,
+    ProfileLinksCreateForm,
 )
 from users.models import Profile, ProfileLinks
 
@@ -41,7 +41,7 @@ class ProfileView(LoginRequiredMixin, FormView):
             initial=self.initial,
             instance=self.request.user,
         )
-        links_form = ProfileLinksForm(
+        links_form = ProfileLinksCreateForm(
             initial=self.initial,
             instance=self.request.user,
         )
@@ -55,10 +55,11 @@ class ProfileView(LoginRequiredMixin, FormView):
         self.profile_form(request)
         self.link_form(request)
         self.media_form(request)
+        # self.del_link_form(request)
         return redirect('users:profile')
 
     def link_form(self, request):
-        form = ProfileLinksForm(
+        form = ProfileLinksCreateForm(
             request.POST or None,
             instance=request.user,
         )
@@ -67,6 +68,13 @@ class ProfileView(LoginRequiredMixin, FormView):
                 profile_id=request.user.id,
                 **form.cleaned_data,
             )
+
+    # def del_link_form(self, request):
+    #     form = ProfileLinksDeleteForm(
+    #         request.POST or None,
+    #         instance=request.user,
+    #     )
+    #     print(form.cleaned_data)
 
     def media_form(self, request):
         ...
