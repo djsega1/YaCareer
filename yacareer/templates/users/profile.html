@@ -8,7 +8,7 @@
   {% include "users/includes/card_of_user.html" %}
   <button
     type="button"
-    class="btn btn-primary mb-2"
+    class="btn btn-primary mt-5 mb-2"
     data-bs-toggle="modal"
     data-bs-target="#modal-profile"
   >
@@ -44,71 +44,6 @@
             <button type="submit" class="btn btn-primary mt-2">Обновить</button>
           </form>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<h3>Ссылки:</h3>
-{% for link in user.links.all %}
-  <a
-    class="fs-6 text-primary"
-    href="{{ link.slug }}"
-  >
-    <i class="{{ link.service.bootstrap_icon }}"></i>
-    {{ link.service }};
-  </a>
-{% endfor %}
-
-<button
-  type="button"
-  class="btn btn-outline-primary btn-sm"
-  data-bs-toggle="modal"
-  data-bs-target="#modal-links"
-><i class="bi bi-link-45deg"></i></button>
-
-<div
-  class="modal fade"
-  id="modal-links"
-  tabindex="-1"
-  aria-labelledby="ProfileLinks"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="ProfileLinks">
-          Изменение ссылок
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form method="post">
-          {% csrf_token %}
-          {% for field in linksform %}
-            {% include "users/includes/form.html" %}
-          {% endfor %}
-          <button type="submit" class="btn btn-primary mt-2">Создать</button>
-        </form>
-
-        {% for link in user.links.all %}
-          <form method="post">
-            {% csrf_token %}
-            <a
-              class="fs-6 text-primary"
-              href="{{ link.slug }}"
-            >
-              <i class="{{ link.service.bootstrap_icon }}"></i>
-              {{ link.service }}
-            </a>
-            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-trash"></i></button>
-          </form>
-        {% endfor %}
       </div>
     </div>
   </div>
