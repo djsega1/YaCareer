@@ -7,6 +7,11 @@ app_name = 'users'
 urlpatterns = [
     path('signup/', views.SignUpView.as_view(), name='signup'),
     re_path(
+        r'(?P<pk>[1-9]\d*)/$',
+        views.UserDetailView.as_view(),
+        name='user_detail',
+    ),
+    re_path(
         r'^profile/del_link/(?P<pk>[1-9]\d*)/$',
         views.DeleteLinkView.as_view(),
         name='del_link',

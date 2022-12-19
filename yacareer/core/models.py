@@ -19,7 +19,7 @@ class BaseModelDescription(models.Model):
 class BaseModelImage(models.Model):
     photo = models.ImageField(
         'фото',
-        upload_to='images/%Y/%m',
+        upload_to='images/',
         blank=True,
         default='False',
     )
@@ -98,19 +98,14 @@ class BaseModelSlug(models.Model):
         return self.name
 
 
-class BaseModelMedia(models.Model):
+class BaseModelMedia(BaseModelDescription):
     name = models.CharField(
         'название',
         max_length=256,
     )
-    description = models.CharField(
-        'описание',
-        max_length=4096,
-        null=True,
-    )
     file = models.FileField(
         'media',
-        upload_to='files',
+        upload_to='files/',
     )
 
     class Meta:

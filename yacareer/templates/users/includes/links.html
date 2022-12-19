@@ -1,0 +1,40 @@
+{% load static %}
+
+
+<div class="d-flex flex-row">
+    <div class="dropdown w-50">
+      <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Контакты
+      </button>
+      <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
+        <li>
+          
+          {% for link in user.links.all %}
+            {% if link.service.is_contact %}
+              <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
+                <i class="{{ link.service.bootstrap_icon }}"></i>
+                {{ link.service }}
+              </a>
+            {% endif %}
+          {% endfor %}
+  
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown w-50">
+      <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        Ресурсы
+      </button>
+      <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
+        {% for link in user.links.all %}
+            {% if not link.service.is_contact %}
+              <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
+                <i class="{{ link.service.bootstrap_icon }}"></i>
+                {{ link.service }}
+              </a>
+            {% endif %}
+          {% endfor %}
+      </ul>
+    </div>
+  </div>
+  

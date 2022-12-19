@@ -26,6 +26,12 @@ class SignUpView(FormView):
         return super().form_valid(form)
 
 
+class UserDetailView(DetailView):
+    template_name = 'users/user_detail.html'
+    model = Profile
+    context_object_name = 'user'
+
+
 class ProfileView(LoginRequiredMixin, FormView):
     template_name = 'users/profile.html'
     form_class = UpdateProfileForm
@@ -37,14 +43,8 @@ class ProfileView(LoginRequiredMixin, FormView):
             initial=self.initial,
             instance=self.request.user,
         )
-        media_form = ProfileMediaForm(
-            initial=self.initial,
-            instance=self.request.user,
-        )
-        links_form = ProfileLinksForm(
-            initial=self.initial,
-            instance=self.request.user,
-        )
+        media_form = ProfileMediaForm()
+        links_form = ProfileLinksForm()
         return {
             'profileform': profile_form,
             'mediaform': media_form,
@@ -52,12 +52,12 @@ class ProfileView(LoginRequiredMixin, FormView):
         }
 
     def post(self, request):
-        for func in (self.profile_form,
-                     self.link_form,
-                     self.media_form,
-                     ):
-            if func(request):
-                break
+        if request.FILES.get('file', False):
+            self.media_form(request)
+        elif 'email' in request.POST:
+            self.profile_form(request)
+        else:
+            self.link_form(request)
         return redirect('users:profile')
 
     def link_form(self, request):
@@ -70,38 +70,34 @@ class ProfileView(LoginRequiredMixin, FormView):
                 profile_id=request.user.id,
                 **form.cleaned_data,
             )
-            print(form)
-            return True
-        return False
 
     def media_form(self, request):
-        ...
-        # form = self.form_class(
-        #     request.POST, request.FILES or None,
-        #     instance=request.user,
-        # )
-        # if form.is_valid():
-        #     file = form.cleaned_data['photo']
-        #     if file:
-        #         fs = FileSystemStorage()
-        #         fs.save(file.name, file)
-        #     form.save()
+        form = ProfileMediaForm(
+            *(request.POST, request.FILES) or None,
+            instance=request.user,
+        )
+        if form.is_valid():
+            file = form.cleaned_data['file']
+            if file:
+                fs = FileSystemStorage('media/files')
+                form.cleaned_data['file'] = f'files/{file.name}'
+                fs.save(file.name, file)
+            form.save()
 
     def profile_form(self, request):
         form = self.form_class(
-            request.POST, request.FILES or None,
+            *(request.POST, request.FILES) or None,
             instance=request.user,
         )
         if form.is_valid():
             file = form.cleaned_data['photo']
-            if file:
-                fs = FileSystemStorage()
+            if str(file) != 'False':
+                fs = FileSystemStorage('media/images')
+                form.cleaned_data['photo'] = f'images/{file.name}'
                 fs.save(file.name, file)
             self.model.objects.filter(id=request.user.id).update(
                 **form.cleaned_data,
             )
-            return True
-        return False
 
 
 class DeleteLinkView(LoginRequiredMixin, DetailView):

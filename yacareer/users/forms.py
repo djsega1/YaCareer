@@ -51,8 +51,7 @@ class ProfileMediaForm(ModelForm):
 
     class Meta:
         model = ProfileMedia
-        fields = ('name', 'description', 'file')
-        exclude = ('profile',)
+        fields = ('name', 'description', 'file',)
 
 
 class ProfileLinksForm(ModelForm):

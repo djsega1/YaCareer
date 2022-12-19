@@ -1,0 +1,44 @@
+{% load static %}
+
+
+<button
+  type="button"
+  class="btn btn-primary mt-5 mb-2"
+  data-bs-toggle="modal"
+  data-bs-target="#modal-profile"
+>
+  Редактировать профиль
+</button>
+<a href="{% url 'auth:password_change' %}" class="btn btn-outline-primary">Изменить пароль</a>
+<div
+  class="modal fade"
+  id="modal-profile"
+  tabindex="-1"
+  aria-labelledby="ProfileUpdate"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="ProfileUpdate">
+          Редактирование профиля
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in profileform %}
+            {% include "users/includes/form.html" %}
+          {% endfor %}
+          <button type="submit" class="btn btn-primary mt-2">Обновить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
