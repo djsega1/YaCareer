@@ -3,15 +3,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import DetailView, FormView
 
 from users.forms import (
     CreateProfileForm,
-    UpdateProfileForm,
+    ProfileLinksForm,
     ProfileMediaForm,
-    ProfileLinksCreateForm,
+    UpdateProfileForm,
 )
-from users.models import Profile, ProfileLinks
+from users.models import Profile, ProfileLinks, ProfileMedia
 
 
 class SignUpView(FormView):
@@ -41,7 +41,7 @@ class ProfileView(LoginRequiredMixin, FormView):
             initial=self.initial,
             instance=self.request.user,
         )
-        links_form = ProfileLinksCreateForm(
+        links_form = ProfileLinksForm(
             initial=self.initial,
             instance=self.request.user,
         )
@@ -52,14 +52,16 @@ class ProfileView(LoginRequiredMixin, FormView):
         }
 
     def post(self, request):
-        self.profile_form(request)
-        self.link_form(request)
-        self.media_form(request)
-        # self.del_link_form(request)
+        for func in (self.profile_form,
+                     self.link_form,
+                     self.media_form,
+                     ):
+            if func(request):
+                break
         return redirect('users:profile')
 
     def link_form(self, request):
-        form = ProfileLinksCreateForm(
+        form = ProfileLinksForm(
             request.POST or None,
             instance=request.user,
         )
@@ -68,13 +70,8 @@ class ProfileView(LoginRequiredMixin, FormView):
                 profile_id=request.user.id,
                 **form.cleaned_data,
             )
-
-    # def del_link_form(self, request):
-    #     form = ProfileLinksDeleteForm(
-    #         request.POST or None,
-    #         instance=request.user,
-    #     )
-    #     print(form.cleaned_data)
+            return True
+        return False
 
     def media_form(self, request):
         ...
@@ -102,3 +99,27 @@ class ProfileView(LoginRequiredMixin, FormView):
             self.model.objects.filter(id=request.user.id).update(
                 **form.cleaned_data,
             )
+            return True
+        return False
+
+
+class DeleteLinkView(LoginRequiredMixin, DetailView):
+    model = ProfileLinks
+
+    def get(self, request, pk):
+        self.model.objects.get(
+            pk=pk,
+            profile_id=request.user.id,
+        ).delete()
+        return redirect('users:profile')
+
+
+class DeleteMediaView(LoginRequiredMixin, DetailView):
+    model = ProfileMedia
+
+    def get(self, request, pk):
+        self.model.objects.get(
+            pk=pk,
+            profile_id=request.user.id,
+        ).delete()
+        return redirect('users:profile')

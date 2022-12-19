@@ -49,7 +49,7 @@
   </div>
 </div>
 
-<h3>Ссылки:</h3>
+<h3>Ссылки на контакты:</h3>
 {% for link in user.links.all %}
   <a
     class="fs-6 text-primary"
@@ -97,8 +97,7 @@
         </form>
 
         {% for link in user.links.all %}
-          <form method="post">
-            {% csrf_token %}
+          <div>
             <a
               class="fs-6 text-primary"
               href="{{ link.slug }}"
@@ -106,8 +105,14 @@
               <i class="{{ link.service.bootstrap_icon }}"></i>
               {{ link.service }}
             </a>
-            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-trash"></i></button>
-          </form>
+            {{ link.id }}
+            <a
+              href="{% url 'users:del_link' link.id %}"
+              class="fs-6 text-primary"
+            >
+              <i class="bi bi-trash"></i>
+            </a>
+          </div>
         {% endfor %}
       </div>
     </div>

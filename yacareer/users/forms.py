@@ -4,6 +4,8 @@ from django.forms import ModelForm
 
 from users.models import Profile, ProfileMedia, ProfileLinks
 
+BOOLEAN_CHOICES = [(True, 'Да'), (False, 'Нет')]
+
 
 class CreateProfileForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -35,10 +37,9 @@ class UpdateProfileForm(UserChangeForm):
             'description',
             'is_open_to_work',
         )
-        CHOICES = [(True, 'Да'), (False, 'Нет')]
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'}),
-            'is_open_to_work': forms.Select(choices=CHOICES),
+            'is_open_to_work': forms.Select(choices=BOOLEAN_CHOICES),
         }
 
 
@@ -54,7 +55,7 @@ class ProfileMediaForm(ModelForm):
         exclude = ('profile',)
 
 
-class ProfileLinksCreateForm(ModelForm):
+class ProfileLinksForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
@@ -62,20 +63,7 @@ class ProfileLinksCreateForm(ModelForm):
 
     class Meta:
         model = ProfileLinks
-        fields = ('service', 'slug')
-        exclude = ('profile',)
-        widgets = {
-            'slug': forms.URLInput(),
-        }
-
-
-class ProfileLinksDeleteForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    class Meta:
-        model = ProfileLinks
-        fields = ('service', 'slug')
+        fields = ('service', 'slug',)
         exclude = ('profile',)
         widgets = {
             'slug': forms.URLInput(),

@@ -140,6 +140,10 @@ class ProfileLinks(BaseModelSlug):
         verbose_name='сервис',
         on_delete=models.CASCADE,
     )
+    is_contact = models.BooleanField(
+        'контакт',
+        default=False,
+    )
 
     class Meta:
         verbose_name = 'ссылка'
