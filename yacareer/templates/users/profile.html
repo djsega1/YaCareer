@@ -39,7 +39,7 @@
         <div class="modal-body">
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% for field in form %}
+            {% for field in profileform %}
               {% include "users/includes/form.html" %}
             {% endfor %}
             <button type="submit" class="btn btn-primary">Отправить</button>
@@ -49,5 +49,25 @@
     </div>
   </div>
 </div>
+{% for link in user.links.all %}
+  <p>сама ссылка: {{ link.slug }}</p>
+  <p>название: {{ link.service }}</p>
+  <p>картинка: {{ link.service.image_tmb_logo }}</p>
+{% endfor %}
 
+{% for media in user.media.all %}
+  <p>название достижения: {{ media.name }}</p>
+  <p>Описание: {{ media.description }}</p>
+  <p>путь к файл (я думаю лучше делать либо отображение, если это формат фоток, либо ссылка на скачивание или что то подобное): {{ media.file }}</p>
+{% endfor %}
+
+
+<h4>Короче, добавление медия или урлов не сделал</h4>
+<h4>На тебе отображение урлов;)</h4>
+<h5>А так, думаю сделаем тоже кнопку как с редактрованием профилем и модальным окном, плюс форму на удаление крч дел куча...</h5>
+
+
+<h4>Если будешь делать модальные окна то вот тебе формы</h4>
+{{ mediaform.as_p }}
+{{ linksform.as_p }}
 {% endblock %}

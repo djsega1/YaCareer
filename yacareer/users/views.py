@@ -1,10 +1,16 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
-from users.forms import CreateProfileForm, UpdateProfileForm
+from users.forms import (
+    CreateProfileForm,
+    UpdateProfileForm,
+    ProfileMediaForm,
+    ProfileLinksForm,
+)
 from users.models import Profile
 
 
@@ -27,11 +33,23 @@ class ProfileView(LoginRequiredMixin, FormView):
     success_url = reverse_lazy('users:profile')
 
     def get_context_data(self, **kwargs):
-        form = self.form_class(
+        profile_form = self.form_class(
             initial=self.initial,
             instance=self.request.user,
         )
-        return {'form': form}
+        media_form = ProfileMediaForm(
+            initial=self.initial,
+            instance=self.request.user,
+        )
+        links_form = ProfileLinksForm(
+            initial=self.initial,
+            instance=self.request.user,
+        )
+        return {
+            'profileform': profile_form,
+            'mediaform': media_form,
+            'linksform': links_form,
+        }
 
     def post(self, request):
         form = self.form_class(
@@ -40,11 +58,8 @@ class ProfileView(LoginRequiredMixin, FormView):
         )
         if form.is_valid():
             file = form.cleaned_data['photo']
-            from django.core.files.storage import FileSystemStorage
             fs = FileSystemStorage()
-            filename = fs.save(file.name, file)
-            file_url = fs.url(filename)
-            print(file_url)
+            fs.save(file.name, file)
             self.model.objects.filter(id=request.user.id).update(
                 **form.cleaned_data,
             )

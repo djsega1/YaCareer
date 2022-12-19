@@ -64,4 +64,13 @@ body {
 }
 #img_logout {
 	width: 20px;
+
 }
+.service_logo {
+	border-radius: 100%;
+	border: 1px solid black;
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+}
+

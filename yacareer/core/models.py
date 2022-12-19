@@ -48,7 +48,7 @@ class BaseModelImage(models.Model):
     def get_img_small(self):
         return get_thumbnail(
             self.photo,
-            '70x70',
+            '90x90',
             crop='center',
             quality=51
         )
@@ -57,6 +57,22 @@ class BaseModelImage(models.Model):
         if self.photo:
             return mark_safe(
                 f'<img src="{self.get_img_small.url}">',
+            )
+        return 'Нет изображения'
+
+    @property
+    def get_img_logo(self):
+        return get_thumbnail(
+            self.photo,
+            '30x30',
+            crop='center',
+            quality=51
+        )
+
+    def image_tmb_logo(self):
+        if self.photo:
+            return mark_safe(
+                f'<img class="service_logo" src="{self.get_img_logo.url}">',
             )
         return 'Нет изображения'
 
@@ -70,7 +86,7 @@ class BaseModelImage(models.Model):
 
 
 class BaseModelSlug(models.Model):
-    slug = models.SlugField(
+    slug = models.CharField(
         'ссылка',
         max_length=2048,
     )

@@ -10,3 +10,6 @@ class Service(BaseModelImage):
         verbose_name = 'сервис'
         verbose_name_plural = 'сервисы'
         default_related_name = 'service'
+
+    def __str__(self):
+        return self.name
