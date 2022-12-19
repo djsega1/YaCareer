@@ -17,9 +17,10 @@
           {% for field in form %}
             {% include "users/includes/form.html" %}
           {% endfor %}
-          <div class='mt-2'>
+          <div class="mt-2">
           <button type="submit" class="btn btn-primary">Войти</button>
           <a href="{% url 'auth:password_reset' %}" class="btn btn-outline-primary" role="button" aria-pressed="true">Забыли пароль?</a>
+          <p class="mt-4">Нет аккаунта? Зарегистрируйтесь <a href="{% url 'users:signup' %}">здесь</a>.</p>
           </div>
         </div>
       </div>
