@@ -14,6 +14,10 @@ class Service(models.Model):
                   'Найдите на данном сайте нужную картинку и впишите название'
                   '(на примеру: bi bi-telegram)',
     )
+    is_contact = models.BooleanField(
+        'контакт',
+        default=False,
+    )
 
     class Meta:
         verbose_name = 'сервис'

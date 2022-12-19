@@ -8,4 +8,5 @@ class ServiceAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'bootstrap_icon',
+        'is_contact',
     )

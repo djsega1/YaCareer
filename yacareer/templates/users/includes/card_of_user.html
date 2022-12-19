@@ -92,17 +92,25 @@
         </form>
 
         {% for link in user.links.all %}
-          <form method="post">
-            {% csrf_token %}
-            <a
-              class="fs-6 text-primary"
-              href="{{ link.slug }}"
-            >
-              <i class="{{ link.service.bootstrap_icon }}"></i>
-              {{ link.service }}
-            </a>
-            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-trash"></i></button>
-          </form>
+          {{ link.is_contact }}
+          {{ link }}
+          {% if link.is_contact %}
+            <div>
+              <a
+                class="fs-6 text-primary"
+                href="{{ link.slug }}"
+              >
+                <i class="{{ link.service.bootstrap_icon }}"></i>
+                {{ link.service }}
+              </a>
+              <a
+                href="{% url 'users:del_link' link.id %}"
+                class="fs-6 text-primary"
+              >
+                <i class="bi bi-trash"></i>
+              </a>
+            </div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
@@ -139,17 +147,23 @@
         </form>
 
         {% for link in user.links.all %}
-          <form method="post">
-            {% csrf_token %}
-            <a
-              class="fs-6 text-primary"
-              href="{{ link.slug }}"
-            >
-              <i class="{{ link.service.bootstrap_icon }}"></i>
-              {{ link.service }}
-            </a>
-            <button type="submit" class="btn btn-outline-primary btn-sm"><i class="bi bi-trash"></i></button>
-          </form>
+          {% if not link.is_contact %}
+            <div>
+              <a
+                class="fs-6 text-primary"
+                href="{{ link.slug }}"
+              >
+                <i class="{{ link.service.bootstrap_icon }}"></i>
+                {{ link.service }}
+              </a>
+              <a
+                href="{% url 'users:del_link' link.id %}"
+                class="fs-6 text-primary"
+              >
+                <i class="bi bi-trash"></i>
+              </a>
+            </div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
