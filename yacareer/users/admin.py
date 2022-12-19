@@ -27,15 +27,34 @@ class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             'Данные профиля',
-            {'fields': ('email', 'password', 'description')},
+            {
+                'fields': (
+                    'email',
+                    'password',
+                    'description',
+                    'is_open_to_work',
+                ),
+            },
         ),
         (
             'Персональные данные',
-            {'fields': ('birthday', 'first_name', 'last_name')},
+            {
+                'fields': (
+                    'birthday',
+                    'first_name',
+                    'last_name',
+                ),
+            },
         ),
         (
             'Права доступа',
-            {'fields': ('is_superuser', 'is_staff', 'is_active')},
+            {
+                'fields': (
+                    'is_superuser',
+                    'is_staff',
+                    'is_active',
+                ),
+            },
         ),
     )
     search_fields = ('email',)

@@ -9,9 +9,9 @@ from users.forms import (
     CreateProfileForm,
     UpdateProfileForm,
     ProfileMediaForm,
-    ProfileLinksForm,
+    ProfileLinksCreateForm,
 )
-from users.models import Profile
+from users.models import Profile, ProfileLinks
 
 
 class SignUpView(FormView):
@@ -41,7 +41,7 @@ class ProfileView(LoginRequiredMixin, FormView):
             initial=self.initial,
             instance=self.request.user,
         )
-        links_form = ProfileLinksForm(
+        links_form = ProfileLinksCreateForm(
             initial=self.initial,
             instance=self.request.user,
         )
@@ -52,15 +52,53 @@ class ProfileView(LoginRequiredMixin, FormView):
         }
 
     def post(self, request):
+        self.profile_form(request)
+        self.link_form(request)
+        self.media_form(request)
+        # self.del_link_form(request)
+        return redirect('users:profile')
+
+    def link_form(self, request):
+        form = ProfileLinksCreateForm(
+            request.POST or None,
+            instance=request.user,
+        )
+        if form.is_valid():
+            ProfileLinks.objects.create(
+                profile_id=request.user.id,
+                **form.cleaned_data,
+            )
+
+    # def del_link_form(self, request):
+    #     form = ProfileLinksDeleteForm(
+    #         request.POST or None,
+    #         instance=request.user,
+    #     )
+    #     print(form.cleaned_data)
+
+    def media_form(self, request):
+        ...
+        # form = self.form_class(
+        #     request.POST, request.FILES or None,
+        #     instance=request.user,
+        # )
+        # if form.is_valid():
+        #     file = form.cleaned_data['photo']
+        #     if file:
+        #         fs = FileSystemStorage()
+        #         fs.save(file.name, file)
+        #     form.save()
+
+    def profile_form(self, request):
         form = self.form_class(
             request.POST, request.FILES or None,
             instance=request.user,
         )
         if form.is_valid():
             file = form.cleaned_data['photo']
-            fs = FileSystemStorage()
-            fs.save(file.name, file)
+            if file:
+                fs = FileSystemStorage()
+                fs.save(file.name, file)
             self.model.objects.filter(id=request.user.id).update(
                 **form.cleaned_data,
             )
-        return redirect('users:profile')

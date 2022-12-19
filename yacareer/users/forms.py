@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.forms import ModelForm
 
@@ -25,7 +26,20 @@ class UpdateProfileForm(UserChangeForm):
 
     class Meta:
         model = Profile
-        fields = ('email', 'first_name', 'last_name', 'photo', 'description')
+        fields = (
+            'email',
+            'first_name',
+            'last_name',
+            'birthday',
+            'photo',
+            'description',
+            'is_open_to_work',
+        )
+        CHOICES = [(True, 'Да'), (False, 'Нет')]
+        widgets = {
+            'birthday': forms.DateInput(attrs={'type': 'date'}),
+            'is_open_to_work': forms.Select(choices=CHOICES),
+        }
 
 
 class ProfileMediaForm(ModelForm):
@@ -40,7 +54,7 @@ class ProfileMediaForm(ModelForm):
         exclude = ('profile',)
 
 
-class ProfileLinksForm(ModelForm):
+class ProfileLinksCreateForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.visible_fields():
@@ -50,3 +64,19 @@ class ProfileLinksForm(ModelForm):
         model = ProfileLinks
         fields = ('service', 'slug')
         exclude = ('profile',)
+        widgets = {
+            'slug': forms.URLInput(),
+        }
+
+
+class ProfileLinksDeleteForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = ProfileLinks
+        fields = ('service', 'slug')
+        exclude = ('profile',)
+        widgets = {
+            'slug': forms.URLInput(),
+        }

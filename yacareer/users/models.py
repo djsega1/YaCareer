@@ -63,13 +63,13 @@ class Profile(AbstractBaseUser, PermissionsMixin,
         'имя',
         max_length=150,
         blank=True,
-        null=True,
+        default='',
     )
     last_name = models.CharField(
         'фамилия',
         max_length=150,
         blank=True,
-        null=True,
+        default='',
     )
     email = models.EmailField(
         'почта',
@@ -87,6 +87,11 @@ class Profile(AbstractBaseUser, PermissionsMixin,
     )
     is_superuser = models.BooleanField(
         'админ',
+        default=False,
+        null=True,
+    )
+    is_open_to_work = models.BooleanField(
+        'в поисках работы',
         default=False,
         null=True,
     )
