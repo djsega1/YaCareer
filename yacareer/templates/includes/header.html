@@ -11,60 +11,60 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
+          <div class="collapse navbar-collapse flex-wrap align-content-center" id="navbarSupportedContent">
+            <ul class="d-flex navbar-nav me-auto mb-2 mb-lg-0 top-menu">
     
               <li class="nav-item">
                 <a 
-                  class="{% if view_name == 'homepage:home' %}nav-link disabled{% else %}nav-link{% endif %}"
+                  class="{% if view_name == 'homepage:home' %}nav-link disabled{% else %}nav-link{% endif %} text-center"
                   href="{% url 'homepage:home' %}"
                 >Главная</a>
               </li>
     
               <li class="nav-item">
                 <a 
-                  class="nav-link"
+                  class="nav-link text-center"
                   href="#"
                 >Другие</a>
               </li>
           
               <li class="nav-item">
                 <a 
-                  class="nav-link"
+                  class="nav-link text-center"
                   href="#"
                 >Переходы</a>
               </li>
               
-            </ul>
-    
+            </ul> 
+              <ul class="d-flex navbar-nav text-end ms-auto flex-wrap">
+                {% if user.is_authenticated %}
+                <li class="d-flex nav-item dropdown dropdown-center mx-auto flex-column align-items-center">
+                  <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                    <img
+                      src="{% if user.photo != "False" %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
+                      class="rounded-circle border border-1"
+                      id="user_img"
+                    >
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-center" id="header_dropdown">
+                  <li><a class="dropdown-item" href="{% url 'users:profile' %}">Мой профиль</a></li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'auth:logout' %}">
+                      Выйти
+                      <img src="{% static 'img/logout.png' %}" alt="user" id="img_logout">
+                    </a>
+                  </li>
+                {% else %}
+                  <li><a class="nav-link text-center" href="{% url 'auth:login' %}">Войти</a></li>
+                {% endif %}
+              </ul>
+            </li>
+          </ul>
+
           </div>
         </div>
         
-        <ul class="navbar-nav col-md-1 text-end">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-              <img
-                src="{% if user.photo != "False" %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
-                class="rounded-circle border border-1"
-                id="user_img"
-              >
-            </a>
-            <ul class="dropdown-menu" id="header_dropdown">
-              {% if user.is_authenticated %}
-                <li><a class="dropdown-item" href="{% url 'users:profile' %}">Мой профиль</a></li>
-                <li>
-                  <a class="dropdown-item" href="{% url 'auth:logout' %}">
-                    Выйти
-                    <img src="{% static 'img/logout.png' %}" alt="user" id="img_logout">
-                  </a>
-                </li>
-              {% else %}
-                <li><a class="dropdown-item" href="{% url 'auth:login' %}">Авторизация</a></li>
-                <li><a class="dropdown-item" href="{% url 'users:signup' %}">Регистрация</a></li>
-              {% endif %}
-            </ul>
-          </li>
-        </ul>
+        
         
     </nav>
   {% endwith %}
