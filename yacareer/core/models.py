@@ -22,7 +22,6 @@ class BaseModelImage(models.Model):
         upload_to='images/%Y/%m',
         null=True,
         blank=True,
-        default='static_dev/img/user.png',
     )
 
     class Meta:
@@ -32,7 +31,7 @@ class BaseModelImage(models.Model):
     def get_img(self):
         return get_thumbnail(
             self.photo,
-            '300x300',
+            '200x200',
             crop='center',
             quality=51,
         )
