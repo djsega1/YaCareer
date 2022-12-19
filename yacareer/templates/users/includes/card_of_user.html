@@ -26,7 +26,14 @@
       Контакты
     </button>
     <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item text-center" href="#">Действие</a></li>
+      <li>
+        {% for link in user.links.all %}
+          <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
+            <i class="{{ link.service.bootstrap_icon }}"></i>
+            {{ link.service }}
+          </a>
+        {% endfor %}
+      </li>
       <li>
         <a type="button"
           class="dropdown-item text-center"

@@ -70,6 +70,7 @@ class ProfileView(LoginRequiredMixin, FormView):
                 profile_id=request.user.id,
                 **form.cleaned_data,
             )
+            print(form)
             return True
         return False
 
