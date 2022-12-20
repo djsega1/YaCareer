@@ -34,7 +34,7 @@ class UpdateProfileForm(UserChangeForm):
             'last_name',
             'birthday',
             'photo',
-            'description',
+            'about',
             'is_open_to_work',
         )
         widgets = {

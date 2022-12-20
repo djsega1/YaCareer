@@ -82,7 +82,10 @@ class ProfileView(LoginRequiredMixin, FormView):
                 fs = FileSystemStorage('media/files')
                 form.cleaned_data['file'] = f'files/{file.name}'
                 fs.save(file.name, file)
-            form.save()
+            ProfileMedia.objects.create(
+                profile_id=request.user.id,
+                **form.cleaned_data,
+            )
 
     def profile_form(self, request):
         form = self.form_class(

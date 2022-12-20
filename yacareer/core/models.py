@@ -4,18 +4,6 @@ from django_cleanup.signals import cleanup_pre_delete
 from sorl.thumbnail import delete, get_thumbnail
 
 
-class BaseModelDescription(models.Model):
-    description = models.CharField(
-        'описание',
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    class Meta:
-        abstract = True
-
-
 class BaseModelImage(models.Model):
     photo = models.ImageField(
         'фото',
@@ -98,14 +86,20 @@ class BaseModelSlug(models.Model):
         return self.name
 
 
-class BaseModelMedia(BaseModelDescription):
+class BaseModelMedia(models.Model):
     name = models.CharField(
         'название',
         max_length=256,
     )
     file = models.FileField(
-        'media',
+        'файл',
         upload_to='files/',
+    )
+    description = models.CharField(
+        'описание',
+        max_length=1024,
+        null=True,
+        blank=True,
     )
 
     class Meta:

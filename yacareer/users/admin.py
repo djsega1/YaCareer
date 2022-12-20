@@ -31,7 +31,7 @@ class ProfileAdmin(admin.ModelAdmin):
                 'fields': (
                     'email',
                     'password',
-                    'description',
+                    'about',
                     'is_open_to_work',
                 ),
             },
