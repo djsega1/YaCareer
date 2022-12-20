@@ -16,10 +16,15 @@ urlpatterns = [
         name='create',
     ),
     # re_path(
-    #     '^delete/(?P<pk>[1-9]\d*)/$',
+    #     r'^delete/(?P<pk>[1-9]\d*)/$',
     #     views.DeleteGroupView.as_view(),
     #     name='delete',
     # ),
+    re_path(
+        r'^(?P<pk>[1-9]\d*)/edit/$',
+        views.EditGroupView.as_view(),
+        name='edit',
+    ),
     re_path(
         r'(?P<pk>[1-9]\d*)/$',
         views.GroupDetailView.as_view(),

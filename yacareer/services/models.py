@@ -12,7 +12,7 @@ class Service(models.Model):
         verbose_name='иконка',
         help_text='https://icons.bootstrap-5.ru/icons/\n'
                   'Найдите на данном сайте нужную картинку и впишите название'
-                  '(на примеру: bi bi-telegram)',
+                  '(например: bi bi-telegram)',
     )
     is_contact = models.BooleanField(
         'контакт',

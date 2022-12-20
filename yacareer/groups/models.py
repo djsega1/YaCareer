@@ -5,7 +5,11 @@ from users.models import User
 
 
 class Group(BaseModelImage):
-    name = models.CharField('название', max_length=256)
+    name = models.CharField(
+        'название',
+        max_length=256,
+        unique=True,
+    )
     owner = models.ForeignKey(
         User,
         on_delete=models.DO_NOTHING,
