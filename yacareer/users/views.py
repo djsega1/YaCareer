@@ -79,7 +79,10 @@ class ProfileView(LoginRequiredMixin, FormView):
             instance=request.user,
         )
         if form.is_valid():
-            form.save()
+            ProfileMedia.objects.create(
+                profile_id=request.user.id,
+                **form.cleaned_data,
+            )
 
     def profile_form(self, request):
         form = self.form_class(

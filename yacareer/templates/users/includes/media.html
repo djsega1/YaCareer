@@ -1,1 +1,27 @@
 {% load static %}
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for file in user.media.all %}
+        <div class="carousel-item{% if forloop.counter0 == 0 %} active{% endif %}" data-bs-interval="10000">
+            <embed src="/media/{{ file.file }}#scrollbar=0&toolbar=0" class="d-block w-100" style="width:100%; height: 21cm;" alt="Файл">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{ file.name }}</h5>
+                <p>{{ file.description }}</p>
+            </div>
+        </div>
+      {% endfor %}
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <div class="carousel-indicators">
+    {% for file in user.media.all %}
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="{{ forloop.counter0 }}"{% if forloop.counter0 == 0 %} class="active"{% endif %} aria-current="true" aria-label="{{ file.name }}"></button>
+    {% endfor %}
+    </div>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
