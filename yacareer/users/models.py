@@ -105,6 +105,11 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
         blank=True,
         null=True,
     )
+    follows = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        blank=True
+    )
 
     USERNAME_FIELD = 'email'
 
