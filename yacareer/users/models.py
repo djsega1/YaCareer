@@ -146,9 +146,9 @@ class ProfileLinks(BaseModelSlug):
     )
 
     class Meta:
+        default_related_name = 'links'
         verbose_name = 'ссылка'
         verbose_name_plural = 'ссылки'
-        default_related_name = 'links'
 
     def __str__(self):
         return self.slug
