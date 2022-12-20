@@ -89,9 +89,10 @@ class ProfileView(LoginRequiredMixin, FormView):
         if form.is_valid():
             if type(form.cleaned_data['photo']) is InMemoryUploadedFile:
                 old_image = Profile.objects.get(pk=request.user.id).photo
-                image_path = old_image.path
-                if os.path.exists(image_path):
-                    os.remove(image_path)
+                if old_image:
+                    image_path = old_image.path
+                    if os.path.exists(image_path):
+                        os.remove(image_path)
             form.save()
 
 
