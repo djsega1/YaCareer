@@ -59,7 +59,6 @@ class ProfileAdmin(admin.ModelAdmin):
         ),
     )
     search_fields = ('email',)
-    ordering = ('email',)
 
     def image_tmb_small(self, obj):
         if obj:

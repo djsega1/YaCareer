@@ -34,7 +34,7 @@
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {% for field in mediaform %}
-            {% include "users/includes/form.html" %}
+            {% include "users/includes/field.html" %}
           {% endfor %}
           <button type="submit" class="btn btn-primary mt-2">Добавить</button>
         </form>

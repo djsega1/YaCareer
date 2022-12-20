@@ -13,7 +13,7 @@ class UserManager(BaseUserManager):
         return (
             self.get_queryset()
             .filter(is_active=True)
-            .only('id', 'email', 'is_superuser', 'is_staff',)
+            .only('id', 'email', 'is_superuser', 'is_staff')
         )
 
     def create_user(self, email, password, **extra_fields):

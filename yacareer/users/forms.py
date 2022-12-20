@@ -38,11 +38,11 @@ class ProfileMediaForm(BaseModelForm):
 
     class Meta:
         model = UserMedia
-        fields = ('name', 'description', 'file',)
+        fields = ('name', 'description', 'file')
 
 
 class ProfileLinksForm(BaseModelForm):
 
     class Meta:
         model = UserLinks
-        fields = ('service', 'slug',)
+        fields = ('service', 'slug')
