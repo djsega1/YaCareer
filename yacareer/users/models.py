@@ -7,7 +7,7 @@ from core.models import BaseModelImage, BaseModelMedia, BaseModelSlug
 from services.models import Service
 
 
-class ProfileManager(BaseUserManager):
+class UserManager(BaseUserManager):
 
     def is_activated(self):
         return (
@@ -52,8 +52,8 @@ class ProfileManager(BaseUserManager):
         )
 
 
-class Profile(AbstractBaseUser, PermissionsMixin, BaseModelImage):
-    objects = ProfileManager()
+class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
+    objects = UserManager()
 
     first_name = models.CharField(
         'имя',
@@ -109,7 +109,7 @@ class Profile(AbstractBaseUser, PermissionsMixin, BaseModelImage):
     USERNAME_FIELD = 'email'
 
     class Meta:
-        default_related_name = 'profiles'
+        default_related_name = 'users'
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
 
@@ -117,9 +117,9 @@ class Profile(AbstractBaseUser, PermissionsMixin, BaseModelImage):
         return self.email
 
 
-class ProfileMedia(BaseModelMedia):
-    profile = models.ForeignKey(
-        Profile,
+class UserMedia(BaseModelMedia):
+    user = models.ForeignKey(
+        User,
         verbose_name='медиа',
         on_delete=models.CASCADE,
     )
@@ -133,9 +133,9 @@ class ProfileMedia(BaseModelMedia):
         return self.name
 
 
-class ProfileLinks(BaseModelSlug):
-    profile = models.ForeignKey(
-        Profile,
+class UserLinks(BaseModelSlug):
+    user = models.ForeignKey(
+        User,
         verbose_name='ссылка на профиль',
         on_delete=models.CASCADE,
     )

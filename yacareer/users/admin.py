@@ -1,20 +1,20 @@
 from django.contrib import admin
 
 from users.forms import UpdateProfileForm, CreateProfileForm
-from users.models import Profile, ProfileLinks, ProfileMedia
+from users.models import User, UserLinks, UserMedia
 
 
 class ProfileLinksInline(admin.TabularInline):
-    model = ProfileLinks
+    model = UserLinks
 
 
 class ProfileManagerInline(admin.TabularInline):
-    model = ProfileMedia
+    model = UserMedia
 
 
-@admin.register(Profile)
+@admin.register(User)
 class ProfileAdmin(admin.ModelAdmin):
-    model = Profile
+    model = User
     form = UpdateProfileForm
     add_form = CreateProfileForm
     list_display = ('email', 'first_name', 'is_superuser', 'image_tmb_small')
