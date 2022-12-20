@@ -2,7 +2,7 @@
 
 <button
   type="button"
-  class="btn btn-light my-2 w-100"
+  class="btn btn-light border border-dark my-2 w-100"
   data-bs-toggle="modal"
   data-bs-target="#modal-media"
 >
@@ -36,7 +36,7 @@
           {% for field in mediaform %}
             {% include "users/includes/field.html" %}
           {% endfor %}
-          <button type="submit" class="btn btn-light mt-2">Добавить</button>
+          <button type="submit" class="btn btn-light border border-dark mt-2">Добавить</button>
         </form>
         {% for media in user.media.all %}
           {{ media }}

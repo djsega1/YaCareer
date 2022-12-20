@@ -21,4 +21,15 @@
       <p class="text-break text-center mb-2">{{ user.about }}</p>
     {% endif %}
   </div>
+  <div>
+    {% if request.user.id|slugify != request.resolver_match.kwargs.pk and request.path != '/users/profile/' %}
+      <button
+        type="button"
+        class="btn btn-light border border-dark w-100"
+        href="{% url '' %}"
+      >
+        Подписаться
+      </button>
+    {% endif %}
+  </div>
 </div>

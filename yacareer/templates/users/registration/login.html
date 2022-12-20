@@ -18,8 +18,8 @@
             {% include "users/includes/field.html" %}
           {% endfor %}
           <div class="mt-2">
-          <button type="submit" class="btn btn-light">Войти</button>
-          <a href="{% url 'auth:password_reset' %}" class="btn btn-light" role="button" aria-pressed="true">Забыли пароль?</a>
+          <button type="submit" class="btn btn-light border border-dark">Войти</button>
+          <a href="{% url 'auth:password_reset' %}" class="btn btn-light border border-dark" role="button" aria-pressed="true">Забыли пароль?</a>
           <p class="mt-4">Нет аккаунта? Зарегистрируйтесь <a href="{% url 'users:signup' %}">здесь</a>.</p>
           </div>
         </div>

@@ -1,9 +1,9 @@
 {% load static %}
 
 
-<div class="d-flex flex-row">
-    <div class="dropdown w-50">
-      <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %} disabled="false"{% endif %}>
+<div class="d-flex flex-row mb-2">
+    <div class="dropdown w-50 me-1">
+      <button class="btn btn-light border border-dark dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %} disabled="false"{% endif %}>
         Контакты
       </button>
       <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
@@ -19,8 +19,8 @@
         </li>
       </ul>
     </div>
-    <div class="dropdown w-50">
-      <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %} disabled="false"{% endif %}>
+    <div class="dropdown w-50 ms-1">
+      <button class="btn btn-light border border-dark dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %} disabled="false"{% endif %}>
         Ресурсы
       </button>
       <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
