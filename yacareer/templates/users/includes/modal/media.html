@@ -31,7 +31,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form method="post" enctype="multipart/form-data">
+       <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {% for field in mediaform %}
             {% include "users/includes/form.html" %}

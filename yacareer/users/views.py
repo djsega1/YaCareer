@@ -79,7 +79,10 @@ class ProfileView(LoginRequiredMixin, FormView):
             instance=request.user,
         )
         if form.is_valid():
-            form.save()
+            ProfileMedia.objects.create(
+                profile_id=request.user.id,
+                **form.cleaned_data,
+            )
 
     def profile_form(self, request):
         form = self.form_class(
@@ -111,7 +114,7 @@ class DeleteMediaView(LoginRequiredMixin, DetailView):
     model = ProfileMedia
 
     def get(self, request, pk):
-        file = Profile.objects.get(pk=pk, profile_id=request.user.id).file
+        file = self.model.objects.get(pk=pk, profile_id=request.user.id).file
         file_path = file.path
         if os.path.exists(file_path):
             os.remove(file_path)
