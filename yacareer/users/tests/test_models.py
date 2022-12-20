@@ -1,55 +1,55 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from users.models import Profile
+from users.models import User
 
 
 class TestsForModels(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.profile = Profile.objects.create(
+        cls.user = User.objects.create(
             email='client@gmail.com',
-            password='fakfjknawef1323',
+            password='fakfjknawef1323'
         )
 
     def test_invalid(self):
-        profile_count = Profile.objects.count()
+        user_count = User.objects.count()
         for text in (
             'client@gmail.com',
             'bad_mail.com',
             'check_validation_of_email',
         ):
             with self.assertRaises(ValidationError):
-                new_profile = Profile(
+                new_user = User(
                     email=text,
                     password='asfhgsg32afds',
                 )
-                new_profile.full_clean()
-                new_profile.save()
+                new_user.full_clean()
+                new_user.save()
             self.assertEqual(
-                Profile.objects.count(),
-                profile_count,
+                User.objects.count(),
+                user_count,
             )
 
     def test_valid(self):
-        profile_count = Profile.objects.count()
+        user_count = User.objects.count()
         for i, text in enumerate((
             'mail1@gmail.com',
             'mail2@yandex.ru',
             'mail3@mail.ru',
         ), start=1):
-            new_profile = Profile(
+            new_user = User(
                 email=text,
                 password='asfhgsg32afds',
             )
-            new_profile.full_clean()
-            new_profile.save()
+            new_user.full_clean()
+            new_user.save()
         self.assertEqual(
-            Profile.objects.count(),
-            profile_count + i,
+            User.objects.count(),
+            user_count + i,
         )
 
     def tearDown(self):
-        Profile.objects.all().delete()
+        User.objects.all().delete()
         super().tearDown()

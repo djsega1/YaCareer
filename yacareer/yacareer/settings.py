@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'services.apps.ServicesConfig',
     'core.apps.CoreConfig',
+    'post.apps.PostConfig',
+    'groups.apps.GroupsConfig',
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -126,7 +128,7 @@ EMAIL_FILE_PATH = BASE_DIR / 'send_mail'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.Profile'
+AUTH_USER_MODEL = 'users.User'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'

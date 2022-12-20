@@ -13,12 +13,12 @@ from users.forms import (
     ProfileMediaForm,
     UpdateProfileForm,
 )
-from users.models import Profile, ProfileLinks, ProfileMedia
+from users.models import User, UserLinks, UserMedia
 
 
 class SignUpView(FormView):
     template_name = 'users/signup.html'
-    model = Profile
+    model = User
     form_class = CreateProfileForm
     success_url = reverse_lazy('users:profile')
 
@@ -30,14 +30,14 @@ class SignUpView(FormView):
 
 class UserDetailView(DetailView):
     template_name = 'users/user_detail.html'
-    model = Profile
+    model = User
     context_object_name = 'user'
 
 
 class ProfileView(LoginRequiredMixin, FormView):
     template_name = 'users/profile.html'
     form_class = UpdateProfileForm
-    model = Profile
+    model = User
     success_url = reverse_lazy('users:profile')
 
     def get_context_data(self, **kwargs):
@@ -68,8 +68,8 @@ class ProfileView(LoginRequiredMixin, FormView):
             instance=request.user,
         )
         if form.is_valid():
-            ProfileLinks.objects.create(
-                profile_id=request.user.id,
+            UserLinks.objects.create(
+                user_id=request.user.id,
                 **form.cleaned_data,
             )
 
@@ -91,7 +91,7 @@ class ProfileView(LoginRequiredMixin, FormView):
         )
         if form.is_valid():
             if type(form.cleaned_data['photo']) is InMemoryUploadedFile:
-                old_image = Profile.objects.get(pk=request.user.id).photo
+                old_image = User.objects.get(pk=request.user.id).photo
                 if old_image:
                     image_path = old_image.path
                     if os.path.exists(image_path):
@@ -100,26 +100,26 @@ class ProfileView(LoginRequiredMixin, FormView):
 
 
 class DeleteLinkView(LoginRequiredMixin, DetailView):
-    model = ProfileLinks
+    model = UserLinks
 
     def get(self, request, pk):
         self.model.objects.filter(
             pk=pk,
-            profile_id=request.user.id,
+            user_id=request.user.id,
         ).delete()
         return redirect('users:profile')
 
 
 class DeleteMediaView(LoginRequiredMixin, DetailView):
-    model = ProfileMedia
+    model = UserMedia
 
     def get(self, request, pk):
-        file = self.model.objects.get(pk=pk, profile_id=request.user.id).file
+        file = User.objects.get(pk=pk, user_id=request.user.id).file
         file_path = file.path
         if os.path.exists(file_path):
             os.remove(file_path)
         self.model.objects.filter(
             pk=pk,
-            profile_id=request.user.id,
+            user_id=request.user.id,
         ).delete()
         return redirect('users:profile')
