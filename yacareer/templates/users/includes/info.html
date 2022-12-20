@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="d-flex align-items-center flex-column my-5">
+<div class="d-flex align-items-center flex-column mt-5 mb-2">
   <div class="my-2 mx-5">
     <img
       src="{% if user.photo %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"

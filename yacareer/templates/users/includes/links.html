@@ -3,12 +3,11 @@
 
 <div class="d-flex flex-row">
     <div class="dropdown w-50">
-      <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %} disabled="false"{% endif %}>
         Контакты
       </button>
       <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
         <li>
-          
           {% for link in user.links.all %}
             {% if link.service.is_contact %}
               <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
@@ -17,12 +16,11 @@
               </a>
             {% endif %}
           {% endfor %}
-  
         </li>
       </ul>
     </div>
     <div class="dropdown w-50">
-      <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="btn btn-light dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %} disabled="false"{% endif %}>
         Ресурсы
       </button>
       <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">

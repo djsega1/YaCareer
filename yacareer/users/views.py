@@ -79,8 +79,8 @@ class ProfileView(LoginRequiredMixin, FormView):
             instance=request.user,
         )
         if form.is_valid():
-            ProfileMedia.objects.create(
-                profile_id=request.user.id,
+            UserMedia.objects.create(
+                user_id=request.user.id,
                 **form.cleaned_data,
             )
 
