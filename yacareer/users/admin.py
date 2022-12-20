@@ -32,6 +32,7 @@ class ProfileAdmin(admin.ModelAdmin):
                     'email',
                     'password',
                     'about',
+                    'photo',
                     'is_open_to_work',
                 ),
             },

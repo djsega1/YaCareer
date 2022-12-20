@@ -9,7 +9,6 @@ class BaseModelImage(models.Model):
         'фото',
         upload_to='images/',
         blank=True,
-        default='False',
     )
 
     class Meta:
@@ -82,9 +81,6 @@ class BaseModelSlug(models.Model):
     class Meta:
         abstract = True
 
-    def __str__(self):
-        return self.name
-
 
 class BaseModelMedia(models.Model):
     name = models.CharField(
@@ -101,6 +97,11 @@ class BaseModelMedia(models.Model):
         null=True,
         blank=True,
     )
+
+    def sorl_delete(**kwargs):
+        delete(kwargs['file'])
+
+    cleanup_pre_delete.connect(sorl_delete)
 
     class Meta:
         abstract = True

@@ -3,7 +3,7 @@
 <div class="d-flex align-items-center flex-column my-5">
   <div class="my-2 mx-5">
     <img
-      src="{% if user.photo != "False" %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
+      src="{% if user.photo %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
       class="{% if user.is_open_to_work %} rounded-circle border border-5 border-success {% else %} rounded-circle border border-5 border-dark {% endif %}"
     >
   </div>

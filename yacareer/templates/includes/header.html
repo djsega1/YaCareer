@@ -41,7 +41,7 @@
                 <li class="d-flex nav-item dropdown dropdown-center mx-auto flex-column align-items-center">
                   <a class="nav-link" data-bs-toggle="dropdown" href="#">
                     <img
-                      src="{% if user.photo != "False" %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
+                      src="{% if user.photo %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
                       class="rounded-circle border border-1"
                       id="user_img"
                     >

@@ -17,7 +17,7 @@ urlpatterns = [
         name='del_link',
     ),
     re_path(
-        r'profile/del_media/^(?P<pk>[1-9]\d*)/$',
+        r'^profile/del_media/(?P<pk>[1-9]\d*)/$',
         views.DeleteMediaView.as_view(),
         name='del_media',
     ),

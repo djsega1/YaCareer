@@ -40,6 +40,12 @@
         </form>
         {% for media in user.media.all %}
           {{ media }}
+          <a
+            href="{% url 'users:del_media' media.id %}"
+            class="fs-6 text-primary"
+          >
+            <i class="bi bi-trash"></i>
+          </a>
         {% endfor %}
       </div>
     </div>
