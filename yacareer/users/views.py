@@ -3,7 +3,7 @@ import os
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView
 
@@ -91,7 +91,10 @@ class ProfileView(LoginRequiredMixin, FormView):
         )
         if form.is_valid():
             if type(form.cleaned_data['photo']) is InMemoryUploadedFile:
-                old_image = User.objects.get(pk=request.user.id).photo
+                old_image = get_object_or_404(
+                    User.objects,
+                    pk=request.user.id,
+                ).photo
                 if old_image:
                     image_path = old_image.path
                     if os.path.exists(image_path):
@@ -114,7 +117,10 @@ class DeleteMediaView(LoginRequiredMixin, DetailView):
     model = UserMedia
 
     def get(self, request, pk):
-        file = User.objects.get(pk=pk, user_id=request.user.id).file
+        file = get_object_or_404(
+            pk=pk,
+            user_id=request.user.id,
+        ).file
         file_path = file.path
         if os.path.exists(file_path):
             os.remove(file_path)

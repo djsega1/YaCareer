@@ -1,8 +1,8 @@
 from django.db import models
 
 from core.models import BaseModelPost
-from users.models import User
 from groups.models import Group
+from users.models import User
 
 
 class UserPost(BaseModelPost):
