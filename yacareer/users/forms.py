@@ -42,11 +42,25 @@ class ProfileMediaForm(BaseModelForm):
         fields = ('name', 'description', 'file')
 
 
+class DeleteProfileMediaForm(BaseModelForm):
+
+    class Meta:
+        model = UserMedia
+        fields = ('id', 'name')
+
+
 class ProfileLinksForm(BaseModelForm):
 
     class Meta:
         model = UserLinks
-        fields = ('service', 'slug')
+        fields = ('service', 'user')
+
+
+class DeleteProfileLinksForm(BaseModelForm):
+
+    class Meta:
+        model = UserLinks
+        fields = ('id',)
 
 
 class FollowsU2UForm(ModelForm):

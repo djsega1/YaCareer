@@ -1,17 +1,53 @@
 import os
 
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView
 
-from users.forms import (
-    ProfileLinksForm,
-    ProfileMediaForm,
-    UpdateProfileForm,
-)
-from users.models import User, UserLinks, UserMedia
+from users.forms import (CreateProfileForm, DeleteProfileMediaForm,
+                         FollowsU2UForm, ProfileLinksForm, ProfileMediaForm,
+                         UpdateProfileForm)
+from users.models import FollowsU2U, User, UserLinks, UserMedia
+
+
+class SignUpView(FormView):
+    template_name = 'users/signup.html'
+    model = User
+    form_class = CreateProfileForm
+    success_url = reverse_lazy('users:profile')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)
+
+
+class UserDetailView(FormView, DetailView):
+    template_name = 'users/user_detail.html'
+    model = User
+    form_class = FollowsU2UForm
+    context_object_name = 'user'
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'users:user_detail',
+            args=(
+                self.kwargs['pk'],
+            )
+        )
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('users:user_detail', self.kwargs['pk'])
+
+    def form_invalid(self, form):
+        FollowsU2U.objects.filter(
+            **form.cleaned_data
+        ).delete()
+        return redirect('users:user_detail', self.kwargs['pk'])
 
 
 class ProfileView(LoginRequiredMixin, FormView):
@@ -31,6 +67,7 @@ class ProfileView(LoginRequiredMixin, FormView):
             'profile_form': profile_form,
             'media_form': media_form,
             'links_form': links_form,
+            'form': DeleteProfileMediaForm()
         }
 
     def post(self, request):
@@ -82,33 +119,3 @@ class ProfileView(LoginRequiredMixin, FormView):
                     if os.path.exists(image_path):
                         os.remove(image_path)
             form.save()
-
-
-class DeleteLinkView(LoginRequiredMixin, DetailView):
-    model = UserLinks
-
-    def get(self, request, pk):
-        self.model.objects.filter(
-            pk=pk,
-            user_id=request.user.id,
-        ).delete()
-        return redirect('users:profile')
-
-
-class DeleteMediaView(LoginRequiredMixin, DetailView):
-    model = UserMedia
-
-    def get(self, request, pk):
-        file = get_object_or_404(
-            self.model.objects,
-            pk=pk,
-            user_id=request.user.id,
-        ).file
-        file_path = file.path
-        if os.path.exists(file_path):
-            os.remove(file_path)
-        self.model.objects.filter(
-            pk=pk,
-            user_id=request.user.id,
-        ).delete()
-        return redirect('users:profile')

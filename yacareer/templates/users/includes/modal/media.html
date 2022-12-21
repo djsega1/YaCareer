@@ -38,7 +38,7 @@
           {% endfor %}
           <button type="submit" name="media_submit" class="btn btn-light border border-dark mt-2">Добавить</button>
         </form>
-        {% for media in user.media.all %}
+        {% comment %} {% for media in user.media.all %}
           {{ media }}
           <a
             href="{% url 'users:del_media' media.id %}"
@@ -46,7 +46,8 @@
           >
             <i class="bi bi-trash"></i>
           </a>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
+        {{form.as_p}}
       </div>
     </div>
   </div>
