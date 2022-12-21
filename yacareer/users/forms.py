@@ -42,11 +42,16 @@ class ProfileMediaForm(BaseModelForm):
         fields = ('name', 'description', 'file')
 
 
-class DeleteProfileMediaForm(BaseModelForm):
+class DeleteProfileMediaForm(forms.Form):
+    file = forms.ChoiceField(label='Файл')
 
-    class Meta:
-        model = UserMedia
-        fields = ('file',)
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        media_of_user = [
+            (i.file, i.name) for i in UserMedia.objects.filter(user=user)
+        ]
+        self.fields['file'].choices = media_of_user
+        self.fields['file'].widget.attrs['class'] = 'form-control'
 
 
 class ProfileLinksForm(BaseModelForm):
@@ -56,11 +61,16 @@ class ProfileLinksForm(BaseModelForm):
         fields = ('service', 'slug')
 
 
-class DeleteProfileLinksForm(BaseModelForm):
+class DeleteProfileLinksForm(forms.Form):
+    slug = forms.ChoiceField(label='Ссылка')
 
-    class Meta:
-        model = UserLinks
-        fields = ('id', 'slug')
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        links_of_user = [
+            (i.slug, i.slug) for i in UserLinks.objects.filter(user=user)
+        ]
+        self.fields['slug'].choices = links_of_user
+        self.fields['slug'].widget.attrs['class'] = 'form-control'
 
 
 class FollowsU2UForm(ModelForm):

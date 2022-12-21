@@ -43,27 +43,17 @@
 
 
         <hr>
-
-        {% for media in user.media.all %}
-          <p class="fs-6 text-primary">
-            {{media}}
-            <form method="post">
-              {% csrf_token %}
-              <button type="submit" name="media_del"><i class="bi bi-trash"></i></button>
-            </form>
-          </p>
-        {% endfor %}
-        <form method="post">
-          {% csrf_token %}
-          <select name="service" class="form-control form-control" required id="id_service">
-            <option value="" selected>---------</option>
-            {% for file in user.media.all %}
-              <option value="{{file.id}}">{{file.name}} --- {{file.file}}</option>
-            {% endfor %}
-          </select>
-          <button type="submit" name="media_del" class="btn btn-light border border-dark mt-2">Удалить</button>
-        </form>
-
+          <form method="post">
+            {% csrf_token %}
+            {{ del_media_form }}
+            <button
+              type="submit"
+              class="btn btn-light border border-dark mt-2"
+              name="media_del"
+            >
+              Удалить
+            </button>
+          </form>
 
       </div>
     </div>

@@ -7,9 +7,9 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView
 
-from users.forms import (CreateProfileForm, DeleteProfileMediaForm,
-                         FollowsU2UForm, ProfileLinksForm, ProfileMediaForm,
-                         UpdateProfileForm)
+from users.forms import (CreateProfileForm, DeleteProfileLinksForm,
+                         DeleteProfileMediaForm, FollowsU2UForm,
+                         ProfileLinksForm, ProfileMediaForm, UpdateProfileForm)
 from users.models import FollowsU2U, User, UserLinks, UserMedia
 
 
@@ -61,12 +61,12 @@ class ProfileView(LoginRequiredMixin, FormView):
             initial=self.initial,
             instance=self.request.user,
         )
-        media_form = ProfileMediaForm()
-        links_form = ProfileLinksForm()
         return {
             'profile_form': profile_form,
-            'media_form': media_form,
-            'links_form': links_form,
+            'media_form': ProfileMediaForm(),
+            'links_form': ProfileLinksForm(),
+            'del_media_form': DeleteProfileMediaForm(self.request.user),
+            'del_links_form': DeleteProfileLinksForm(self.request.user),
         }
 
     def post(self, request):
@@ -75,6 +75,7 @@ class ProfileView(LoginRequiredMixin, FormView):
             'media_submit': self.media_form,
             'links_submit': self.links_form,
             'media_del': self.del_media_form,
+            'links_del': self.del_links_form,
         }
         for endpoint, form in endpoints.items():
             if endpoint in request.POST:
@@ -122,13 +123,22 @@ class ProfileView(LoginRequiredMixin, FormView):
 
     def del_media_form(self, request):
         form = DeleteProfileMediaForm(
+            request.user,
             request.POST or None,
-            instance=request.user,
         )
-        print(form)
         if form.is_valid():
-            print(form.cleaned_data)
             UserMedia.objects.filter(
+                user=request.user,
+                **form.cleaned_data,
+            ).delete()
+
+    def del_links_form(self, request):
+        form = DeleteProfileLinksForm(
+            request.user,
+            request.POST or None,
+        )
+        if form.is_valid():
+            UserLinks.objects.filter(
                 user=request.user,
                 **form.cleaned_data,
             ).delete()

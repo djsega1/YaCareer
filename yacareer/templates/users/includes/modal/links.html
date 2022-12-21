@@ -36,31 +36,22 @@
           {% for field in links_form %}
             {% include "users/includes/field.html" %}
           {% endfor %}
-          {% for error in form.non_field_errors %}
-            <div class="alert alert-danger mt-1 mb-1">
-              {{ error|escape }}
-            </div>
-          {% endfor %}
           <button type="submit" name="links_submit" class="btn btn-light border border-dark mt-2">Добавить</button>
         </form>
 
-        {% comment %} {% for link in user.links.all %}
-          <div>
-            <a
-              class="fs-6 text-primary"
-              href="{{ link.slug }}"
-            >
-              <i class="{{ link.service.bootstrap_icon }}"></i>
-              {{ link.service }}
-            </a>
-            <a
-              href="{% url 'users:del_link' link.id %}"
-              class="fs-6 text-primary"
-            >
-              <i class="bi bi-trash"></i>
-            </a>
-          </div>
-        {% endfor %} {% endcomment %}
+        <hr>
+
+        <form method="post">
+          {% csrf_token %}
+          {{ del_links_form }}
+          <button
+            type="submit"
+            class="btn btn-light border border-dark mt-2"
+            name="links_del"
+          >
+            Удалить
+          </button>
+        </form>
       </div>
     </div>
   </div>

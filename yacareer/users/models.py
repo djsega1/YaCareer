@@ -9,13 +9,6 @@ from services.models import Service
 
 class UserManager(BaseUserManager):
 
-    def is_activated(self):
-        return (
-            self.get_queryset()
-            .filter(is_active=True)
-            .only('id', 'email', 'is_superuser', 'is_staff')
-        )
-
     def create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError('Users must have an email address')
