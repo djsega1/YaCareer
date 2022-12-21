@@ -44,7 +44,7 @@
       <select name="from_user" required id="id_from_user" style="display: none;">
         <option value="{{request.user.id}}" selected></option>
       </select>
-      <button type="submit" class="btn btn-light border border-dark">
+      <button type="submit" class="btn btn-primary border border-dark">
         <p> {{ request.user}} <p>
 
         <p>{% for follow in user.user_followed.all %}

@@ -3,13 +3,13 @@
 
 <button
   type="button"
-  class="btn btn-light border border-dark my-2 w-100"
+  class="btn btn-primary border border-dark my-2 w-100"
   data-bs-toggle="modal"
   data-bs-target="#modal-profile"
 >
   Редактировать профиль
 </button>
-<a href="{% url 'auth:password_change' %}" class="btn btn-light border border-dark w-100">Изменить пароль</a>
+<a href="{% url 'auth:password_change' %}" class="btn btn-primary border border-dark w-100">Изменить пароль</a>
 <div
   class="modal fade"
   id="modal-profile"
@@ -36,7 +36,7 @@
           {% for field in profile_form %}
             {% include "users/includes/field.html" %}
           {% endfor %}
-          <button type="submit" name="profile_submit" class="btn btn-light border border-dark mt-2">Обновить</button>
+          <button type="submit" name="profile_submit" class="btn btn-primary border border-dark mt-2">Обновить</button>
         </form>
       </div>
     </div>
