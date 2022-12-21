@@ -37,18 +37,12 @@ class UserManager(BaseUserManager):
             self.queryset = (
                 super().get_queryset()
                 .prefetch_related(
-                    models.Prefetch(
-                        'media',
-                    ),
-                    models.Prefetch(
-                        'links',
-                    ),
-                    models.Prefetch(
-                        'user_follows',
-                    ),
-                    models.Prefetch(
-                        'user_followed',
-                    )
+                    'media',
+                    'links',
+                    'user_follows__to_user',
+                    'user_followed__from_user',
+                    'members',
+                    'owner',
                 )
             )
         return self.queryset
@@ -107,12 +101,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
         blank=True,
         null=True,
     )
-    # follows = models.ManyToManyField(
-    #     'self',
-    #     symmetrical=False,
-    #     blank=True,
-    #     through='FollowsU2U'
-    # )
 
     USERNAME_FIELD = 'email'
 
@@ -138,7 +126,6 @@ class FollowsU2U(models.Model):
     )
 
     class Meta:
-        default_related_name = 'followers'
         constraints = [
             models.UniqueConstraint(
                 fields=('to_user', 'from_user'),

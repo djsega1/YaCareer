@@ -48,7 +48,7 @@ class DeleteProfileMediaForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         media_of_user = [
-            (i.file, i.name) for i in UserMedia.objects.filter(user=user)
+            (i.file, i.name) for i in user.media.all()
         ]
         self.fields['file'].choices = media_of_user
         self.fields['file'].widget.attrs['class'] = 'form-control'
@@ -67,7 +67,7 @@ class DeleteProfileLinksForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         links_of_user = [
-            (i.slug, i.slug) for i in UserLinks.objects.filter(user=user)
+            (i.slug, i.slug) for i in user.links.all()
         ]
         self.fields['slug'].choices = links_of_user
         self.fields['slug'].widget.attrs['class'] = 'form-control'

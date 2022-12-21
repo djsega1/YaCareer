@@ -134,3 +134,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000/'
+
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("application/javascript", ".js", True)
