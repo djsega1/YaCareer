@@ -6,11 +6,11 @@ class UserPostForm(BaseModelForm):
 
     class Meta:
         model = UserPost
-        fields = ('photo', 'text')
+        fields = ('photo', 'text',)
 
 
 class GroupPostForm(BaseModelForm):
 
     class Meta:
         model = GroupPost
-        fields = ('photo', 'text')
+        fields = ('photo', 'text',)

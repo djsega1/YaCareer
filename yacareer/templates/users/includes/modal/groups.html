@@ -1,0 +1,35 @@
+{% load static %}
+
+<div
+  class="modal fade"
+  id="modal-groups"
+  tabindex="-1"
+  aria-labelledby="UserGroups"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content w-50 mx-auto">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          Группы {{ user.first_name }} {{ user.last_name }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div>
+            {% for group in user.owner.all %}
+                {% include "users/includes/group_card.html" with status="Владелец" %}
+            {% endfor %}
+            {% for group in user.members.all %}
+                {% include "users/includes/group_card.html" with status="Участник" %}
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

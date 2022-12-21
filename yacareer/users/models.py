@@ -119,6 +119,9 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
 
+    def __str__(self) -> str:
+        return f"{self.first_name.capitalize()} {self.last_name.capitalize()}"
+
 
 class FollowsU2U(models.Model):
     from_user = models.ForeignKey(
