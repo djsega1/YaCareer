@@ -38,27 +38,6 @@ class UserManager(BaseUserManager):
             raise ValueError('Superusers must have is_superuser=True')
         return self.create_user(email, password, **extra_fields)
 
-    def get_queryset(self):
-        return (
-            super().get_queryset()
-            .prefetch_related(
-                models.Prefetch(
-                    'media',
-                ),
-                models.Prefetch(
-                    'links',
-                ),
-                models.Prefetch(
-                    'follows__user_follows',
-                    to_attr='us_follows',
-                ),
-                models.Prefetch(
-                    'follows__user_followed',
-                    to_attr='us_followed',
-                ),
-            )
-        )
-
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
     objects = UserManager()
@@ -113,12 +92,12 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
         blank=True,
         null=True,
     )
-    follows = models.ManyToManyField(
-        'self',
-        symmetrical=False,
-        blank=True,
-        through='FollowsU2U'
-    )
+    # follows = models.ManyToManyField(
+    #     'self',
+    #     symmetrical=False,
+    #     blank=True,
+    #     through='FollowsU2U'
+    # )
 
     USERNAME_FIELD = 'email'
 
