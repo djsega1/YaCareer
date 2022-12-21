@@ -1,6 +1,5 @@
 import os
 
-from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.shortcuts import redirect, get_object_or_404
@@ -8,30 +7,11 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView
 
 from users.forms import (
-    CreateProfileForm,
     ProfileLinksForm,
     ProfileMediaForm,
     UpdateProfileForm,
 )
 from users.models import User, UserLinks, UserMedia
-
-
-class SignUpView(FormView):
-    template_name = 'users/signup.html'
-    model = User
-    form_class = CreateProfileForm
-    success_url = reverse_lazy('users:profile')
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-        return super().form_valid(form)
-
-
-class UserDetailView(DetailView):
-    template_name = 'users/user_detail.html'
-    model = User
-    context_object_name = 'user'
 
 
 class ProfileView(LoginRequiredMixin, FormView):
@@ -48,21 +28,23 @@ class ProfileView(LoginRequiredMixin, FormView):
         media_form = ProfileMediaForm()
         links_form = ProfileLinksForm()
         return {
-            'profileform': profile_form,
-            'mediaform': media_form,
-            'linksform': links_form,
+            'profile_form': profile_form,
+            'media_form': media_form,
+            'links_form': links_form,
         }
 
     def post(self, request):
-        if request.FILES.get('file', False):
-            self.media_form(request)
-        elif 'email' in request.POST:
-            self.profile_form(request)
-        else:
-            self.link_form(request)
+        endpoints = {
+            'profile_submit': self.profile_form,
+            'media_submit': self.media_form,
+            'links_submit': self.links_form,
+        }
+        for endpoint, form in endpoints.items():
+            if endpoint in request.POST:
+                form(request)
         return redirect('users:profile')
 
-    def link_form(self, request):
+    def links_form(self, request):
         form = ProfileLinksForm(
             request.POST or None,
             instance=request.user,
@@ -92,7 +74,7 @@ class ProfileView(LoginRequiredMixin, FormView):
         if form.is_valid():
             if type(form.cleaned_data['photo']) is InMemoryUploadedFile:
                 old_image = get_object_or_404(
-                    User.objects,
+                    self.model.objects,
                     pk=request.user.id,
                 ).photo
                 if old_image:
@@ -118,6 +100,7 @@ class DeleteMediaView(LoginRequiredMixin, DetailView):
 
     def get(self, request, pk):
         file = get_object_or_404(
+            self.model.objects,
             pk=pk,
             user_id=request.user.id,
         ).file

@@ -33,10 +33,10 @@
       <div class="modal-body">
        <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          {% for field in mediaform %}
+          {% for field in media_form %}
             {% include "users/includes/field.html" %}
           {% endfor %}
-          <button type="submit" class="btn btn-light border border-dark mt-2">Добавить</button>
+          <button type="submit" name="media_submit" class="btn btn-light border border-dark mt-2">Добавить</button>
         </form>
         {% for media in user.media.all %}
           {{ media }}

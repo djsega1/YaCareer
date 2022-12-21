@@ -108,7 +108,8 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
     follows = models.ManyToManyField(
         'self',
         symmetrical=False,
-        blank=True
+        blank=True,
+        through='FollowsU2U'
     )
 
     USERNAME_FIELD = 'email'
@@ -120,6 +121,28 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
 
     def __str__(self):
         return self.email
+
+
+class FollowsU2U(models.Model):
+    from_user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='from_user',
+    )
+    to_user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='to_user',
+    )
+
+    class Meta:
+        default_related_name = 'followers'
+        constraints = [
+            models.UniqueConstraint(
+                fields=('to_user', 'from_user'),
+                name='follow_unique',
+            )
+        ]
 
 
 class UserMedia(BaseModelMedia):

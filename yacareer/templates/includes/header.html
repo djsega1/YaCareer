@@ -37,11 +37,11 @@
               
             </ul> 
               <ul class="d-flex navbar-nav text-end ms-auto flex-wrap">
-                {% if user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                 <li class="d-flex nav-item dropdown dropdown-center mx-auto flex-column align-items-center">
                   <a class="nav-link" data-bs-toggle="dropdown" href="#">
                     <img
-                      src="{% if user.photo %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
+                      src="{% if request.user.photo %} {{ request.user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
                       class="rounded-circle border border-1"
                       id="user_img"
                     >

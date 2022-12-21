@@ -15,10 +15,9 @@ class GroupMediaInline(admin.TabularInline):
 class GroupAdmin(admin.ModelAdmin):
     model = Group
     list_display = ('name', 'image_tmb_small')
-    ordering = ('members',)
     inlines = [
-        GroupMembersInline,
         GroupMediaInline,
+        GroupMembersInline,
     ]
     fieldsets = (
         (
@@ -34,7 +33,6 @@ class GroupAdmin(admin.ModelAdmin):
         ),
     )
     search_fields = ('name',)
-    ordering = ('members',)
 
     def image_tmb_small(self, obj):
         if obj:

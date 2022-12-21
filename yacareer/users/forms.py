@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+from django.forms import ModelForm
 
 from core.forms import BaseModelForm
-from users.models import User, UserMedia, UserLinks
+from users.models import FollowsU2U, User, UserLinks, UserMedia
 
 BOOLEAN_CHOICES = [(True, 'Да'), (False, 'Нет')]
 
@@ -46,3 +47,10 @@ class ProfileLinksForm(BaseModelForm):
     class Meta:
         model = UserLinks
         fields = ('service', 'slug')
+
+
+class FollowsU2UForm(ModelForm):
+
+    class Meta:
+        model = FollowsU2U
+        fields = ('to_user', 'from_user')

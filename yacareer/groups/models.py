@@ -60,8 +60,7 @@ class GroupMembers(models.Model):
         ]
 
     def __str__(self):
-        name = filter(lambda x: x, [self.user.first_name, self.user.last_name])
-        return ' '.join(name)
+        return f'{self.user.first_name} {self.user.last_name}'.strip()
 
 
 class GroupMedia(BaseModelMedia):
