@@ -30,6 +30,10 @@
       <h2>{{ user.user_follows.count }}</h2>
       <p>подписок</p>
     </div>
+    <div class="d-flex flex-column align-items-center" data-bs-toggle="modal" data-bs-target="#modal-groups" role="button">
+      <h2>{{ user.members.count|add:user.owner.count }}</h2>
+      <p>групп</p>
+    </div>
   </div>
   {% if request.user.is_authenticated and request.user.id|slugify != request.resolver_match.kwargs.pk and request.path != '/users/profile/' %}
     <form method="post">
@@ -55,3 +59,4 @@
   {% endif %}
 </div>
 {% include "users/includes/modal/follows.html" %}
+{% include "users/includes/modal/groups.html" %}
