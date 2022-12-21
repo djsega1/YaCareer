@@ -21,9 +21,21 @@
         ></button>
       </div>
       <div class="modal-body">
-        {% for follower in user.user_followed.all %}
-            {% include "users/includes/user_card.html" %}
+        <div>
+          подписан на: 
+        {% for follow in user.user_follows.all %}
+          {{follow.to_user}}
         {% endfor %}
+        </div>
+
+
+
+        <div>
+          на него подписаны: 
+        {% for follow in user.user_followed.all %}
+          {{follow.from_user}}
+        {% endfor %}
+        </div>
       </div>
     </div>
   </div>
