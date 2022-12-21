@@ -1,6 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.shortcuts import get_object_or_404
 from django.db import models
 from django.utils import timezone
 
@@ -9,6 +8,7 @@ from services.models import Service
 
 
 class UserManager(BaseUserManager):
+    queryset = None
 
     def create_user(self, email, password, **extra_fields):
         if not email:
@@ -33,23 +33,25 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
     def get_queryset(self):
-        return (
-            super().get_queryset()
-            .prefetch_related(
-                models.Prefetch(
-                    'media',
-                ),
-                models.Prefetch(
-                    'links',
-                ),
-                models.Prefetch(
-                    'user_follows',
-                ),
-                models.Prefetch(
-                    'user_followed',
+        if self.queryset is None:
+            self.queryset = (
+                super().get_queryset()
+                .prefetch_related(
+                    models.Prefetch(
+                        'media',
+                    ),
+                    models.Prefetch(
+                        'links',
+                    ),
+                    models.Prefetch(
+                        'user_follows',
+                    ),
+                    models.Prefetch(
+                        'user_followed',
+                    )
                 )
             )
-        )
+        return self.queryset
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
@@ -119,8 +121,8 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
 
-    def __str__(self) -> str:
-        return f"{self.first_name.capitalize()} {self.last_name.capitalize()}"
+    def __str__(self):
+        return f'{self.first_name.capitalize()} {self.last_name.capitalize()}'
 
 
 class FollowsU2U(models.Model):
