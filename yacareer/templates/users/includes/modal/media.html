@@ -2,7 +2,7 @@
 
 <button
   type="button"
-  class="btn btn-light border border-dark my-2 w-100"
+  class="btn btn-primary border border-dark my-2 w-100"
   data-bs-toggle="modal"
   data-bs-target="#modal-media"
 >
@@ -38,7 +38,7 @@
           {% for field in media_form %}
             {% include "users/includes/field.html" %}
           {% endfor %}
-          <button type="submit" name="media_submit" class="btn btn-light border border-dark mt-2">Добавить</button>
+          <button type="submit" name="media_submit" class="btn btn-primary border border-dark mt-2">Добавить</button>
         </form>
 
 
@@ -48,7 +48,7 @@
             {{ del_media_form }}
             <button
               type="submit"
-              class="btn btn-light border border-dark mt-2"
+              class="btn btn-primary border border-dark mt-2"
               name="media_del"
             >
               Удалить
