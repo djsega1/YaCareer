@@ -21,7 +21,16 @@
       <p class="text-break text-center mb-2">{{ user.about }}</p>
     {% endif %}
   </div>
-  
+  <div class="d-flex w-100 justify-content-evenly my-3 user-select-none">
+    <div class="d-flex flex-column align-items-center" data-bs-toggle="modal" data-bs-target="#modal-followed" role="button">
+      <h2>{{ user.user_followed.count }}</h2>
+      <p>подписчиков</p>
+    </div>
+    <div class="d-flex flex-column align-items-center" data-bs-toggle="modal" data-bs-target="#modal-follows" role="button">
+      <h2>{{ user.user_follows.count }}</h2>
+      <p>подписок</p>
+    </div>
+  </div>
   {% if request.user.is_authenticated and request.user.id|slugify != request.resolver_match.kwargs.pk and request.path != '/users/profile/' %}
     <form method="post">
       {% csrf_token %}
@@ -40,5 +49,5 @@
       </button>
     </form>
   {% endif %}
-
 </div>
+{% include "users/includes/modal/follows.html" %}

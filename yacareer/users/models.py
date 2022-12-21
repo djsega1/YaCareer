@@ -48,6 +48,9 @@ class UserManager(BaseUserManager):
                 models.Prefetch(
                     'links',
                 ),
+                models.Prefetch(
+                    'follows',
+                ),
             )
         )
 
@@ -127,12 +130,12 @@ class FollowsU2U(models.Model):
     from_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='from_user',
+        related_name='user_follows',
     )
     to_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='to_user',
+        related_name='user_followed',
     )
 
     class Meta:

@@ -1,6 +1,6 @@
 {% load static %}
 
-{% if user.media %}
+{% if user.media.all %}
 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-inner border border-dark rounded-2">
       {% for file in user.media.all %}
