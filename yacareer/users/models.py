@@ -106,9 +106,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'
 
-    def __str__(self):
-        return self.email
-
 
 class FollowsU2U(models.Model):
     from_user = models.ForeignKey(

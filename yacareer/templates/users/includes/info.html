@@ -41,7 +41,11 @@
           <option value="{{request.user.id}}" selected></option>
         </select>
       <button type="submit" class="btn btn-light border border-dark">
-        {% if user in request.user.follows.all %}
+        {{ request.user }}
+        {% for i in user.user_followed.all %}
+          {{ i.from_user }}
+        {% endfor %}
+        {% if request.user in user.user_followed.all %}
           Отписаться
         {% else %}
           Подписаться
