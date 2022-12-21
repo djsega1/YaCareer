@@ -61,12 +61,14 @@ class ProfileView(LoginRequiredMixin, FormView):
             initial=self.initial,
             instance=self.request.user,
         )
+        del_media_form = DeleteProfileMediaForm(self.request.user)
+        del_links_form = DeleteProfileLinksForm(self.request.user)
         return {
             'profile_form': profile_form,
             'media_form': ProfileMediaForm(),
+            'del_media_form': del_media_form,
             'links_form': ProfileLinksForm(),
-            'del_media_form': DeleteProfileMediaForm(self.request.user),
-            'del_links_form': DeleteProfileLinksForm(self.request.user),
+            'del_links_form': del_links_form,
         }
 
     def post(self, request):

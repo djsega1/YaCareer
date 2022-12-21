@@ -34,17 +34,18 @@
   {% if request.user.is_authenticated and request.user.id|slugify != request.resolver_match.kwargs.pk and request.path != '/users/profile/' %}
     <form method="post">
       {% csrf_token %}
-        <select name="to_user" required id="id_to_user" style="display: none;">
-          <option value="{{request.resolver_match.kwargs.pk}}" selected></option>
-        </select>
-        <select name="from_user" required id="id_from_user" style="display: none;">
-          <option value="{{request.user.id}}" selected></option>
-        </select>
+      <select name="to_user" required id="id_to_user" style="display: none;">
+        <option value="{{request.resolver_match.kwargs.pk}}" selected></option>
+      </select>
+      <select name="from_user" required id="id_from_user" style="display: none;">
+        <option value="{{request.user.id}}" selected></option>
+      </select>
       <button type="submit" class="btn btn-light border border-dark">
-        {{ request.user }}
-        {% for i in user.user_followed.all %}
-          {{ i.from_user }}
-        {% endfor %}
+        <p> {{ request.user}} <p>
+
+        <p>{% for follow in user.user_followed.all %}
+          {{follow.from_user}}
+        {% endfor %}</p>
         {% if request.user in user.user_followed.all %}
           Отписаться
         {% else %}

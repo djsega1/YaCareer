@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.shortcuts import get_object_or_404
 from django.db import models
 from django.utils import timezone
 
@@ -30,6 +31,25 @@ class UserManager(BaseUserManager):
         if not extra_fields.get('is_superuser'):
             raise ValueError('Superusers must have is_superuser=True')
         return self.create_user(email, password, **extra_fields)
+
+    def get_queryset(self):
+        return (
+            super().get_queryset()
+            .prefetch_related(
+                models.Prefetch(
+                    'media',
+                ),
+                models.Prefetch(
+                    'links',
+                ),
+                models.Prefetch(
+                    'user_follows',
+                ),
+                models.Prefetch(
+                    'user_followed',
+                )
+            )
+        )
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
