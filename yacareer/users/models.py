@@ -49,7 +49,12 @@ class UserManager(BaseUserManager):
                     'links',
                 ),
                 models.Prefetch(
-                    'follows',
+                    'follows__user_follows',
+                    to_attr='us_follows',
+                ),
+                models.Prefetch(
+                    'follows__user_followed',
+                    to_attr='us_followed',
                 ),
             )
         )

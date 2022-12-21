@@ -21,7 +21,9 @@
         ></button>
       </div>
       <div class="modal-body">
-        {% for follower in user.user_followed.all %}
+        {{ user.us_followed.all }}
+        {{ user.us_follows.all }}
+        {% for follower in user.followed.all %}
             {% include "users/includes/user_card.html" %}
         {% endfor %}
       </div>
