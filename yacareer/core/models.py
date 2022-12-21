@@ -34,7 +34,7 @@ class BaseModelImage(models.Model):
     def get_img_small(self):
         return get_thumbnail(
             self.photo,
-            '90x90',
+            '50x50',
             crop='center',
             quality=51
         )
