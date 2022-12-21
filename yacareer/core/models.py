@@ -90,6 +90,7 @@ class BaseModelMedia(models.Model):
     file = models.FileField(
         'файл',
         upload_to='files/',
+        unique=True,
     )
     description = models.CharField(
         'описание',

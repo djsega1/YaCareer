@@ -67,7 +67,6 @@ class ProfileView(LoginRequiredMixin, FormView):
             'profile_form': profile_form,
             'media_form': media_form,
             'links_form': links_form,
-            'form': DeleteProfileMediaForm()
         }
 
     def post(self, request):
@@ -75,6 +74,7 @@ class ProfileView(LoginRequiredMixin, FormView):
             'profile_submit': self.profile_form,
             'media_submit': self.media_form,
             'links_submit': self.links_form,
+            'media_del': self.del_media_form,
         }
         for endpoint, form in endpoints.items():
             if endpoint in request.POST:
@@ -119,3 +119,16 @@ class ProfileView(LoginRequiredMixin, FormView):
                     if os.path.exists(image_path):
                         os.remove(image_path)
             form.save()
+
+    def del_media_form(self, request):
+        form = DeleteProfileMediaForm(
+            request.POST or None,
+            instance=request.user,
+        )
+        print(form)
+        if form.is_valid():
+            print(form.cleaned_data)
+            UserMedia.objects.filter(
+                user=request.user,
+                **form.cleaned_data,
+            ).delete()
