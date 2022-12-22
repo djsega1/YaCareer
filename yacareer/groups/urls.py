@@ -5,11 +5,11 @@ from groups import views
 app_name = 'groups'
 
 urlpatterns = [
-    # path(
-    #     'group_list',
-    #     views.GroupListView.as_view(),
-    #     name='group_list',
-    # ),
+    path(
+        '',
+        views.GroupListView.as_view(),
+        name='group_list',
+    ),
     path(
         'create/',
         views.CreateGroupView.as_view(),

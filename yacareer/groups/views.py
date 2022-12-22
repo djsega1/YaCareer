@@ -3,10 +3,19 @@
 # from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, FormView, UpdateView
+from django.views.generic import (
+    CreateView, DetailView, FormView, UpdateView, ListView
+)
 
 from groups.forms import GroupForm
 from groups.models import Group
+
+
+class GroupListView(ListView):
+    template_name = 'groups/index.html'
+    model = Group
+    context_object_name = 'group_list'
+    paginate_by = 4
 
 
 class GroupDetailView(DetailView):
