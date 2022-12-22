@@ -14,10 +14,27 @@
           class="rounded-circle border border-5 border-dark"
         >
         <div class="card-body">
-          <h4 class="card-title">Изменение</h4>
+          <h4 class="card-title">Изменение профиля группы</h4>
           {% include "includes/form.html" %}
           <div class="mt-2">
-          <button type="submit" class="btn btn-primary border border-dark w-100">Обновить</button>
+          <button type="submit" name="group_profile_form" class="btn btn-primary border border-dark w-100">Обновить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="d-flex flex-row align-items-center align-content-center">
+        <div class="card-body">
+          <h4 class="card-title">Вакансии</h4>
+          {% include "includes/form.html" with form=vacancy %}
+          <div class="mt-2">
+          <button type="submit" name="group_vacancy_form" class="btn btn-primary border border-dark w-100">Создать</button>
           </div>
         </div>
       </div>

@@ -8,15 +8,13 @@
     >
   </div>
   <div class="d-flex align-content-center flex-column my-auto">
-    <div class="d-flex flex-row">  
-      <h1 class="text-center my-2">
+    <h1 class="text-center my-2">
       {% if group.name %}
-        {{group.name}}
+        {{ group.name }}
       {% else %}
         Не указано
       {% endif %}
-      </h1>
-    </div>
+    </h1>
     {% if group.about %}
       <p class="text-break text-center mb-2">{{ group.about }}</p>
     {% endif %}

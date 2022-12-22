@@ -3,7 +3,7 @@ import os
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView
 from django.views.generic.edit import FormMixin
@@ -86,7 +86,7 @@ class ProfileView(LoginRequiredMixin, FormView):
         }
 
     def post(self, request):
-        endpoints = {
+        formpoints = {
             'profile_submit': self.profile_form,
             'media_submit': self.media_form,
             'links_submit': self.links_form,
@@ -94,7 +94,7 @@ class ProfileView(LoginRequiredMixin, FormView):
             'links_del': self.del_links_form,
             'post_create': self.post_create,
         }
-        for endpoint, form in endpoints.items():
+        for endpoint, form in formpoints.items():
             if endpoint in request.POST:
                 form(request)
                 break
@@ -129,10 +129,7 @@ class ProfileView(LoginRequiredMixin, FormView):
         )
         if form.is_valid():
             if type(form.cleaned_data['photo']) is InMemoryUploadedFile:
-                old_image = get_object_or_404(
-                    self.model.objects,
-                    pk=request.user.id,
-                ).photo
+                old_image = request.user.photo
                 if old_image:
                     image_path = old_image.path
                     if os.path.exists(image_path):
