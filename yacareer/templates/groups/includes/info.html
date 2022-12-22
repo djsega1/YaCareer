@@ -38,12 +38,21 @@
       </a>
     </div>
   </div>
-  <form method="post" class="w-100">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary border border-dark w-100">
+  {% if group.owner == request.user %}
+    <a
+      href="{% url 'groups:edit' group.id %}"
+      class="btn btn-primary border border-dark w-100"
+    >
+      Редактировать
+    </a>
+  {% else %}
+    <form method="post" class="w-100">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary border border-dark w-100">
         Подписаться
-    </button>
-  </form>
+      </button>
+    </form>
+  {% endif %}
 </div>
 
 {% include "groups/includes/modals/followers.html" %}

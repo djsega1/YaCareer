@@ -42,4 +42,10 @@
   </div>
 </form>
 
+<a
+  href="{% url 'groups:delete' group.id %}"
+  class="btn btn-primary border border-dark w-100"
+>
+  Удалить
+</a>
 {% endblock %}
