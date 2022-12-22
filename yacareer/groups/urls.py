@@ -1,6 +1,7 @@
 from django.urls import path, re_path
 
 from groups import views
+from posts.views import GroupVacancyView
 
 app_name = 'groups'
 
@@ -32,7 +33,7 @@ urlpatterns = [
     ),
     re_path(
         r'(?P<pk>[1-9]\d*)/vacancy/$',
-        views.GroupVacancyView.as_view(),
+        GroupVacancyView.as_view(),
         name='vacancy_list',
     ),
 ]

@@ -26,6 +26,7 @@ class GroupVacancy(BaseModelPost):
     )
 
     class Meta:
+        ordering = ['id']
         default_related_name = 'group_post'
         verbose_name = 'пост'
         verbose_name_plural = 'посты'

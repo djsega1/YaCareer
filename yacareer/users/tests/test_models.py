@@ -6,8 +6,8 @@ from users.models import User
 
 class TestsForModels(TestCase):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpTestData(cls):
+        super().setUpTestData()
         cls.user = User.objects.create(
             email='client@gmail.com',
             password='fakfjknawef1323'

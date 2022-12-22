@@ -14,7 +14,7 @@
     {% if user.first_name or user.last_name %}
       {{user.first_name}} {{user.last_name}}
     {% else %}
-      Не указано
+      {{user.email}}
     {% endif %}
     </h1>
     {% if user.about %}
@@ -35,7 +35,7 @@
       <p>групп</p>
     </div>
   </div>
-  {% if request.user.is_authenticated and request.user.id|slugify != request.resolver_match.kwargs.pk and request.path != '/users/profile/' %}
+  {% if request.user.is_authenticated and request.user.id|slugify != request.resolver_match.kwargs.pk and request.path != '/' %}
     <form method="post">
       {% csrf_token %}
       <div style="display: none;">

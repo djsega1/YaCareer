@@ -105,6 +105,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
     USERNAME_FIELD = 'email'
 
     class Meta:
+        ordering = ['id']
         default_related_name = 'users'
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'

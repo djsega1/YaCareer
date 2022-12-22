@@ -30,6 +30,7 @@ class Group(BaseModelImage):
     )
 
     class Meta:
+        ordering = ['id']
         default_related_name = 'groups'
         verbose_name = 'группа'
         verbose_name_plural = 'группы'

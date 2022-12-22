@@ -13,7 +13,7 @@ from posts.models import GroupVacancy
 
 
 class GroupListView(ListView):
-    template_name = 'groups/index.html'
+    template_name = 'groups/group_list.html'
     model = Group
     context_object_name = 'group_list'
     paginate_by = 9
@@ -161,10 +161,3 @@ class DeleteGroupView(DeleteView):
         if group.owner == self.request.user:
             return super().post(request, pk)
         return redirect('groups:group_detail', pk)
-
-
-class GroupVacancyView(ListView):
-    template_name = 'groups/vacancy/index.html'
-    model = GroupVacancy
-    context_object_name = 'vacancy_list'
-    paginate_by = 9

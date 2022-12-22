@@ -11,7 +11,7 @@ class StaticUrlTests(TestCase):
                 'group_list',
                 'create',
             ),
-            "200 with args": (
+            '200 with args': (
                 'edit',
                 'delete',
                 'group_detail',
@@ -24,7 +24,7 @@ class StaticUrlTests(TestCase):
                 response = self.client.get(reverse(f'groups:{url}'))
                 self.assertEqual(response.status_code, 200)
 
-        for url in endpoints["200 with args"]:
+        for url in endpoints['200 with args']:
             with self.subTest(f'Success url - {url}'):
                 response = self.client.get(
                     reverse(f'groups:{url}', args=(1, ))
