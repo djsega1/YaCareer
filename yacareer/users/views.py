@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, FormView
+from django.views.generic import DetailView, FormView, ListView
 from django.views.generic.edit import FormMixin
 
 from posts.forms import UserPostForm
@@ -26,6 +26,13 @@ class SignUpView(FormView):
         user = form.save()
         login(self.request, user)
         return super().form_valid(form)
+
+
+class UserListView(ListView):
+    template_name = 'users/index.html'
+    model = User
+    context_object_name = 'user_list'
+    paginate_by = 24
 
 
 class UserDetailView(DetailView, FormMixin):

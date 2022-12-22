@@ -16,7 +16,7 @@ class GroupListView(ListView):
     template_name = 'groups/index.html'
     model = Group
     context_object_name = 'group_list'
-    paginate_by = 4
+    paginate_by = 9
 
 
 class GroupDetailView(DetailView):
