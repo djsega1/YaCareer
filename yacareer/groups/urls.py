@@ -30,4 +30,9 @@ urlpatterns = [
         views.GroupDetailView.as_view(),
         name='group_detail',
     ),
+    re_path(
+        r'(?P<pk>[1-9]\d*)/vacancy/$',
+        views.GroupVacancyView.as_view(),
+        name='vacancy_list',
+    ),
 ]

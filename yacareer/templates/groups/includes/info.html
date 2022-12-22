@@ -53,6 +53,7 @@
       </button>
     </form>
   {% endif %}
+  <a href="{% url 'groups:vacancy_list' group.id %}" class="btn btn-primary d-inline-flex text-decoration-none my-4 w-100"><h4 class="text-secondary my-1 mx-auto">Посмотреть вакансии группы</h4></a>
 </div>
 
 {% include "groups/includes/modals/followers.html" %}
