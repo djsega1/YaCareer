@@ -42,6 +42,15 @@ class UserDetailView(DetailView, FormMixin):
             )
         )
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        print(self.object.user_followed.all())
+        if self.request.user in self.object.user_followed.all():
+            data['is_followed'] = True
+        else:
+            data['is_followed'] = False
+        return data
+
     def post(self, request, pk):
         form = self.form_class(request.POST or None)
         if form.is_valid():

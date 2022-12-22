@@ -61,7 +61,7 @@
         </tr>
       </div>
       <button type="submit" class="btn btn-primary border border-dark">
-        {% if request.user in user.user_followed.all %}
+        {% if is_followed %}
           Отписаться
         {% else %}
           Подписаться
