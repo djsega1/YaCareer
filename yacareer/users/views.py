@@ -8,6 +8,8 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView
 from django.views.generic.edit import FormMixin
 
+from posts.forms import UserPostForm
+from posts.models import UserPost
 from users.forms import (CreateProfileForm, DeleteProfileLinksForm,
                          DeleteProfileMediaForm, FollowsU2UForm,
                          ProfileLinksForm, ProfileMediaForm, UpdateProfileForm)
@@ -85,6 +87,7 @@ class ProfileView(LoginRequiredMixin, FormView):
             'del_media_form': del_media_form,
             'links_form': ProfileLinksForm(),
             'del_links_form': del_links_form,
+            'user_post_form': UserPostForm(),
         }
 
     def post(self, request):
@@ -94,10 +97,12 @@ class ProfileView(LoginRequiredMixin, FormView):
             'links_submit': self.links_form,
             'media_del': self.del_media_form,
             'links_del': self.del_links_form,
+            'post_create': self.post_create,
         }
         for endpoint, form in endpoints.items():
             if endpoint in request.POST:
                 form(request)
+                break
         return redirect('users:profile')
 
     def links_form(self, request):
@@ -138,6 +143,17 @@ class ProfileView(LoginRequiredMixin, FormView):
                     if os.path.exists(image_path):
                         os.remove(image_path)
             form.save()
+
+    def post_create(self, request):
+        form = UserPostForm(
+            *(request.POST, request.FILES) or None,
+            instance=request.user,
+        )
+        if form.is_valid():
+            form.cleaned_data['user_id'] = request.user.id
+            UserPost.objects.create(
+                **form.cleaned_data,
+            )
 
     def del_media_form(self, request):
         form = DeleteProfileMediaForm(

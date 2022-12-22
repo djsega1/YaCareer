@@ -1,0 +1,51 @@
+{% load static %}
+
+<button
+  type="button"
+  class="btn btn-primary border border-dark my-2"
+  data-bs-toggle="modal"
+  data-bs-target="#modal-posts"
+>
+  <i class="bi bi-plus-circle"></i>
+</button>
+
+
+<div
+  class="modal fade"
+  id="modal-posts"
+  tabindex="-1"
+  aria-labelledby="Posts"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="Posts">
+          Новый пост
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+
+        
+        <form method="post" enctype="multipart/form-data" class="mb-4">
+          {% csrf_token %}
+          {{user_post_form}}
+          <button
+            type="submit"
+            class="btn btn-primary border border-dark mt-2"
+            name="post_create"
+          >
+            Создать
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

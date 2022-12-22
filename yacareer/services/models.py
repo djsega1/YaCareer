@@ -10,7 +10,7 @@ class Service(models.Model):
     bootstrap_icon = models.CharField(
         max_length=150,
         verbose_name='иконка',
-        help_text='https://icons.bootstrap-5.ru/icons/\n'
+        help_text='https://icons.bootstrap-5.ru/icons/'
                   'Найдите на данном сайте нужную картинку и впишите название'
                   '(например: bi bi-telegram)',
     )

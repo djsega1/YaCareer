@@ -6,13 +6,19 @@
 
 <div class="d-flex justify-content-between flex-column w-50 mx-auto">
   {% include "users/includes/info.html" %}
+  {% include "users/includes/modal/info.html" %}
+  <hr>
+  <h4><i>Ссылки</i></h4>
   {% include "users/includes/links.html" %}
   {% include "users/includes/modal/links.html" %}
   <hr>
+  <h4><i>Медия (сертификаты, дипломы...)</i></h4>
   {% include "users/includes/media.html" %}
   {% include "users/includes/modal/media.html" %}
   <hr>
-  {% include "users/includes/modal/info.html" %}
+  <h4><i>Посты</i></h4>
+  {% include "users/includes/modal/posts.html" %}
+  {% include "users/includes/posts.html" %}
 </div>
 
 {% endblock %}

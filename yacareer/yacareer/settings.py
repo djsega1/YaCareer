@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'services.apps.ServicesConfig',
     'core.apps.CoreConfig',
-    'post.apps.PostConfig',
+    'posts.apps.PostsConfig',
     'groups.apps.GroupsConfig',
     'django_cleanup.apps.CleanupConfig',
 ]
