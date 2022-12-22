@@ -1,5 +1,5 @@
 from core.forms import BaseModelForm
-from post.models import UserPost, GroupPost
+from posts.models import UserPost, GroupPost
 
 
 class UserPostForm(BaseModelForm):

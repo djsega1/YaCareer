@@ -17,16 +17,16 @@ class TestsForModels(TestCase):
         service_count = Service.objects.count()
         test_data = (
             {
-                "name": "test",
-                "bootstrap_icon": "bi bi-0-square",
+                'name': 'test',
+                'bootstrap_icon': 'bi bi-0-square',
             },
             {
-                "name": "test2",
-                "bootstrap_icon": None,
+                'name': 'test2',
+                'bootstrap_icon': None,
             },
             {
-                "name": None,
-                "bootstrap_icon": "bi bi-0-square",
+                'name': None,
+                'bootstrap_icon': 'bi bi-0-square',
             },
         )
         for data_set in test_data:
@@ -46,16 +46,16 @@ class TestsForModels(TestCase):
         service_count = Service.objects.count()
         test_data = (
             {
-                "name": "test2",
-                "bootstrap_icon": "bi bi-0-square",
+                'name': 'test2',
+                'bootstrap_icon': 'bi bi-0-square',
             },
             {
-                "name": "SUPER@TEST",
-                "bootstrap_icon": "some icon",
+                'name': 'SUPER@TEST',
+                'bootstrap_icon': 'some icon',
             },
             {
-                "name": "123456",
-                "bootstrap_icon": "partick bateman",
+                'name': '123456',
+                'bootstrap_icon': 'partick bateman',
             },
         )
         for data_set in test_data:
