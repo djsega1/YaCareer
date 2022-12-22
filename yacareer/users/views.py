@@ -41,9 +41,6 @@ class UserListView(ListView):
             )
         return queryset
 
-    class Meta:
-        ordering = ['-id']
-
 
 class UserDetailView(DetailView, FormMixin):
     template_name = 'users/user_detail.html'

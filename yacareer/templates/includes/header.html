@@ -38,11 +38,11 @@
             </ul> 
               <ul class="d-flex navbar-nav text-end ms-auto flex-wrap">
                 {% if request.user.is_authenticated %}
-                {% if view_name == 'homepage:home' %}
+                {% if view_name == 'users:user_list' or view_name == 'groups:group_list' %}
                   <form
                     class="col-12 d-flex col-lg-auto mb-3 mb-lg-0 me-lg-3"
                     method="get"
-                    action="{{view_name}}"
+                    action="{% url view_name %}"
                   >
                     {% csrf_token %}
                     <input name="searched" type="search" class="form-control form-control-dark me-2" placeholder="Поиск..." aria-label="Search">

@@ -111,7 +111,7 @@ class BaseModelMedia(models.Model):
         return self.name
 
 
-class BaseModelPost(BaseModelImage):
+class BaseModelPost(models.Model):
     text = models.CharField(
         'текст к посту',
         max_length=1024,

@@ -18,8 +18,17 @@ class GroupListView(ListView):
     context_object_name = 'group_list'
     paginate_by = 9
 
-    class Meta:
-        ordering = ['-id']
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        searched = self.request.GET.get('searched', '')
+        if searched:
+            queryset = (
+                queryset.
+                filter(
+                    name__contains=searched
+                    )
+            )
+        return queryset
 
 
 class GroupDetailView(DetailView):

@@ -1,11 +1,11 @@
 from django.db import models
 
-from core.models import BaseModelPost
+from core.models import BaseModelImage, BaseModelPost
 from groups.models import Group
 from users.models import User
 
 
-class UserPost(BaseModelPost):
+class UserPost(BaseModelPost, BaseModelImage):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
