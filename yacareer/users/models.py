@@ -39,14 +39,8 @@ class UserManager(BaseUserManager):
                 .prefetch_related(
                     'media',
                     'links',
-                    models.Prefetch(
-                        'user_follows__to_user',
-                        to_attr='follows',
-                    ),
-                    models.Prefetch(
-                        'user_followed__from_user',
-                        to_attr='followed',
-                    ),
+                    'user_follows__to_user',
+                    'user_followed__from_user',
                     'members',
                     'owner',
                 )
