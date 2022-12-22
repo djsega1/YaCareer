@@ -45,7 +45,7 @@
           </th>
           <td>
             <select name="to_user" id="id_to_user">
-              <option value="2" selected>2</option>
+              <option value="{{user.id}}" selected>{{user.id}}</option>
             </select>
           </td>
         </tr>
@@ -55,7 +55,7 @@
           </th>
           <td>
             <select name="from_user" id="id_from_user">
-              <option value="1" selected>1</option>
+              <option value="{{request.user.id}}" selected>{{request.user.id}}</option>
             </select>
           </td>
         </tr>
