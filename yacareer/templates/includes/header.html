@@ -31,18 +31,6 @@
             </ul> 
               <ul class="d-flex navbar-nav text-end ms-auto flex-wrap">
                 {% if request.user.is_authenticated %}
-                {% if view_name == 'users:user_list' or view_name == 'groups:group_list' %}
-                  <form
-                    class="col-12 d-flex col-lg-auto mb-3 mb-lg-0 me-lg-3"
-                    method="get"
-                    action="{% url view_name %}"
-                  >
-                    {% csrf_token %}
-                    <input name="searched" type="search" class="form-control form-control-dark me-2" placeholder="Поиск..." aria-label="Search">
-                    <button class="btn btn-outline-light" style="color: #26ded2">Найти</button>
-                  </form>
-                {% endif %} 
-
                 <li class="d-flex nav-item dropdown dropdown-center mx-auto flex-column align-items-center">
                   <a class="nav-link" data-bs-toggle="dropdown" href="#">
                     <img

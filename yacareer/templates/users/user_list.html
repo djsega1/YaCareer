@@ -1,18 +1,17 @@
-
 {% extends "base.html" %}
 
 {% load static %}
 
 {% block content %}
 
-{% if vacancy_list %}
+{% if user_list %}
+    <h1>Люди</h1>
+    {% include 'includes/search.html' %}
     <div class='container-fluid text-center'>
         <div class='row'>
-            {% for vacancy in vacancy_list %}
+            {% for user in user_list %}
                 <tr>
-                    <div class='col-xs-12 col-md-4 py-2'>
-                        {% include "groups/vacancy/vacancy_detail.html" %}
-                    </div>
+                    <div class='col-xs-12 col-md-4 py-2'>{% include "users/includes/user_list_card.html" with follower=user %}</div>
                 </tr>
             {% endfor %}
         </div>
@@ -21,22 +20,25 @@
         <ul class="pagination">
         <div class="d-flex flex-row mx-auto mt-5">
             <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
-                <a class="page-link user-select-none" href="{% if page_obj.has_previous %}{% url 'groups:vacancy_list' %}?page={{ page_obj.previous_page_number }}{% endif %}" aria-label="Previous">
+                <a class="page-link user-select-none" href="{% if page_obj.has_previous %}{% url 'users:user_list' %}?page={{ page_obj.previous_page_number }}{% endif %}" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <span class="page-current">
+                {% comment %} <li>
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </li> {% endcomment %}
                 <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
             </span>
             <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
-                <a class="page-link user-select-none" href="{% if page_obj.has_next %}{% url 'groups:vacancy_list' %}?page={{ page_obj.next_page_number }}{% endif %}" aria-label="Next">
+                <a class="page-link user-select-none" href="{% if page_obj.has_next %}{% url 'users:user_list' %}?page={{ page_obj.next_page_number }}{% endif %}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </div>
     {% endif %}
 {% else %}
-    <h3 class="text-center">Вакансий нет.</h3>
+    <h3 class="text-center">Пользователей нет.</h3>
 {% endif %}
 
 {% endblock %}

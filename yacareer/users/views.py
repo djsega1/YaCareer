@@ -22,7 +22,7 @@ class SignUpView(FormView):
 
 
 class UserListView(ListView):
-    template_name = 'users/index.html'
+    template_name = 'users/user_list.html'
     model = User
     context_object_name = 'user_list'
     paginate_by = 24

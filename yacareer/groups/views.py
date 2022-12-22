@@ -129,12 +129,6 @@ class EditGroupView(UpdateView):
             )
             if form.is_valid():
                 form.cleaned_data['group_id'] = group.id
-                if type(form.cleaned_data['photo']) is InMemoryUploadedFile:
-                    old_image = group.photo
-                    if old_image:
-                        image_path = old_image.path
-                        if os.path.exists(image_path):
-                            os.remove(image_path)
                 GroupVacancy.objects.create(
                     **form.cleaned_data
                 )
