@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, FormView, ListView
@@ -25,6 +26,23 @@ class UserListView(ListView):
     model = User
     context_object_name = 'user_list'
     paginate_by = 24
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        searched = self.request.GET.get('searched', '')
+        if searched:
+            queryset = (
+                queryset.
+                filter(
+                    Q(first_name__contains=searched)
+                    | Q(last_name__contains=searched)
+                    | Q(email__contains=searched)
+                    )
+            )
+        return queryset
+
+    class Meta:
+        ordering = ['-id']
 
 
 class UserDetailView(DetailView, FormMixin):

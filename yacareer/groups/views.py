@@ -13,10 +13,13 @@ from posts.models import GroupVacancy
 
 
 class GroupListView(ListView):
-    template_name = 'groups/index.html'
+    template_name = 'groups/group_list.html'
     model = Group
     context_object_name = 'group_list'
     paginate_by = 9
+
+    class Meta:
+        ordering = ['-id']
 
 
 class GroupDetailView(DetailView):
