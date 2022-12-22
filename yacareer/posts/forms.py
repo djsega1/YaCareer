@@ -1,5 +1,5 @@
 from core.forms import BaseModelForm
-from posts.models import UserPost, GroupPost
+from posts.models import GroupVacancy, UserPost
 
 
 class UserPostForm(BaseModelForm):
@@ -9,8 +9,8 @@ class UserPostForm(BaseModelForm):
         fields = ('photo', 'text',)
 
 
-class GroupPostForm(BaseModelForm):
+class GroupVacancyForm(BaseModelForm):
 
     class Meta:
-        model = GroupPost
+        model = GroupVacancy
         fields = ('photo', 'text',)

@@ -18,7 +18,7 @@ class UserPost(BaseModelPost):
         verbose_name_plural = 'посты'
 
 
-class GroupPost(BaseModelPost):
+class GroupVacancy(BaseModelPost):
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE,

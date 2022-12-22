@@ -32,6 +32,7 @@ class EditGroupView(DetailView, UpdateView):
     template_name = 'groups/edit.html'
     model = Group
     form_class = GroupForm
+    context_object_name = 'group'
 
     def get_success_url(self):
         return reverse_lazy(
@@ -46,4 +47,11 @@ class EditGroupView(DetailView, UpdateView):
             initial=self.initial,
             instance=kwargs['object'],
         )
-        return {'form': form}
+        return {
+            'form': form,
+            self.context_object_name: kwargs['object'],
+        }
+
+    def form_valid(self, form):
+        print(form.save())
+        return super().form_valid(form)
