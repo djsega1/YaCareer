@@ -33,7 +33,6 @@ class UserDetailView(DetailView, FormMixin):
     model = User
     form_class = FollowsU2UForm
     context_object_name = 'user'
-    queryset = None
 
     def get_success_url(self):
         return reverse_lazy(
@@ -52,20 +51,6 @@ class UserDetailView(DetailView, FormMixin):
             **form.cleaned_data
         ).delete()
         return redirect('users:user_detail', self.kwargs['pk'])
-
-    def get_context_data(self, **kwargs):
-        # print(super().get_context_data(**kwargs))
-        return super().get_context_data(**kwargs)
-
-    def get_object(self, queryset=None):
-        if not queryset or self.queryset is None:
-            self.queryset = self.model.objects.get_queryset()
-        return super().get_object(self.queryset)
-
-    def get_queryset(self):
-        if self.queryset is None:
-            self.queryset = self.model.objects.get_queryset()
-        return self.queryset
 
 
 class ProfileView(LoginRequiredMixin, FormView):
