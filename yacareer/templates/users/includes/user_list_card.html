@@ -6,6 +6,12 @@
       src="{% if follower.photo %}{{ follower.get_img_small.url }}{% else %}{% static 'img/default_avatar_user.jpg' %}{% endif %}"
       class="{% if follower.is_open_to_work %}rounded-circle border border-2 border-success{% else %}rounded-circle border border-2 border-dark{% endif %} user-card-crop m-2"
     >
-    <p class="mb-0 ms-2">{{ follower }}</p>
+    <p class="mb-0 ms-2">
+      {% if follower.first_name or follower.last_name %}
+        {{ follower.first_name }} {{ follower.last_name }}
+      {% else %}
+        {{ follower.email }}
+      {% endif %}
+    </p>
 </button>
 </a>
