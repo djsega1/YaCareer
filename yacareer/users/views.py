@@ -42,15 +42,15 @@ class UserDetailView(DetailView, FormMixin):
             )
         )
 
-    def form_valid(self, form):
-        form.save()
-        return redirect('users:user_detail', self.kwargs['pk'])
-
-    def form_invalid(self, form):
-        FollowsU2U.objects.filter(
-            **form.cleaned_data
-        ).delete()
-        return redirect('users:user_detail', self.kwargs['pk'])
+    def post(self, request, pk):
+        form = self.form_class(request.POST or None)
+        if form.is_valid():
+            form.save()
+        else:
+            FollowsU2U.objects.filter(
+                **form.cleaned_data
+            ).delete()
+        return redirect('users:user_detail', pk)
 
 
 class ProfileView(LoginRequiredMixin, FormView):

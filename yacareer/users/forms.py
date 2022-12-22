@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
-from django.forms import ModelForm
 
 from core.forms import BaseModelForm
 from users.models import FollowsU2U, User, UserLinks, UserMedia
@@ -73,7 +72,7 @@ class DeleteProfileLinksForm(forms.Form):
         self.fields['slug'].widget.attrs['class'] = 'form-control'
 
 
-class FollowsU2UForm(ModelForm):
+class FollowsU2UForm(BaseModelForm):
 
     class Meta:
         model = FollowsU2U

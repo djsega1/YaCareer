@@ -28,7 +28,14 @@
     </div>
     <div class="col-6 text-center my-auto" role="button">
       <a href="{% url 'users:user_detail' group.owner.pk %}" class="text-decoration-none">
-      <img src="{% if group.owner.photo %}{{ group.owner.get_small_img.url }}{% else %}{% static 'img/default_avatar_user.jpg' %}{% endif %}" class="user-card-crop rounded-5" alt="Аватар">
+      <img 
+        src="
+        {% if group.owner.photo %}
+          {{ group.owner.get_img_small.url }}
+        {% else %}
+          {% static 'img/default_avatar_user.jpg' %}
+        {% endif %}"
+        class="user-card-crop rounded-5" alt="Аватар">
       <p class="m-0">владелец</p>
       </a>
     </div>
