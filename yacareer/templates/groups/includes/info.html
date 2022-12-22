@@ -9,33 +9,36 @@
   </div>
   <div class="d-flex align-content-center flex-column my-auto">
     <div class="d-flex flex-row">  
-      <h1
-        class="text-center my-2"
-      >
+      <h1 class="text-center my-2">
       {% if group.name %}
         {{group.name}}
       {% else %}
         Не указано
       {% endif %}
       </h1>
-      <div class="dropdown">
-        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          s
-        </button>
-        <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
-          {% for link in user.links.all %}
-              {% if not link.service.is_contact %}
-                <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
-                  <i class="{{ link.service.bootstrap_icon }}"></i>
-                  {{ link.service }}
-                </a>
-              {% endif %}
-            {% endfor %}
-        </ul>
-      </div>
     </div>
     {% if group.about %}
       <p class="text-break text-center mb-2">{{ group.about }}</p>
     {% endif %}
   </div>
+  <div class="d-flex w-100 justify-content-evenly my-3 user-select-none">
+    <div class="col-6 text-center my-auto" data-bs-toggle="modal" data-bs-target="#modal-followers" role="button">
+      <h2>{{ group.members.count }}</h2>
+      <p class="m-0">подписчиков</p>
+    </div>
+    <div class="col-6 text-center my-auto" role="button">
+      <a href="{% url 'users:user_detail' group.owner.pk %}" class="text-decoration-none">
+      <img src="{% if group.owner.photo %}{{ group.owner.get_small_img.url }}{% else %}{% static 'img/default_avatar_user.jpg' %}{% endif %}" class="user-card-crop rounded-5" alt="Аватар">
+      <p class="m-0">владелец</p>
+      </a>
+    </div>
+  </div>
+  <form method="post" class="w-100">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary border border-dark w-100">
+        Подписаться
+    </button>
+  </form>
 </div>
+
+{% include "groups/includes/modals/followers.html" %}
