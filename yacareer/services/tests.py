@@ -6,8 +6,8 @@ from services.models import Service
 
 class TestsForModels(TestCase):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpTestData(cls):
+        super().setUpTestData()
         cls.service = Service.objects.create(
             name='test',
             bootstrap_icon='some icon',

@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from django_cleanup.signals import cleanup_pre_delete
+from sorl.thumbnail import delete
 
 load_dotenv()
 
@@ -139,3 +141,10 @@ X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000/'
 if DEBUG:
     import mimetypes
     mimetypes.add_type('application/javascript', '.js', True)
+
+
+def sorl_delete(**kwargs):
+    delete(kwargs['file'])
+
+
+cleanup_pre_delete.connect(sorl_delete)

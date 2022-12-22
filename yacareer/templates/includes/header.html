@@ -16,14 +16,7 @@
     
               <li class="nav-item">
                 <a 
-                  class="{% if view_name == 'homepage:home' %}nav-link disabled{% else %}nav-link{% endif %} text-center"
-                  href="{% url 'homepage:home' %}"
-                >Главная</a>
-              </li>
-    
-              <li class="nav-item">
-                <a 
-                  class="{% if view_name == 'groups:group_list' %}nav-link disabled{% else %}nav-link{% endif %} text-center"
+                  class="nav-link text-center"
                   href="{% url 'groups:group_list' %}"
                 >Группы</a>
               </li>
