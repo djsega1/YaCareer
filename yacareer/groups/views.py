@@ -1,9 +1,10 @@
-# import os
+import os
 
-# from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.shortcuts import redirect
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, FormView, UpdateView
+from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
+                                  UpdateView)
 
 from groups.forms import GroupForm
 from groups.models import Group
@@ -28,11 +29,10 @@ class CreateGroupView(CreateView, FormView):
         return redirect('groups:group_detail', new_group.id)
 
 
-class EditGroupView(DetailView, UpdateView):
+class EditGroupView(UpdateView):
     template_name = 'groups/edit.html'
     model = Group
     form_class = GroupForm
-    context_object_name = 'group'
 
     def get_success_url(self):
         return reverse_lazy(
@@ -42,16 +42,23 @@ class EditGroupView(DetailView, UpdateView):
             )
         )
 
-    def get_context_data(self, **kwargs):
-        form = GroupForm(
-            initial=self.initial,
-            instance=kwargs['object'],
-        )
-        return {
-            'form': form,
-            self.context_object_name: kwargs['object'],
-        }
-
     def form_valid(self, form):
-        print(form.save())
-        return super().form_valid(form)
+        print(form.cleaned_data)
+        if type(form.cleaned_data['photo']) is InMemoryUploadedFile:
+            old_image = get_object_or_404(
+                self.model.objects,
+                pk=self.kwargs['pk'],
+            ).photo
+            if old_image:
+                image_path = old_image.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+        form.save()
+        return redirect('groups:group_detail', self.kwargs['pk'])
+
+
+class DeleteGroupView(DeleteView):
+    template_name = 'groups/delete.html'
+    model = Group
+    form_class = GroupForm
+    success_url = reverse_lazy('users:profile')

@@ -15,11 +15,11 @@ urlpatterns = [
         views.CreateGroupView.as_view(),
         name='create',
     ),
-    # re_path(
-    #     r'^delete/(?P<pk>[1-9]\d*)/$',
-    #     views.DeleteGroupView.as_view(),
-    #     name='delete',
-    # ),
+    re_path(
+        r'^(?P<pk>[1-9]\d*)/delete/$',
+        views.DeleteGroupView.as_view(),
+        name='delete',
+    ),
     re_path(
         r'^(?P<pk>[1-9]\d*)/edit/$',
         views.EditGroupView.as_view(),
