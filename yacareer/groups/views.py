@@ -7,7 +7,7 @@ from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
                                   ListView, UpdateView)
 
 from groups.forms import GroupForm
-from groups.models import Group
+from groups.models import Group, GroupMembers
 from posts.forms import GroupVacancyForm
 from posts.models import GroupVacancy
 
@@ -23,6 +23,33 @@ class GroupDetailView(DetailView):
     template_name = 'groups/group_detail.html'
     model = Group
     context_object_name = 'group'
+
+    def get_context_data(self, **kwargs):
+        group = get_object_or_404(
+            self.model.objects,
+            pk=self.kwargs['pk'],
+        )
+        return {
+            'group': group,
+        }
+
+    def post(self, request, pk):
+        group = get_object_or_404(
+            self.model.objects,
+            pk=pk,
+        )
+        followu2g = GroupMembers.objects.filter(
+            group=group,
+            user=request.user,
+        )
+        if followu2g:
+            followu2g.delete()
+        else:
+            GroupMembers.objects.create(
+                group=group,
+                user=request.user,
+            )
+        return redirect('groups:group_detail', pk)
 
 
 class CreateGroupView(CreateView, FormView):
@@ -45,10 +72,20 @@ class EditGroupView(UpdateView):
     object = None
 
     def get_context_data(self, **kwargs):
-        print(kwargs)
-        context = super().get_context_data(**kwargs)
-        context['vacancy'] = GroupVacancyForm()
-        return context
+        group = get_object_or_404(
+            self.model.objects,
+            pk=self.kwargs['pk'],
+        )
+        vacancy = GroupVacancyForm()
+        form = self.form_class(
+            initial=self.initial,
+            instance=group,
+        )
+        return {
+            'group': group,
+            'vacancy': vacancy,
+            'form': form,
+        }
 
     def get_success_url(self):
         return reverse_lazy(

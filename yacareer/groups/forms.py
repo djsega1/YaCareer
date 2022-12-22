@@ -1,5 +1,4 @@
 from core.forms import BaseModelForm
-
 from groups.models import Group
 
 

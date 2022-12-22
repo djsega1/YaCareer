@@ -49,7 +49,6 @@ class GroupMembers(models.Model):
         on_delete=models.CASCADE,
         verbose_name='группа',
     )
-    is_staff = models.BooleanField('персонал', default=False)
 
     class Meta:
         constraints = [

@@ -46,10 +46,15 @@
       Редактировать
     </a>
   {% else %}
+
     <form method="post" class="w-100">
       {% csrf_token %}
       <button type="submit" class="btn btn-primary border border-dark w-100">
-        Подписаться
+        {% if request.user in group.members.all %}
+          Отписаться
+        {% else %}
+          Подписаться
+        {% endif %}
       </button>
     </form>
   {% endif %}

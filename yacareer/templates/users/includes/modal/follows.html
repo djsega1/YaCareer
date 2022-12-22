@@ -12,7 +12,12 @@
     <div class="modal-content w-50 mx-auto">
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title">
-          Подписчики {{ user.first_name }} {{ user.last_name }}
+          Подписчики
+          {% if user.first_name or user.last_name %}
+            {{user.first_name}} {{user.last_name}}
+          {% else %}
+           {{ user.email }}
+          {% endif %}
         </h5>
         <button
           type="button"
@@ -46,7 +51,12 @@
     <div class="modal-content w-50 mx-auto">
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title">
-          Подписки {{ user.first_name }} {{ user.last_name }}
+          Подписки
+          {% if user.first_name or user.last_name %}
+            {{user.first_name}} {{user.last_name}}
+          {% else %}
+           {{ user.email }}
+          {% endif %}
         </h5>
         <button
           type="button"
