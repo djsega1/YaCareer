@@ -19,6 +19,10 @@ class UserPost(BaseModelPost, BaseModelImage):
 
 
 class GroupVacancy(BaseModelPost):
+    name = models.CharField(
+        'название',
+        max_length=1024,
+    )
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE,

@@ -13,4 +13,4 @@ class GroupVacancyForm(BaseModelForm):
 
     class Meta:
         model = GroupVacancy
-        fields = ('text',)
+        fields = ('name', 'text',)
