@@ -1,0 +1,2 @@
+[{"model": "groups.group", "pk": 1, "fields": {"photo": "", "name": "GORUP", "owner": 1, "about": "superadmin"}},
+ {"model": "users.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$260000$AlDiU6DbVJqpbWOdSiA9dg$yfmMHWqxrwy4bcTUMqehnPBz6NH0kc9dEMsKBZ/0OyM=", "last_login": "2022-12-22T11:38:31.861Z", "photo": "", "first_name": "", "last_name": "", "email": "admin@gmail.com", "is_active": true, "is_staff": true, "is_superuser": true, "is_open_to_work": false, "date_joined": "2022-12-21T15:11:43.695Z", "about": null, "birthday": null, "groups": [], "user_permissions": []}}]

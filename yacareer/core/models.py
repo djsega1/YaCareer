@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe
-from django_cleanup.signals import cleanup_pre_delete
-from sorl.thumbnail import delete, get_thumbnail
+from sorl.thumbnail import get_thumbnail
 
 
 class BaseModelImage(models.Model):
@@ -66,11 +65,6 @@ class BaseModelImage(models.Model):
     image_tmb.short_description = 'превью'
     image_tmb.allow_tags = True
 
-    def sorl_delete(**kwargs):
-        delete(kwargs['file'])
-
-    cleanup_pre_delete.connect(sorl_delete)
-
 
 class BaseModelSlug(models.Model):
     slug = models.CharField(
@@ -98,11 +92,6 @@ class BaseModelMedia(models.Model):
         null=True,
         blank=True,
     )
-
-    def sorl_delete(**kwargs):
-        delete(kwargs['file'])
-
-    cleanup_pre_delete.connect(sorl_delete)
 
     class Meta:
         abstract = True
