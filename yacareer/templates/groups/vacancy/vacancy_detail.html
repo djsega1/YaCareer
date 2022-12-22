@@ -5,11 +5,11 @@
             <div class="my-2 mx-5">
                 <img src="{{ vacancy.get_img.url }}" class="rounded-circle border border-5 border-dark group-list-image">
             </div>
-        {% endif %}"
+        {% endif %}
         <div class="d-flex align-items-center flex-column my-auto">
             <div class="d-flex flex-row">  
-                <h1 class="text-center my-2">
-                {{ vacancy.name }}
+                <h1 class="text-center my-2 text-break">
+                {{ vacancy.group.name }}
                 </h1>
             </div>
             {% if vacancy.text %}

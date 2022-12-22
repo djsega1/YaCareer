@@ -151,7 +151,7 @@ class DeleteGroupView(DeleteView):
     template_name = 'groups/delete.html'
     model = Group
     form_class = GroupForm
-    success_url = reverse_lazy('users:profile')
+    success_url = reverse_lazy('homepage:home')
 
     def post(self, request, pk):
         group = get_object_or_404(
