@@ -49,6 +49,7 @@
                       src="{% if request.user.photo %} {{ request.user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
                       class="rounded-circle border border-2 border-dark"
                       id="user_img"
+                      alt="Аватар"
                     >
                   </a>
                   <ul class="dropdown-menu dropdown-menu-center" id="header_dropdown">

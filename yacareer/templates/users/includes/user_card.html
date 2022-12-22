@@ -1,10 +1,14 @@
 {% load static %}
 
-<a href="{% url 'users:user_detail' follower.pk %}" class="text-decoration-none">
-<button class="btn btn-primary d-flex border border-dark w-100 my-2 mx-auto rounded-1 align-items-center" role="button">
+<a 
+href="{% url 'users:user_detail' follower.pk %}" 
+class="text-decoration-none btn btn-primary d-flex border border-dark w-100 my-2 mx-auto rounded-1 align-items-center"
+role="button"
+>
     <img
       src="{% if follower.photo %}{{ follower.get_img_small.url }}{% else %}{% static 'img/default_avatar_user.jpg' %}{% endif %}"
       class="{% if follower.is_open_to_work %}rounded-circle border border-2 border-success{% else %}rounded-circle border border-2 border-dark{% endif %} user-card-crop m-2"
+      alt="Аватар"
     >
     <p class="mb-0 ms-2 text-break">
       {% if follower.first_name or follower.last_name %}
@@ -13,5 +17,4 @@
         {{ follower.email }}
       {% endif %}
     </p>
-</button>
 </a>

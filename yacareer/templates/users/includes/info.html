@@ -5,6 +5,7 @@
     <img
       src="{% if user.photo %} {{ user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
       class="{% if user.is_open_to_work %} rounded-circle border border-5 border-success {% else %} rounded-circle border border-5 border-dark {% endif %}"
+      alt="Аватар"
     >
   </div>
   <div class="d-flex align-content-center flex-column my-auto">

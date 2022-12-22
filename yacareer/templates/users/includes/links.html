@@ -6,15 +6,14 @@
       <button
         class="btn btn-primary border border-dark dropdown-toggle w-100"
         type="button"
-        id="dropdownMenuButton1"
         data-bs-toggle="dropdown"
         aria-expanded="false"
         {% if not user.links.all %}
-          disabled="false"
+          disabled
         {% endif %}>
         Контакты
       </button>
-      <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
+      <ul class="dropdown-menu w-100">
         <li>
           {% for link in user.links.all %}
             {% if link.service.is_contact %}
@@ -28,10 +27,10 @@
       </ul>
     </div>
     <div class="dropdown w-50 ms-1">
-      <button class="btn btn-primary border border-dark dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %} disabled="false"{% endif %}>
+      <button class="btn btn-primary border border-dark dropdown-toggle w-100" type="button"  data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %}disabled{% endif %}>
         Ресурсы
       </button>
-      <ul class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton1">
+      <ul class="dropdown-menu w-100">
         {% for link in user.links.all %}
           {% if not link.service.is_contact %}
             <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
