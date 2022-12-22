@@ -1,0 +1,79 @@
+{% load static %}
+
+
+<div
+  class="modal fade"
+  id="modal-followed"
+  tabindex="-1"
+  aria-labelledby="UserFollowed"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content w-50 mx-auto">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          Подписчики
+          {% if user.first_name or user.last_name %}
+            {{user.first_name}} {{user.last_name}}
+          {% else %}
+           {{ user.email }}
+          {% endif %}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div>
+            {% for follower in user.user_followed.all %}
+                {% include "users/includes/user_card.html" with follower=follower.from_user %}
+            {% empty %}
+                Здесь пока никого нет
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div
+  class="modal fade"
+  id="modal-follows"
+  tabindex="-1"
+  aria-labelledby="UserFollows"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content w-50 mx-auto">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          Подписки
+          {% if user.first_name or user.last_name %}
+            {{user.first_name}} {{user.last_name}}
+          {% else %}
+           {{ user.email }}
+          {% endif %}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div>
+            {% for follower in user.user_follows.all %}
+                {% include "users/includes/user_card.html" with follower=follower.to_user %}
+            {% empty %}
+                Здесь пока никого нет
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from django_cleanup.signals import cleanup_pre_delete
+from sorl.thumbnail import delete
 
 load_dotenv()
 
@@ -23,6 +25,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'DEFAULT_SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -35,8 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'sorl.thumbnail',
+    'debug_toolbar',
     'users.apps.UsersConfig',
     'homepage.apps.HomepageConfig',
+    'services.apps.ServicesConfig',
+    'core.apps.CoreConfig',
+    'posts.apps.PostsConfig',
+    'groups.apps.GroupsConfig',
+    'about.apps.AboutConfig',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'yacareer.urls'
@@ -116,4 +131,20 @@ EMAIL_FILE_PATH = BASE_DIR / 'send_mail'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.Profile'
+AUTH_USER_MODEL = 'users.User'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
+X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000/'
+
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type('application/javascript', '.js', True)
+
+
+def sorl_delete(**kwargs):
+    delete(kwargs['file'])
+
+
+cleanup_pre_delete.connect(sorl_delete)

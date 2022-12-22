@@ -1,0 +1,61 @@
+{% load static %}
+
+<button
+  type="button"
+  class="btn btn-primary border border-dark my-2 w-100"
+  data-bs-toggle="modal"
+  data-bs-target="#modal-media"
+>
+  Добавить файл
+</button>
+
+
+<div
+  class="modal fade"
+  id="modal-media"
+  tabindex="-1"
+  aria-labelledby="Media"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="Media">
+          Изменение файлов:
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+
+        
+        <form method="post" enctype="multipart/form-data" class="mb-4">
+          {% csrf_token %}
+          {% for field in media_form %}
+            {% include "users/includes/field.html" %}
+          {% endfor %}
+          <button type="submit" name="media_submit" class="btn btn-primary border border-dark mt-2">Добавить</button>
+        </form>
+
+
+        <hr>
+          <form method="post">
+            {% csrf_token %}
+            {{ del_media_form }}
+            <button
+              type="submit"
+              class="btn btn-primary border border-dark mt-2"
+              name="media_del"
+            >
+              Удалить
+            </button>
+          </form>
+
+      </div>
+    </div>
+  </div>
+</div>

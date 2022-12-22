@@ -2,45 +2,57 @@
 
 <header>
   {% with request.resolver_match.view_name as view_name %}
-
-    <nav class="navbar navbar-expand-lg">
-
-      <div class="container-fluid">
-
-        <a class="navbar-brand" href="{% url 'homepage:home' %}">
-          <img src="{% static 'img/main_logo.png' %}" alt="Cat" id="header_logo">
-          YaCareer
-        </a>
-
-        <div class="d-flex flex-row">
-
-          <button class="navbar-toggler me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg row">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'homepage:home' %}">
+            <img src="{% static 'img/main_logo.png' %}" alt="Cat" id="header_logo">
+            YaCareer
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
+          <div class="collapse navbar-collapse flex-wrap align-content-center" id="navbarSupportedContent">
+            <ul class="d-flex navbar-nav me-auto mb-2 mb-lg-0 top-menu">
+    
               <li class="nav-item">
                 <a 
-                  class="nav-link"
-                  href="#"
+                  class="nav-link text-center"
+                  href="{% url 'groups:group_list' %}"
                 >Группы</a>
               </li>
+          
               <li class="nav-item">
                 <a 
-                  class="nav-link"
-                  href="#"
-                >Вакансии</a>
+                  class="{% if view_name == 'users:user_list' %}nav-link disabled{% else %}nav-link{% endif %} text-center"
+                  href="{% url 'users:user_list' %}"
+                >Люди</a>
               </li>
-            </ul>
-          </div>
+              
+            </ul> 
+              <ul class="d-flex navbar-nav text-end ms-auto flex-wrap">
+                {% if request.user.is_authenticated %}
+                {% if view_name == 'users:user_list' or view_name == 'groups:group_list' %}
+                  <form
+                    class="col-12 d-flex col-lg-auto mb-3 mb-lg-0 me-lg-3"
+                    method="get"
+                    action="{% url view_name %}"
+                  >
+                    {% csrf_token %}
+                    <input name="searched" type="search" class="form-control form-control-dark me-2" placeholder="Поиск..." aria-label="Search">
+                    <button class="btn btn-outline-light" style="color: #26ded2">Найти</button>
+                  </form>
+                {% endif %} 
 
-          <ul class="navbar-nav col-md-1 text-end">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><img src="{% static 'img/user.png' %}" alt="user" id="user_img"></a>
-              <ul class="dropdown-menu dropdown-menu-end" id="header_dropdown">
-                {% if user.is_authenticated %}
-                  <li><a class="dropdown-item" href="{% url 'users:profile' %}">Мой профиль</a></li>
+                <li class="d-flex nav-item dropdown dropdown-center mx-auto flex-column align-items-center">
+                  <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                    <img
+                      src="{% if request.user.photo %} {{ request.user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
+                      class="rounded-circle border border-2 border-dark"
+                      id="user_img"
+                    >
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-center" id="header_dropdown">
+                  <li><a class="dropdown-item" href="{% url 'homepage:home' %}">Мой профиль</a></li>
                   <li>
                     <a class="dropdown-item" href="{% url 'auth:logout' %}">
                       Выйти
@@ -48,16 +60,14 @@
                     </a>
                   </li>
                 {% else %}
-                  <li><a class="dropdown-item" href="{% url 'auth:login' %}">Авторизация</a></li>
-                  <li><a class="dropdown-item" href="{% url 'users:signup' %}">Регистрация</a></li>
+                  <li><a class="nav-link text-center" href="{% url 'auth:login' %}">Войти</a></li>
                 {% endif %}
               </ul>
             </li>
           </ul>
-
+          </div>
         </div>
-        
-      </div>
     </nav>
   {% endwith %}
+  <hr class="mt-0">
 </header>

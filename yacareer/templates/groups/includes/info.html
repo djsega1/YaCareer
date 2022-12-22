@@ -1,0 +1,67 @@
+{% load static %}
+
+<div class="d-flex align-items-center flex-column my-5">
+  <div class="my-2 mx-5">
+    <img
+      src="{% if group.photo %}{{ group.get_img.url }}{% else %}{% static 'img/default_avatar_group.jpg' %}{% endif %}"
+      class="rounded-circle border border-5 border-dark"
+    >
+  </div>
+  <div class="d-flex align-content-center flex-column my-auto">
+    <h1 class="text-center my-2">
+      {% if group.name %}
+        {{ group.name }}
+      {% else %}
+        Не указано
+      {% endif %}
+    </h1>
+    {% if group.about %}
+      <p class="text-break text-center mb-2">{{ group.about }}</p>
+    {% endif %}
+  </div>
+  <div class="d-flex w-100 justify-content-evenly my-3 user-select-none">
+    <div class="col-6 text-center my-auto" data-bs-toggle="modal" data-bs-target="#modal-followers" role="button">
+      <h2>{{ group.members.count }}</h2>
+      <p class="m-0">подписчиков</p>
+    </div>
+    <div class="col-6 text-center my-auto" role="button">
+      <a href="{% url 'users:user_detail' group.owner.pk %}" class="text-decoration-none">
+      <img 
+        src="
+        {% if group.owner.photo %}
+          {{ group.owner.get_img_small.url }}
+        {% else %}
+          {% static 'img/default_avatar_user.jpg' %}
+        {% endif %}"
+        class="user-card-crop rounded-5" alt="Аватар">
+      <p class="m-0">владелец</p>
+      </a>
+    </div>
+  </div>
+  {% if group.owner == request.user %}
+    <a
+      href="{% url 'groups:edit' group.id %}"
+      class="btn btn-primary border border-dark w-100"
+    >
+      Редактировать
+    </a>
+  {% else %}
+    <form method="post" class="w-100">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary border border-dark w-100">
+        {% if request.user in group.members.all %}
+          Отписаться
+        {% else %}
+          Подписаться
+        {% endif %}
+      </button>
+    </form>
+  {% endif %}
+</div>
+<a
+  href="{% url 'groups:vacancy_list' group.id %}"
+  class="btn btn-primary d-inline-flex text-decoration-none my-4 w-100"
+>
+  <h4 class="text-secondary my-1 mx-auto">Посмотреть вакансии группы</h4>
+</a>
+{% include "groups/includes/modals/followers.html" %}

@@ -1,89 +1,110 @@
 from django.db import models
+from django.utils.safestring import mark_safe
+from sorl.thumbnail import get_thumbnail
 
 
-class NamedModel(models.Model):
-    name = models.CharField(max_length=150, verbose_name='название')
+class BaseModelImage(models.Model):
+    photo = models.ImageField(
+        'фото',
+        upload_to='images/',
+        blank=True,
+    )
 
     class Meta:
         abstract = True
-        verbose_name = 'именованный объект'
+
+    @property
+    def get_img(self):
+        return get_thumbnail(
+            self.photo,
+            '200x200',
+            crop='center',
+            quality=51,
+        )
+
+    def image_tmb(self):
+        if self.photo:
+            return mark_safe(
+                f'<img src="{self.get_img.url}">',
+            )
+        return 'Нет изображения'
+
+    @property
+    def get_img_small(self):
+        return get_thumbnail(
+            self.photo,
+            '50x50',
+            crop='center',
+            quality=51
+        )
+
+    def image_tmb_small(self):
+        if self.photo:
+            return mark_safe(
+                f'<img src="{self.get_img_small.url}">',
+            )
+        return 'Нет изображения'
+
+    @property
+    def get_img_logo(self):
+        return get_thumbnail(
+            self.photo,
+            '30x30',
+            crop='center',
+            quality=51
+        )
+
+    def image_tmb_logo(self):
+        if self.photo:
+            return mark_safe(
+                '<img class="rounded-circle border border-1 border-dark" '
+                f'src="{self.get_img_logo.url}">',
+            )
+        return 'Нет изображения'
+
+    image_tmb.short_description = 'превью'
+    image_tmb.allow_tags = True
 
 
-class City(NamedModel):
-    class Meta:
-        verbose_name = 'город'
-        verbose_name_plural = 'города'
-
-    def __str__(self) -> str:
-        return self.name
-
-
-class University(NamedModel):
-    description = models.CharField(max_length=300, verbose_name='описание')
-    city = models.ForeignKey(City, on_delete=models.DO_NOTHING)
-
-    class Meta:
-        verbose_name = 'университет'
-        verbose_name_plural = 'университеты'
-
-    def __str__(self) -> str:
-        return self.name
-
-
-class Specialization(NamedModel):
-    class Meta:
-        verbose_name = 'специализация'
-        verbose_name_plural = 'специализации'
-
-    def __str__(self) -> str:
-        return self.name
-
-
-class Tag(NamedModel):
-    class Meta:
-        verbose_name = 'тэг'
-        verbose_name_plural = 'тэги'
-
-    def __str__(self) -> str:
-        return self.name
-
-
-class Faculty(NamedModel):
-    description = models.CharField(max_length=300, verbose_name='описание')
-    specialization = models.ForeignKey(
-        Specialization, on_delete=models.DO_NOTHING
-    )
-    tags = models.ManyToManyField(Tag)
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'факультет'
-        verbose_name_plural = 'факультеты'
-
-    def __str__(self) -> str:
-        return self.name
-
-
-class TestResult(models.Model):
-    specialization = models.ForeignKey(
-        Specialization, on_delete=models.CASCADE
+class BaseModelSlug(models.Model):
+    slug = models.CharField(
+        'ссылка',
+        max_length=2048,
     )
 
     class Meta:
-        verbose_name = 'результаты теста'
-        verbose_name_plural = 'результаты тестов'
-
-    def __str__(self) -> str:
-        return self.name
+        abstract = True
 
 
-class Test(models.Model):
-    question = models.CharField(max_length=300, verbose_name='вопрос')
-    variant_a = models.CharField(max_length=300, verbose_name='вопрос')
-    variant_b = models.CharField(max_length=300, verbose_name='вопрос')
+class BaseModelMedia(models.Model):
+    name = models.CharField(
+        'название',
+        max_length=256,
+    )
+    file = models.FileField(
+        'файл',
+        upload_to='files/',
+        unique=True,
+    )
+    description = models.CharField(
+        'описание',
+        max_length=1024,
+        null=True,
+        blank=True,
+    )
 
     class Meta:
-        verbose_name = 'тест'
+        abstract = True
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
+
+
+class BaseModelPost(models.Model):
+    text = models.CharField(
+        'текст к посту',
+        max_length=1024,
+    )
+
+    class Meta:
+        abstract = True

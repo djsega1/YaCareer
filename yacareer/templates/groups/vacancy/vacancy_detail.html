@@ -1,0 +1,25 @@
+{% load static %}
+<div class="bg-light border border-dark w-100 rounded-2 h-100">
+    <div class="d-flex align-items-center flex-column my-5">
+        {% if vacancy.photo %}
+            <div class="my-2 mx-5">
+                <img src="{{ vacancy.get_img.url }}" class="rounded-circle border border-5 border-dark group-list-image">
+            </div>
+        {% endif %}
+        <div class="d-flex align-items-center flex-column my-auto">
+            <div class="d-flex flex-row">  
+                <h1 class="text-center my-2 text-break">
+                {{ vacancy.group.name }}
+                </h1>
+            </div>
+            {% if vacancy.text %}
+                <p class="text-break text-center mb-2">{{ vacancy.text|truncatewords:10|capfirst }}</p>
+            {% else %}
+                <p class="text-break text-center mb-2">Без описания</p>
+            {% endif %}
+        </div>
+        <a href="#"><button type="submit" class="btn btn-primary border border-dark mt-2">Откликнуться</button></a>
+    </div>
+</div>
+
+{% include "groups/includes/modals/followers.html" %}

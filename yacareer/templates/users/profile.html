@@ -4,58 +4,18 @@
 
 {% block content %}
 
-<div class="card col-7">
-  {% include "users/includes/card_of_user.html" %}
-    {% for field in form %}
-      {% for error in field.errors %}
-        <div class="alert alert-danger">
-          {{ error|escape }}
-        </div>
-      {% endfor %}
-    {% endfor %}
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#modal-cart"
-    >
-      Редактировать профиль
-    </button>
-    <a href="{% url 'auth:password_change' %}" class="btn btn-outline-primary">Изменить пароль</a>
-    <div
-      class="modal fade"
-      id="modal-cart"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Редактирование профиля
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              id="close_modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form method="post">
-              {% csrf_token %}
-              {% for field in form %}
-              {% include "users/includes/form.html" %}
-              {% endfor %}
-              <button type="submit" class="btn btn-primary">Отправить</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="d-flex justify-content-between flex-column w-50 mx-auto">
+  {% include "users/includes/info.html" %}
+  {% include "users/includes/modal/info.html" %}
+  <hr>
+  <h4><i>Ссылки</i></h4>
+  {% include "users/includes/links.html" %}
+  {% include "users/includes/modal/links.html" %}
+  <hr>
+  <h4><i>Медия (сертификаты, дипломы...)</i></h4>
+  {% include "users/includes/media.html" %}
+  {% include "users/includes/modal/media.html" %}
+  <hr>
 </div>
 
 {% endblock %}

@@ -14,6 +14,7 @@ urlpatterns = [
         'login/',
         LoginView.as_view(
             template_name='users/registration/login.html',
+            redirect_authenticated_user=True,
         ),
         name='login',
     ),

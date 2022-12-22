@@ -1,0 +1,50 @@
+{% load static %}
+
+<div
+  class="modal fade"
+  id="modal-groups"
+  tabindex="-1"
+  aria-labelledby="UserGroups"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content w-50 mx-auto">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          Группы 
+          {% if user.first_name or user.last_name %}
+            {{user.first_name}} {{user.last_name}}
+          {% else %}
+           {{ user.email }}
+          {% endif %}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div>
+            {% for group in user.owner.all %}
+              {% include "users/includes/group_card.html" with status="Владелец" %}
+            {% endfor %}
+            {% for group in user.members.all %}
+              {% include "users/includes/group_card.html" with status="Участник" %}
+            {% endfor %}
+            {% with request.resolver_match.view_name as view_name %}
+              {% if view_name == 'homepage:home' %}
+                <a 
+                  href="{% url 'groups:create' %}"
+                  class="btn btn-primary d-flex border border-dark w-100 my-2 mx-auto rounded-1 align-items-center"
+                >
+                  Создать группу
+                </a>
+              {% endif %}
+            {% endwith %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
