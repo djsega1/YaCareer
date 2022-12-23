@@ -39,25 +39,22 @@
 
               <ul class="d-flex navbar-nav text-end ms-auto flex-wrap">
                 {% if request.user.is_authenticated %}
-                  {% if view_name == 'homepage:home' %}
-                    <li>
-                      <a class="nav-link text-center" href="{% url 'auth:logout' %}">
-                        <h5 class="mr-2">Выйти</h5>
-                      </a>
-                    </li>
-                  {% else %}
                     <a href="{% url 'homepage:home' %}">
                       <img
                         src="{% if request.user.photo %} {{ request.user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
-                        class="rounded-circle border border-2 border-dark"
+                        class="rounded-circle border border-2 border-dark me-3"
                         id="user_img"
                         alt="Аватар"
                       >
                     </a>
-                  {% endif %}
+                    <li>
+                      <a class="nav-link text-center" href="{% url 'auth:logout' %}">
+                        <h5 class="m-0">Выйти</h5>
+                      </a>
+                    </li>
                 {% else %}
                   {% if view_name != 'auth:login' %}
-                    <li><a class="nav-link text-center" href="{% url 'auth:login' %}"><h5 class="mr-2">Выйти</h5></a></li>
+                    <li><a class="nav-link text-center" href="{% url 'auth:login' %}"><h5 class="m-0">Войти</h5></a></li>
                   {% endif %}
                 {% endif %}
               </ul>
