@@ -38,7 +38,7 @@ class VacancyDetailView(DetailView, FormMixin):
                 f'Отклик на вакансию {vacancy.vacancy_name}',
                 form.cleaned_data['text'],
                 self.request.user.email,
-                [vacancy.group.owner.email],
+                (vacancy.group.owner.email,),
                 fail_silently=True,
             )
         return redirect('groups:group_detail', vacancy.group.pk)

@@ -5,10 +5,10 @@ from groups.models import Group
 
 
 class TestsForModels(TestCase):
-    fixtures = ['fixtures/data.json', ]
+    fixtures = ('fixtures/data.json',)
 
     def test_invalid(self):
-        test_data = [
+        test_data = (
             {
                 'name': 'Компания 3',
                 'owner_id': 1,
@@ -17,7 +17,7 @@ class TestsForModels(TestCase):
                 'name': '123',
                 'owner_id': 0,
             },
-        ]
+        )
         group_count = Group.objects.count()
         for data_set in test_data:
             with self.assertRaises(ValidationError):
@@ -33,7 +33,7 @@ class TestsForModels(TestCase):
             )
 
     def test_valid(self):
-        test_data = [
+        test_data = (
             {
                 'name': 'super',
                 'owner_id': 1,
@@ -42,7 +42,7 @@ class TestsForModels(TestCase):
                 'name': 'TEST!@$@#$GROUP',
                 'owner_id': 1,
             },
-        ]
+        )
         group_count = Group.objects.count()
         for data_set in test_data:
             new_group = Group(

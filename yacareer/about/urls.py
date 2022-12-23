@@ -4,10 +4,10 @@ from about import views
 
 app_name = 'about'
 
-urlpatterns = [
+urlpatterns = (
     path(
         '',
         views.DescriptionView.as_view(),
         name='description',
     ),
-]
+)

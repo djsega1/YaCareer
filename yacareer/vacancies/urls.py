@@ -4,7 +4,7 @@ from vacancies import views
 
 app_name = 'vacancies'
 
-urlpatterns = [
+urlpatterns = (
     path('', views.VacancyListView.as_view(), name='vacancy_list'),
     re_path(
         r'^(?P<pk>[1-9]\d*)/$',
@@ -16,4 +16,4 @@ urlpatterns = [
         views.GroupVacancyView.as_view(),
         name='vacancies_of_group',
     ),
-]
+)

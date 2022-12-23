@@ -13,36 +13,36 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'DEFAULT_SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ()
 
-INTERNAL_IPS = [
+INTERNAL_IPS = (
     '127.0.0.1',
-]
+)
 
 LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/'
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'widget_tweaks',
     'sorl.thumbnail',
-    'debug_toolbar',
-    'users.apps.UsersConfig',
+    'django_cleanup.apps.CleanupConfig',
+    'about.apps.AboutConfig',
+    'core.apps.CoreConfig',
+    'groups.apps.GroupsConfig',
     'homepage.apps.HomepageConfig',
     'services.apps.ServicesConfig',
-    'core.apps.CoreConfig',
+    'users.apps.UsersConfig',
     'vacancies.apps.VacanciesConfig',
-    'groups.apps.GroupsConfig',
-    'about.apps.AboutConfig',
-    'django_cleanup.apps.CleanupConfig',
-]
+)
 
-MIDDLEWARE = [
+MIDDLEWARE = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,27 +51,27 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-]
+)
 
 ROOT_URLCONF = 'yacareer.urls'
 
 
 TEMPLATES_DIR = BASE_DIR / 'templates'
-TEMPLATES = [
+TEMPLATES = (
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATES_DIR],
+        'DIRS': (TEMPLATES_DIR,),
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [
+            'context_processors': (
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-            ],
+            ),
         },
     },
-]
+)
 
 WSGI_APPLICATION = 'yacareer.wsgi.application'
 
@@ -82,7 +82,7 @@ DATABASES = {
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = (
     {
         'NAME': 'django.contrib.auth.password_validation.'
                 'UserAttributeSimilarityValidator',
@@ -99,7 +99,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.'
                 'NumericPasswordValidator',
     },
-]
+)
 
 LANGUAGE_CODE = 'ru'
 
@@ -110,9 +110,9 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static_dev/'
-STATICFILES_DIRS = [
+STATICFILES_DIRS = (
     BASE_DIR / 'static_dev',
-]
+)
 STATIC_ROOT = BASE_DIR / 'static'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

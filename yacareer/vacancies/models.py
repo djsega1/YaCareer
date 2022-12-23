@@ -33,7 +33,7 @@ class GroupVacancy(models.Model):
     )
 
     class Meta:
-        ordering = ['id']
+        ordering = ('id',)
         default_related_name = 'group_vacancy'
         verbose_name = 'вакансия'
         verbose_name_plural = 'вакансии'

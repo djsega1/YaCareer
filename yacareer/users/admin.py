@@ -21,10 +21,10 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('email', 'first_name', 'is_superuser', 'image_tmb_small')
     list_filter = ('is_staff', 'is_superuser', 'is_active')
     ordering = ('email',)
-    inlines = [
+    inlines = (
         ProfileLinksInline,
         ProfileManagerInline,
-    ]
+    )
     fieldsets = (
         (
             'Данные профиля',

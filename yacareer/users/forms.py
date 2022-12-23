@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from core.forms import BaseModelForm
 from users.models import FollowsU2U, User, UserLinks, UserMedia
 
-BOOLEAN_CHOICES = [(True, 'Да'), (False, 'Нет')]
+BOOLEAN_CHOICES = ((True, 'Да'), (False, 'Нет'))
 
 
 class CreateProfileForm(UserCreationForm, BaseModelForm):
