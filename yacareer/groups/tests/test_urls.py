@@ -3,7 +3,7 @@ from django.urls import reverse
 
 
 class StaticUrlTests(TestCase):
-    fixtures = ['fixtures/data.json', ]
+    fixtures = ('fixtures/data.json',)
 
     def test_registration_endpoints(self):
         endpoints = {

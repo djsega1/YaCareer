@@ -10,12 +10,12 @@ class TestsForModels(TestCase):
     def test_invalid(self):
         test_data = [
             {
-                'name': 'name',
+                'name': 'Компания 3',
                 'owner_id': 1,
             },
             {
                 'name': '123',
-                'owner_id': 2,
+                'owner_id': 0,
             },
         ]
         for data_set in test_data:

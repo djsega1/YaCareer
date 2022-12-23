@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from users.forms import UpdateProfileForm, CreateProfileForm
+from users.forms import CreateProfileForm, UpdateProfileForm
 from users.models import User, UserLinks, UserMedia
 
 
