@@ -18,8 +18,8 @@ class TestsForModels(TestCase):
                 'owner_id': 0,
             },
         ]
+        group_count = Group.objects.count()
         for data_set in test_data:
-            group_count = Group.objects.count()
             with self.assertRaises(ValidationError):
                 new_group = Group(
                     name=data_set['name'],

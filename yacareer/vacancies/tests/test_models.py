@@ -10,12 +10,12 @@ class TestsForModels(TestCase):
     def test_invalid_vacancy(self):
         test_data = [
             {
-                'v_name':  'name_of_post',
+                'vacancy_name':  'name_of_post',
                 'text': 'SUPERDEScription1235$@#!@#',
                 'group_id': 123,
             },
             {
-                'v_name':  'name_of_post2',
+                'vacancy_name':  'name_of_post2',
                 'text': 'nikita12352345!!',
                 'group_id': None,
             },
@@ -24,7 +24,7 @@ class TestsForModels(TestCase):
             vacancy_count = GroupVacancy.objects.count()
             with self.assertRaises(ValidationError):
                 new_vacancy = GroupVacancy(
-                    v_name=data_set['v_name'],
+                    vacancy_name=data_set['vacancy_name'],
                     text=data_set['text'],
                     group_id=data_set['group_id'],
                 )
@@ -38,12 +38,12 @@ class TestsForModels(TestCase):
     def test_valid_vacancy(self):
         test_data = [
             {
-                'v_name':  'name_of_post1',
+                'vacancy_name':  'name_of_post1',
                 'text': 'SUPERDEScription1235$@#!@#',
                 'group_id': 1,
             },
             {
-                'v_name':  'NikitaSuper',
+                'vacancy_name':  'NikitaSuper',
                 'text': 'nikita12352345!!',
                 'group_id': 1,
             },
@@ -51,7 +51,7 @@ class TestsForModels(TestCase):
         vacancy_count = GroupVacancy.objects.count()
         for data_set in test_data:
             new_vacancy = GroupVacancy(
-                v_name=data_set['v_name'],
+                vacancy_name=data_set['vacancy_name'],
                 text=data_set['text'],
                 group_id=data_set['group_id'],
             )

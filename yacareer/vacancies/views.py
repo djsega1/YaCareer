@@ -22,13 +22,14 @@ class VacancyDetailView(FormView):
         return context
 
     def post(self, request, pk):
-        formpoints = {
+        forms_points = {
             'del_vacancy': self.del_vacancy_form,
             'respond': self.respond_form,
         }
-        for endpoint, form in formpoints.items():
+        for endpoint, form in forms_points.items():
             if endpoint in request.POST:
                 return form(request, pk)
+        return redirect('groups:group_detail', pk)
 
     def del_vacancy_form(self, request, pk):
         group = get_object_or_404(
@@ -81,7 +82,7 @@ class VacancyListView(ListView):
             queryset = (
                 queryset.
                 filter(
-                    Q(v_name__contains=searched)
+                    Q(vacancy_name__contains=searched)
                     | Q(text__contains=searched)
                     )
             )

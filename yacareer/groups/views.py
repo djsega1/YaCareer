@@ -107,11 +107,11 @@ class EditGroupView(UpdateView):
         )
 
     def post(self, request, pk):
-        formpoints = {
+        forms_points = {
             'group_vacancy_form': self.vacancy_form,
             'group_profile_form': self.profile_form,
         }
-        for endpoint, form in formpoints.items():
+        for endpoint, form in forms_points.items():
             if endpoint in request.POST:
                 form(request, pk)
                 break

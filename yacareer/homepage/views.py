@@ -33,14 +33,14 @@ class ProfileView(LoginRequiredMixin, FormView):
         }
 
     def post(self, request):
-        formpoints = {
+        forms_points = {
             'profile_submit': self.profile_form,
             'media_submit': self.media_form,
             'links_submit': self.links_form,
             'media_del': self.del_media_form,
             'links_del': self.del_links_form,
         }
-        for endpoint, form in formpoints.items():
+        for endpoint, form in forms_points.items():
             if endpoint in request.POST:
                 form(request)
                 break

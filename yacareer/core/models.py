@@ -66,16 +66,6 @@ class BaseModelImage(models.Model):
     image_tmb.allow_tags = True
 
 
-class BaseModelSlug(models.Model):
-    slug = models.CharField(
-        'ссылка',
-        max_length=2048,
-    )
-
-    class Meta:
-        abstract = True
-
-
 class BaseModelMedia(models.Model):
     name = models.CharField(
         'название',

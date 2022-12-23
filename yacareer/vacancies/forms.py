@@ -8,7 +8,7 @@ class GroupVacancyForm(BaseModelForm):
 
     class Meta:
         model = GroupVacancy
-        fields = ('v_name', 'text',)
+        fields = ('vacancy_name', 'text',)
 
 
 class RespondForm(forms.Form):

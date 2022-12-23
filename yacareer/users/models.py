@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
-from core.models import BaseModelImage, BaseModelMedia, BaseModelSlug
+from core.models import BaseModelImage, BaseModelMedia
 from services.models import Service
 
 
@@ -151,7 +151,11 @@ class UserMedia(BaseModelMedia):
         return self.name
 
 
-class UserLinks(BaseModelSlug):
+class UserLinks(models.Model):
+    slug = models.CharField(
+        'ссылка',
+        max_length=2048,
+    )
     user = models.ForeignKey(
         User,
         verbose_name='ссылка на профиль',

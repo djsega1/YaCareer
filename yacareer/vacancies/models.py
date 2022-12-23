@@ -4,7 +4,7 @@ from groups.models import Group
 
 
 class GroupVacancy(models.Model):
-    v_name = models.CharField(
+    vacancy_name = models.CharField(
         'название',
         max_length=70,
     )
@@ -25,4 +25,4 @@ class GroupVacancy(models.Model):
         verbose_name_plural = 'вакансии'
 
     def __str__(self):
-        return self.v_name
+        return self.vacancy_name
