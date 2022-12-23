@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+  
+  {% if vacancy_list %}
+    <div class='container-fluid text-center'>
+      <h1 class="text-start">Вакансии</h1>
+      {% include 'includes/search.html' %}
+      <div class='row'>
+        {% for vacancy in vacancy_list %}
+          <tr>
+            <div class='col-xs-12 col-md-4 py-2'>
+              {% include "vacancies/includes/vacancy_card.html" %}
+            </div>
+          </tr>
+        {% endfor %}
+      </div>
+    </div>
+    {% if request.resolver_match.view_name == 'vacancies:vacancy_list' %}
+      {% include "includes/pagination.html" %}
+    {% else %}
+      {% if is_paginated %}
+        <ul class="pagination">
+          <div class="d-flex flex-row mx-auto mt-5">
+            <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
+              <a
+                class="page-link user-select-none"
+                href="{% if page_obj.has_previous %}{% url request.resolver_match.view_name vacancy_list.first.group.id %}?page={{ page_obj.previous_page_number }}{% endif %}"
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <span class="page-current">
+              <li class="page-item"><a class="page-link">{{ page_obj.number }}</a></li>
+            </span>
+            <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
+              <a 
+                class="page-link user-select-none"
+                href="{% if page_obj.has_next %}{% url request.resolver_match.view_name vacancy_list.first.group.id %}?page={{ page_obj.next_page_number }}{% endif %}"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </div>
+        </ul>
+      {% endif %}
+    {% endif %}
+  {% else %}
+    <h3 class="text-center">Вакансий нет.</h3>
+  {% endif %}
+
+{% endblock %}

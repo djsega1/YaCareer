@@ -131,7 +131,7 @@ class FollowsU2U(models.Model):
             models.UniqueConstraint(
                 fields=('to_user', 'from_user'),
                 name='follow_unique',
-            )
+            ),
         ]
 
 

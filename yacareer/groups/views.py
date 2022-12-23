@@ -3,13 +3,13 @@ import os
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import (CreateView, DeleteView, DetailView, FormView,
-                                  ListView, UpdateView)
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
 from groups.forms import GroupForm
 from groups.models import Group, GroupMembers
-from posts.forms import GroupVacancyForm
-from posts.models import GroupVacancy
+from vacancies.forms import GroupVacancyForm
+from vacancies.models import GroupVacancy
 
 
 class GroupListView(ListView):
@@ -64,7 +64,7 @@ class GroupDetailView(DetailView):
         return redirect('groups:group_detail', pk)
 
 
-class CreateGroupView(CreateView, FormView):
+class CreateGroupView(CreateView):
     template_name = 'groups/create.html'
     model = Group
     form_class = GroupForm
@@ -81,7 +81,6 @@ class EditGroupView(UpdateView):
     template_name = 'groups/edit.html'
     model = Group
     form_class = GroupForm
-    object = None
 
     def get_context_data(self, **kwargs):
         group = get_object_or_404(

@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'services.apps.ServicesConfig',
     'core.apps.CoreConfig',
-    'posts.apps.PostsConfig',
+    'vacancies.apps.VacanciesConfig',
     'groups.apps.GroupsConfig',
     'about.apps.AboutConfig',
     'django_cleanup.apps.CleanupConfig',
@@ -135,6 +135,10 @@ AUTH_USER_MODEL = 'users.User'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'send_mail'
 
 X_FRAME_OPTIONS = 'ALLOW-FROM http://127.0.0.1:8000/'
 

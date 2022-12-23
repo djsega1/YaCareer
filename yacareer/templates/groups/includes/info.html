@@ -41,14 +41,14 @@
   {% if group.owner == request.user %}
     <a
       href="{% url 'groups:edit' group.id %}"
-      class="btn btn-primary border border-dark w-100"
+      class="btn btn-primary border border-dark"
     >
       Редактировать
     </a>
   {% else %}
-    <form method="post" class="w-100">
+    <form method="post" class="text-center">
       {% csrf_token %}
-      <button type="submit" class="btn btn-primary border border-dark w-100">
+      <button type="submit" class="btn btn-primary border border-dark">
         {% if request.user in group.members.all %}
           Отписаться
         {% else %}
@@ -59,9 +59,8 @@
   {% endif %}
 </div>
 <a
-  href="{% url 'groups:vacancy_list' group.id %}"
-  class="btn btn-primary d-inline-flex text-decoration-none my-4 w-100"
+  href="{% url 'vacancies:vacancies_of_group' group.id %}"
+  class="btn btn-primary border border-dark w-100"
 >
-  <h4 class="text-secondary my-1 mx-auto">Посмотреть вакансии группы</h4>
+  <h4 class="my-1 mx-auto">Посмотреть вакансии группы</h4>
 </a>
-{% include "groups/includes/modals/followers.html" %}

@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from posts.models import GroupVacancy
+from vacancies.models import GroupVacancy
 
 
 class TestsForModels(TestCase):
@@ -10,12 +10,12 @@ class TestsForModels(TestCase):
     def test_invalid_vacancy(self):
         test_data = [
             {
-                'name':  'name_of_post',
+                'v_name':  'name_of_post',
                 'text': 'SUPERDEScription1235$@#!@#',
                 'group_id': 123,
             },
             {
-                'name':  'name_of_post2',
+                'v_name':  'name_of_post2',
                 'text': 'nikita12352345!!',
                 'group_id': None,
             },
@@ -24,7 +24,7 @@ class TestsForModels(TestCase):
             vacancy_count = GroupVacancy.objects.count()
             with self.assertRaises(ValidationError):
                 new_vacancy = GroupVacancy(
-                    name=data_set['name'],
+                    v_name=data_set['v_name'],
                     text=data_set['text'],
                     group_id=data_set['group_id'],
                 )
@@ -38,12 +38,12 @@ class TestsForModels(TestCase):
     def test_valid_vacancy(self):
         test_data = [
             {
-                'name':  'name_of_post1',
+                'v_name':  'name_of_post1',
                 'text': 'SUPERDEScription1235$@#!@#',
                 'group_id': 1,
             },
             {
-                'name':  'NikitaSuper',
+                'v_name':  'NikitaSuper',
                 'text': 'nikita12352345!!',
                 'group_id': 1,
             },
@@ -51,7 +51,7 @@ class TestsForModels(TestCase):
         vacancy_count = GroupVacancy.objects.count()
         for data_set in test_data:
             new_vacancy = GroupVacancy(
-                name=data_set['name'],
+                v_name=data_set['v_name'],
                 text=data_set['text'],
                 group_id=data_set['group_id'],
             )

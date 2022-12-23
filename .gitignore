@@ -2,7 +2,6 @@ pyc
 .vscode/
 .idea/
 .env
-*.sqlite3
 */media/*
 yacareer/send_mail/
 # Byte-compiled / optimized / DLL files

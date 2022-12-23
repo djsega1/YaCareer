@@ -3,10 +3,10 @@
 {% load static %}
 
 {% block content %}
-
 {% if group_list %}
-    {% include 'includes/search.html' %}
     <div class='container-fluid text-center'>
+        <h1 class="text-start">Группы</h1>
+        {% include 'includes/search.html' %}
         <div class='row'>
             {% for group in group_list %}
                 <tr>
@@ -15,24 +15,7 @@
             {% endfor %}
         </div>
     </div>
-    {% if is_paginated %}
-        <ul class="pagination">
-        <div class="d-flex flex-row mx-auto mt-5">
-            <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
-                <a class="page-link user-select-none" href="{% if page_obj.has_previous %}{% url 'groups:group_list' %}?page={{ page_obj.previous_page_number }}{% endif %}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <span class="page-current">
-                <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
-            </span>
-            <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
-                <a class="page-link user-select-none" href="{% if page_obj.has_next %}{% url 'groups:group_list' %}?page={{ page_obj.next_page_number }}{% endif %}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </div>
-    {% endif %}
+    {% include "includes/pagination.html" %}
 {% else %}
     <h3 class="text-center">Групп нет.</h3>
 {% endif %}

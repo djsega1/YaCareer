@@ -1,0 +1,42 @@
+{% load static %}
+
+
+<button
+  type="button"
+  class="btn btn-primary border border-dark my-2"
+  data-bs-toggle="modal"
+  data-bs-target="#modal-profile"
+>
+  Откликнуться
+</button>
+<div
+  class="modal fade"
+  id="modal-profile"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="ProfileUpdate">
+          Ответ на вакансию
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        
+        <form method="post">
+          {% csrf_token %}
+          {% include 'includes/form.html' %}
+          <button type="submit" name="respond" class="btn btn-primary border border-dark mt-2">Отправить</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>

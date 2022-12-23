@@ -1,4 +1,5 @@
 {% load static %}
+
 <a href="{% url 'groups:group_detail' group.pk %}" class="text-decoration-none">
     <button class="btn btn-primary border border-dark w-100 rounded-2 h-100" role="button">
         <div class="d-flex align-items-center flex-column my-5">
@@ -11,21 +12,13 @@
             <div class="d-flex align-items-center flex-column my-auto">
               <div class="d-flex flex-row">  
                 <h1 class="text-center my-2 text-break">
-                {% if group.name %}
                   {{ group.name }}
-                {% else %}
-                  Не указано
-                {% endif %}
                 </h1>
               </div>
               {% if group.about %}
                 <p class="text-break text-center mb-2">{{ group.about|truncatewords:10|capfirst }}</p>
-              {% else %}
-                <p class="text-break text-center mb-2">Без описания</p>
               {% endif %}
             </div>
           </div>
     </button>
 </a>
-
-{% include "groups/includes/modals/followers.html" %}

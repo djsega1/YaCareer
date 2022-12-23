@@ -16,7 +16,7 @@
     
               <li class="nav-item">
                 <a 
-                  class="nav-link text-center"
+                class="{% if view_name == 'groups:group_list' %}nav-link disabled{% else %}nav-link{% endif %} text-center"
                   href="{% url 'groups:group_list' %}"
                 >Группы</a>
               </li>
@@ -27,35 +27,44 @@
                   href="{% url 'users:user_list' %}"
                 >Люди</a>
               </li>
+
+              <li class="nav-item">
+                <a 
+                  class="{% if view_name == 'vacancies:vacancy_list' %}nav-link disabled{% else %}nav-link{% endif %} text-center"
+                  href="{% url 'vacancies:vacancy_list' %}"
+                >Вакансии</a>
+              </li>
               
             </ul> 
+
               <ul class="d-flex navbar-nav text-end ms-auto flex-wrap">
                 {% if request.user.is_authenticated %}
-                <li class="d-flex nav-item dropdown dropdown-center mx-auto flex-column align-items-center">
-                  <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                    <img
-                      src="{% if request.user.photo %} {{ request.user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
-                      class="rounded-circle border border-2 border-dark"
-                      id="user_img"
-                      alt="Аватар"
-                    >
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-center" id="header_dropdown">
-                  <li><a class="dropdown-item" href="{% url 'homepage:home' %}">Мой профиль</a></li>
-                  <li>
-                    <a class="dropdown-item" href="{% url 'auth:logout' %}">
-                      Выйти
-                      <img src="{% static 'img/logout.png' %}" alt="user" id="img_logout">
+                  {% if view_name == 'homepage:home' %}
+                    <li>
+                      <a class="nav-link text-center" href="{% url 'auth:logout' %}">
+                        <h5 class="mr-2">Выйти</h5>
+                      </a>
+                    </li>
+                  {% else %}
+                    <a href="{% url 'homepage:home' %}">
+                      <img
+                        src="{% if request.user.photo %} {{ request.user.get_img.url }} {% else %} {% static 'img/default_avatar_user.jpg' %} {% endif %}"
+                        class="rounded-circle border border-2 border-dark"
+                        id="user_img"
+                        alt="Аватар"
+                      >
                     </a>
-                  </li>
+                  {% endif %}
                 {% else %}
-                  <li><a class="nav-link text-center" href="{% url 'auth:login' %}">Войти</a></li>
+                  {% if view_name != 'auth:login' %}
+                    <li><a class="nav-link text-center" href="{% url 'auth:login' %}">Войти</a></li>
+                  {% endif %}
                 {% endif %}
               </ul>
             </li>
           </ul>
-          </div>
         </div>
+      </div>
     </nav>
   {% endwith %}
   <hr class="mt-0">

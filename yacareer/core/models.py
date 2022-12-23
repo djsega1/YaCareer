@@ -98,13 +98,3 @@ class BaseModelMedia(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class BaseModelPost(models.Model):
-    text = models.CharField(
-        'текст к посту',
-        max_length=1024,
-    )
-
-    class Meta:
-        abstract = True

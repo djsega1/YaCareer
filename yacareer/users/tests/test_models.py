@@ -10,7 +10,7 @@ class TestsForModels(TestCase):
         super().setUpTestData()
         cls.user = User.objects.create(
             email='client@gmail.com',
-            password='fakfjknawef1323'
+            password='fakfjknawef1323',
         )
 
     def test_invalid(self):

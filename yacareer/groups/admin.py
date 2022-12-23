@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from groups.models import Group, GroupMedia, GroupMembers
+from vacancies.models import GroupVacancy
 
 
 class GroupMembersInline(admin.TabularInline):
@@ -11,6 +12,10 @@ class GroupMediaInline(admin.TabularInline):
     model = GroupMedia
 
 
+class GroupVacancyInline(admin.TabularInline):
+    model = GroupVacancy
+
+
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     model = Group
@@ -18,6 +23,7 @@ class GroupAdmin(admin.ModelAdmin):
     inlines = [
         GroupMediaInline,
         GroupMembersInline,
+        GroupVacancyInline,
     ]
     fieldsets = (
         (

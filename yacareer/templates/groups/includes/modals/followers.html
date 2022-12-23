@@ -23,6 +23,8 @@
         <div>
             {% for follower in group.members.all %}
                 {% include "users/includes/user_card.html" with follower=follower %}
+            {% empty %}
+              <h5>Здесь пока никого нет</h5>
             {% endfor %}
         </div>
       </div>

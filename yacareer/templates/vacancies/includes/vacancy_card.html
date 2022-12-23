@@ -1,0 +1,14 @@
+{% load static %}
+<div class="bg-light border border-dark w-100 rounded-2 h-100">
+    <div class="d-flex align-items-center flex-column my-5">
+        <div class="d-flex align-items-center flex-column my-auto">
+            <div class="d-flex flex-row">  
+                <h1 class="text-center my-2 text-break">
+                {{ vacancy.v_name }}
+                </h1>
+            </div>
+            <p class="text-break text-center mb-2">{{ vacancy.group.name }}</p>
+        </div>
+        <a href="{% url 'vacancies:vacancy_detail' vacancy.id %}"><button type="submit" class="btn btn-primary border border-dark mt-2">Подробнее</button></a>
+    </div>
+</div>
