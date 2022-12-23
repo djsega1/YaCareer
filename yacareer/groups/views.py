@@ -1,6 +1,7 @@
 import os
 
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
@@ -25,7 +26,8 @@ class GroupListView(ListView):
             queryset = (
                 queryset.
                 filter(
-                    name__contains=searched
+                    Q(name__icontains=searched)
+                    | Q(about__icontains=searched)
                     )
             )
         return queryset

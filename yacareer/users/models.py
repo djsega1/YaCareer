@@ -136,6 +136,9 @@ class FollowsU2U(models.Model):
             ),
         )
 
+    def __str__(self):
+        return f'{self.from_user} -> {self.to_user}'
+
 
 class UserMedia(models.Model):
     name = models.CharField(
@@ -170,7 +173,7 @@ class UserMedia(models.Model):
 
 class UserLinks(models.Model):
     slug = models.CharField(
-        'ссылка',
+        'слаг',
         max_length=2048,
     )
     user = models.ForeignKey(
