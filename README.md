@@ -23,11 +23,16 @@ cd YaCareer
 cd yacareer
 ```
 
-## Запускаем сайт
-| Windows | MacOs + Linux                            |
-| :--------------- | :------------------------------ |
-|`python manage.py runserver`|`python3 manage.py runserver`|
+## Запуск проекта
+| Windows | MacOs + Linux                            |Обозначение|
+| :--------------- | :------------------------------ |:--------------- |
+|`python manage.py migrate`|`python3 manage.py migrate`|Применяем миграции|
+|`python -Xutf8 manage.py loaddata fixtures/data.json`|`python3 -Xutf8 manage.py loaddata fixtures/data.json`|Загружаем фикстуры|
+|`python manage.py runserver`|`python3 manage.py runserver`|Запускаем сайт|
 
+## Данные тестового админа:
+### Почта: ```admin@gmail.com```
+### Пароль: ```admin```
 
 ## Настройка .env:
 ##### Примечание: это необязательно
