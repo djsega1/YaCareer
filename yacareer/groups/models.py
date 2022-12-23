@@ -30,10 +30,9 @@ class Group(BaseModelImage):
     )
 
     class Meta:
-        ordering = ['id']
+        ordering = ('id',)
         default_related_name = 'groups'
         verbose_name = 'группа'
-        verbose_name_plural = 'группы'
 
     def __str__(self):
         return self.name
@@ -52,12 +51,12 @@ class GroupMembers(models.Model):
     )
 
     class Meta:
-        constraints = [
+        constraints = (
             models.UniqueConstraint(
                 fields=('user', 'group'),
                 name='rating_unique',
-            )
-        ]
+            ),
+        )
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'.strip()

@@ -4,7 +4,7 @@ from groups import views
 
 app_name = 'groups'
 
-urlpatterns = [
+urlpatterns = (
     path(
         '',
         views.GroupListView.as_view(),
@@ -30,4 +30,4 @@ urlpatterns = [
         views.GroupDetailView.as_view(),
         name='group_detail',
     ),
-]
+)

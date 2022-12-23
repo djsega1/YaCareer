@@ -51,7 +51,7 @@ class VacancyDetailView(FormView):
                 f'Отклик на вакансию {pk}',
                 form.cleaned_data['text'],
                 self.request.user.email,
-                [owner.email],
+                (owner.email,),
                 fail_silently=True,
             )
         return redirect('groups:group_detail', pk)

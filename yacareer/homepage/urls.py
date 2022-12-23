@@ -4,10 +4,10 @@ from homepage import views
 
 app_name = 'homepage'
 
-urlpatterns = [
+urlpatterns = (
     path(
         '',
         views.ProfileView.as_view(),
         name='home',
-    )
-]
+    ),
+)

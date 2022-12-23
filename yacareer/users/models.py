@@ -105,10 +105,9 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
     USERNAME_FIELD = 'email'
 
     class Meta:
-        ordering = ['id']
+        ordering = ('id',)
         default_related_name = 'users'
         verbose_name = 'пользователь'
-        verbose_name_plural = 'пользователи'
 
     def __str__(self):
         return f'{self.first_name.capitalize()} {self.last_name.capitalize()}'
@@ -127,12 +126,12 @@ class FollowsU2U(models.Model):
     )
 
     class Meta:
-        constraints = [
+        constraints = (
             models.UniqueConstraint(
                 fields=('to_user', 'from_user'),
                 name='follow_unique',
             ),
-        ]
+        )
 
 
 class UserMedia(BaseModelMedia):

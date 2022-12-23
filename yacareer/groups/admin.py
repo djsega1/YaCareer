@@ -20,11 +20,11 @@ class GroupVacancyInline(admin.TabularInline):
 class GroupAdmin(admin.ModelAdmin):
     model = Group
     list_display = ('name', 'image_tmb_small')
-    inlines = [
+    inlines = (
         GroupMediaInline,
         GroupMembersInline,
         GroupVacancyInline,
-    ]
+    )
     fieldsets = (
         (
             'Данные компании',

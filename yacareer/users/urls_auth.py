@@ -9,7 +9,7 @@ from django.urls import path
 
 app_name = 'auth'
 
-urlpatterns = [
+urlpatterns = (
     path(
         'login/',
         LoginView.as_view(
@@ -67,4 +67,4 @@ urlpatterns = [
         ),
         name='password_reset_done',
     ),
-]
+)

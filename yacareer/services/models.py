@@ -21,7 +21,6 @@ class Service(models.Model):
 
     class Meta:
         verbose_name = 'сервис'
-        verbose_name_plural = 'сервисы'
         default_related_name = 'service'
 
     def __str__(self):
