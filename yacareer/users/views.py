@@ -35,9 +35,9 @@ class UserListView(ListView):
             queryset = (
                 queryset.
                 filter(
-                    Q(first_name__icontains=searched)
-                    | Q(last_name__icontains=searched)
-                    | Q(email__icontains=searched)
+                    Q(first_name__unaccent__lower__trigram_similar=searched)
+                    | Q(last_name__unaccent__lower__trigram_similar=searched)
+                    | Q(email__unaccent__lower__trigram_similar=searched)
                     )
             )
         return queryset
