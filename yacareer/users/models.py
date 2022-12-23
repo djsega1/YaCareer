@@ -180,7 +180,33 @@ class UserMedia(models.Model):
         return self.name
 
 
+class UserLinksManager(models.Manager):
+    queryset = None
+
+    def get_queryset(self):
+        if self.queryset is None:
+            self.queryset = (
+                super().get_queryset()
+                .select_related('service',)
+            )
+        return self.queryset
+
+    def resources(self):
+        return (
+            self.get_queryset()
+            .filter(service__is_contact=False)
+        )
+
+    def contacts(self):
+        return (
+            self.get_queryset()
+            .filter(service__is_contact=True)
+        )
+
+
 class UserLinks(models.Model):
+    objects = UserLinksManager()
+
     slug = models.CharField(
         'слаг',
         max_length=2048,

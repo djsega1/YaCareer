@@ -8,36 +8,34 @@
       type="button"
       data-bs-toggle="dropdown"
       aria-expanded="false"
-      {% if not user.links.all %}
-        disabled
-      {% endif %}>
+    >
       Контакты
     </button>
     <ul class="dropdown-menu w-100">
       <li>
-        {% for link in user.links.all %}
-          {% if link.service.is_contact %}
-            <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
-              <i class="{{ link.service.bootstrap_icon }}"></i>
-              {{ link.service }}
-            </a>
-          {% endif %}
+        {% for link in user.links.contacts.all %}
+          <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
+            <i class="{{ link.service.bootstrap_icon }}"></i>
+            {{ link.service }}
+          </a>
+        {% empty %}
+          <a class="dropdown-item text-center fs-6" role="button">Контактов нет</a>
         {% endfor %}
       </li>
     </ul>
   </div>
   <div class="dropdown w-50 ms-1">
-    <button class="btn btn-primary border border-dark dropdown-toggle w-100" type="button"  data-bs-toggle="dropdown" aria-expanded="false"{% if not user.links.all %} disabled{% endif %}>
+    <button class="btn btn-primary border border-dark dropdown-toggle w-100" type="button"  data-bs-toggle="dropdown" aria-expanded="false">
       Ресурсы
     </button>
     <ul class="dropdown-menu w-100">
-      {% for link in user.links.all %}
-        {% if not link.service.is_contact %}
-          <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
-            <i class="{{ link.service.bootstrap_icon }}"></i>
-            {{ link.service }}
-          </a>
-        {% endif %}
+      {% for link in user.links.resources.all %}
+        <a class="dropdown-item text-center fs-6" href="{{ link.slug }}">
+          <i class="{{ link.service.bootstrap_icon }}"></i>
+          {{ link.service }}
+        </a>
+      {% empty %}
+        <a class="dropdown-item text-center fs-6" role="button">Ресурсов нет</a>
       {% endfor %}
     </ul>
   </div>
