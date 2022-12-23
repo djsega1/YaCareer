@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group as DjangoGroup
 
 from users.forms import CreateProfileForm, UpdateProfileForm
 from users.models import User, UserLinks, UserMedia
@@ -64,3 +65,6 @@ class ProfileAdmin(admin.ModelAdmin):
         if obj:
             return obj.image_tmb_small()
         return 'Нет изображения'
+
+
+admin.site.unregister(DjangoGroup)
