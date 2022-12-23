@@ -3,30 +3,31 @@
 {% load static %}
 
 {% block content %}
-<div class='container-fluid text-center'>
-    <div class="d-flex flex-row">
-        <h1 class="text-start">Группы</h1>
-        <a 
-            href="{% url 'groups:create' %}"
-            class="btn btn-primary d-flex border border-dark my-2 mx-auto rounded-1 align-items-center"
-        >
-            Создать группу
-        </a>
-    </div>
-    {% include 'includes/search.html' %}
-    {% if group_list %}
-        <div class='row'>
-            {% for group in group_list %}
-                <tr>
-                    <div class='col-xs-12 col-md-4 py-2'>{% include "groups/includes/group_list_card.html" %}</div>
-                </tr>
-            {% endfor %}
-        </div>
-    {% else %}
-        <h3 class="text-center">Групп нет.</h3>
-    {% endif %}
 
+<div class='container-fluid text-center'>
+  <div class="d-flex flex-row">
+    <h1 class="text-start">Группы</h1>
+    <a 
+      href="{% url 'groups:create' %}"
+      class="btn btn-primary d-flex border border-dark my-2 mx-auto rounded-1 align-items-center"
+    >
+      Создать группу
+    </a>
+  </div>
+  {% include 'includes/search.html' %}
+  {% if group_list %}
+    <div class='row'>
+      {% for group in group_list %}
+        <tr>
+          <div class='col-xs-12 col-md-4 py-2'>{% include "groups/includes/group_list_card.html" %}</div>
+        </tr>
+      {% endfor %}
+    </div>
+  {% else %}
+    <h3 class="text-center">Групп нет.</h3>
+  {% endif %}
 </div>
+
 {% include "includes/pagination.html" %}
 
 {% endblock %}
