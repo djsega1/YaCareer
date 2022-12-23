@@ -31,12 +31,13 @@ class UserListView(ListView):
         queryset = super().get_queryset()
         searched = self.request.GET.get('searched', '')
         if searched:
+            searched = searched.lower()
             queryset = (
                 queryset.
                 filter(
-                    Q(first_name__contains=searched)
-                    | Q(last_name__contains=searched)
-                    | Q(email__contains=searched)
+                    Q(first_name__unaccent__lower__trigram_similar=searched)
+                    | Q(last_name__unaccent__lower__trigram_similar=searched)
+                    | Q(email__unaccent__lower__trigram_similar=searched)
                     )
             )
         return queryset

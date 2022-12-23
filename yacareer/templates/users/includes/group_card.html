@@ -1,16 +1,17 @@
 {% load static %}
 
 <a
-href="{% url 'groups:group_detail' group.pk %}"
-class="text-decoration-none d-flex flex-row justify-content-between btn btn-primary d-flex border border-dark w-100 my-2 mx-auto rounded-1 align-items-center"
-role="button">
-    <div class="d-flex flex-row align-items-center">
-        <img
-        src="{% if group.photo %}{{ group.get_img_small.url }}{% else %}{% static 'img/default_avatar_group.jpg' %}{% endif %}"
-        class="rounded-circle border border-2 border-dark user-card-crop m-2 ms-0"
-        alt="Аватар"
-        >
-        <p class="mb-0 ms-2">{{ group }}</p>
-    </div>
-    <p class="mb-0 ms-2">{{ status }}</p>
+  href="{% url 'groups:group_detail' group.pk %}"
+  class="text-decoration-none d-flex flex-row justify-content-between btn btn-primary d-flex border border-dark w-100 my-2 mx-auto rounded-1 align-items-center"
+  role="button"
+>
+  <div class="d-flex flex-row align-items-center">
+    <img
+      src="{% if group.photo %}{{ group.get_img_small.url }}{% else %}{% static 'img/default_avatar_group.jpg' %}{% endif %}"
+      class="rounded-circle border border-2 border-dark user-card-crop m-2 ms-0"
+      alt="Аватар"
+    >
+    <p class="mb-0 ms-2">{{ group }}</p>
+  </div>
+  <p class="mb-0 ms-2">{{ status }}</p>
 </a>

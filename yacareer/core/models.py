@@ -10,9 +10,6 @@ class BaseModelImage(models.Model):
         blank=True,
     )
 
-    class Meta:
-        abstract = True
-
     @property
     def get_img(self):
         return get_thumbnail(
@@ -64,3 +61,9 @@ class BaseModelImage(models.Model):
 
     image_tmb.short_description = 'превью'
     image_tmb.allow_tags = True
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.photo

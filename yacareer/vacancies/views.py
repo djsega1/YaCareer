@@ -69,8 +69,8 @@ class VacancyListView(ListView):
             queryset = (
                 queryset.
                 filter(
-                    Q(vacancy_name__contains=searched)
-                    | Q(text__contains=searched)
+                    Q(vacancy_name__unaccent__lower__trigram_similar=searched)
+                    | Q(text__unaccent__lower__trigram_similar=searched)
                     )
             )
         return queryset
