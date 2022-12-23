@@ -31,11 +31,13 @@ cd yacareer
 
 ## Настройка .env:
 ##### Примечание: это необязательно
-### Создаем файл .env в корневой директории, прописываем туда секретные данные (пример - .env_example):
+### Создаем файл .env в корневой директории, прописываем туда секретные данные:
 ```commandline
 SECRET_KEY=secret_key_1234567890
 DEBUG=boolean_value
 ```
-
+### Информацию о предназначении сервиса смотрите на сайте
 ## Структура базы данных
-![image](https://user-images.githubusercontent.com/68695859/207120454-3d36001d-ce96-4fe4-b703-923af3f3e5db.png)
+![image](https://user-images.githubusercontent.com/69619529/209285928-484b8936-3313-46d7-80e7-88bbe3bfdb6c.png)
+
+#### Для более подробного ознакомления с ERD: ```https://app.quickdatabasediagrams.com/#/d/BoFAR5```
