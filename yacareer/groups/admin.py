@@ -1,15 +1,11 @@
 from django.contrib import admin
 
-from groups.models import Group, GroupMedia, GroupMembers
+from groups.models import Group, GroupMembers
 from vacancies.models import GroupVacancy
 
 
 class GroupMembersInline(admin.TabularInline):
     model = GroupMembers
-
-
-class GroupMediaInline(admin.TabularInline):
-    model = GroupMedia
 
 
 class GroupVacancyInline(admin.TabularInline):
@@ -21,7 +17,6 @@ class GroupAdmin(admin.ModelAdmin):
     model = Group
     list_display = ('name', 'image_tmb_small')
     inlines = (
-        GroupMediaInline,
         GroupMembersInline,
         GroupVacancyInline,
     )

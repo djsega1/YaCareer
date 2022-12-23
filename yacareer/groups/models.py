@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.models import BaseModelImage, BaseModelMedia
+from core.models import BaseModelImage
 from users.models import User
 
 
@@ -33,6 +33,7 @@ class Group(BaseModelImage):
         ordering = ('id',)
         default_related_name = 'groups'
         verbose_name = 'группа'
+        verbose_name_plural = 'группы'
 
     def __str__(self):
         return self.name
@@ -51,6 +52,8 @@ class GroupMembers(models.Model):
     )
 
     class Meta:
+        verbose_name = 'участник'
+        verbose_name_plural = 'участники'
         constraints = (
             models.UniqueConstraint(
                 fields=('user', 'group'),
@@ -60,16 +63,3 @@ class GroupMembers(models.Model):
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'.strip()
-
-
-class GroupMedia(BaseModelMedia):
-    group = models.ForeignKey(
-        Group,
-        on_delete=models.CASCADE,
-        verbose_name='группа',
-    )
-
-    class Meta:
-        default_related_name = 'media'
-        verbose_name = 'файл'
-        verbose_name_plural = 'файлы'

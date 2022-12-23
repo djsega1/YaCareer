@@ -64,27 +64,3 @@ class BaseModelImage(models.Model):
 
     image_tmb.short_description = 'превью'
     image_tmb.allow_tags = True
-
-
-class BaseModelMedia(models.Model):
-    name = models.CharField(
-        'название',
-        max_length=256,
-    )
-    file = models.FileField(
-        'файл',
-        upload_to='files/',
-        unique=True,
-    )
-    description = models.CharField(
-        'описание',
-        max_length=1024,
-        null=True,
-        blank=True,
-    )
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return self.name

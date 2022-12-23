@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
-from core.models import BaseModelImage, BaseModelMedia
+from core.models import BaseModelImage
 from services.models import Service
 
 
@@ -108,6 +108,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
         ordering = ('id',)
         default_related_name = 'users'
         verbose_name = 'пользователь'
+        verbose_name_plural = 'пользователи'
 
     def __str__(self):
         return f'{self.first_name.capitalize()} {self.last_name.capitalize()}'
@@ -126,6 +127,8 @@ class FollowsU2U(models.Model):
     )
 
     class Meta:
+        verbose_name = 'подписчик'
+        verbose_name_plural = 'подписчики'
         constraints = (
             models.UniqueConstraint(
                 fields=('to_user', 'from_user'),
@@ -134,7 +137,22 @@ class FollowsU2U(models.Model):
         )
 
 
-class UserMedia(BaseModelMedia):
+class UserMedia(models.Model):
+    name = models.CharField(
+        'название',
+        max_length=256,
+    )
+    file = models.FileField(
+        'файл',
+        upload_to='files/',
+        unique=True,
+    )
+    description = models.CharField(
+        'описание',
+        max_length=1024,
+        null=True,
+        blank=True,
+    )
     user = models.ForeignKey(
         User,
         verbose_name='медиа',
