@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login
 from django.db.models import Q
 from django.shortcuts import redirect
@@ -18,6 +19,7 @@ class SignUpView(FormView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
+        messages.success(self.request, 'Аккаунт создан')
         return super().form_valid(form)
 
 
@@ -74,8 +76,10 @@ class UserDetailView(DetailView, FormMixin):
         form = self.form_class(request.POST or None)
         if form.is_valid():
             form.save()
+            messages.success(self.request, 'Вы подписались на пользователя')
         else:
             FollowsU2U.objects.filter(
                 **form.cleaned_data
             ).delete()
+            messages.success(self.request, 'Вы отписались от пользователя')
         return redirect('users:user_detail', pk)

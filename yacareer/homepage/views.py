@@ -1,8 +1,9 @@
 import os
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
@@ -67,6 +68,7 @@ class ProfileView(LoginRequiredMixin, FormView):
                 user_id=request.user.id,
                 **form.cleaned_data,
             )
+            messages.success(request, 'Ссылка успешно добавлена')
 
     def media_form(self, request):
         form = ProfileMediaForm(
@@ -78,6 +80,7 @@ class ProfileView(LoginRequiredMixin, FormView):
                 user_id=request.user.id,
                 **form.cleaned_data,
             )
+            messages.success(request, 'Медиа успешно добавлен')
 
     def profile_form(self, request):
         form = self.form_class(
@@ -92,6 +95,7 @@ class ProfileView(LoginRequiredMixin, FormView):
                     if os.path.exists(image_path):
                         os.remove(image_path)
             form.save()
+            messages.success(request, 'Изменения успешно сохранены')
 
     def del_media_form(self, request):
         form = DeleteProfileMediaForm(
@@ -103,6 +107,7 @@ class ProfileView(LoginRequiredMixin, FormView):
                 user=request.user,
                 **form.cleaned_data,
             ).delete()
+            messages.success(request, 'Медиа файл удален')
 
     def del_links_form(self, request):
         form = DeleteProfileLinksForm(
@@ -114,3 +119,4 @@ class ProfileView(LoginRequiredMixin, FormView):
                 user=request.user,
                 **form.cleaned_data,
             ).delete()
+            messages.success(request, 'Ссылка удалена')

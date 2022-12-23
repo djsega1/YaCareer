@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
@@ -29,6 +30,7 @@ class VacancyDetailView(DetailView, FormMixin):
         group = vacancy.group
         if group.owner == request.user:
             vacancy.delete()
+            messages.success(request, 'Вакансия удалена')
         return redirect('vacancies:vacancies_of_group', group.pk)
 
     def respond_form(self, request, vacancy):
@@ -41,6 +43,7 @@ class VacancyDetailView(DetailView, FormMixin):
                 (vacancy.group.owner.email,),
                 fail_silently=True,
             )
+            messages.success(request, 'Сообщение успешно отправлено')
         return redirect('groups:group_detail', vacancy.group.pk)
 
 

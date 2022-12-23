@@ -1,5 +1,5 @@
 import os
-
+from django.contrib import messages
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
@@ -23,7 +23,6 @@ class GroupListView(ListView):
         queryset = super().get_queryset()
         searched = self.request.GET.get('searched', '')
         if searched:
-            print(searched)
             queryset = (
                 queryset.
                 filter(
@@ -56,11 +55,13 @@ class GroupDetailView(DetailView):
         )
         if followu2g:
             followu2g.delete()
+            messages.success(request, 'Вы отписались от группы')
         else:
             GroupMembers.objects.create(
                 group=group,
                 user=request.user,
             )
+            messages.success(request, 'Вы подписались на группу')
         return redirect('groups:group_detail', pk)
 
 
@@ -74,6 +75,7 @@ class CreateGroupView(CreateView):
             owner_id=self.request.user.id,
             **form.cleaned_data,
         )
+        messages.success(self.request, 'Поздравляем!!! Вы создали группу')
         return redirect('groups:group_detail', new_group.id)
 
 
@@ -128,6 +130,7 @@ class EditGroupView(UpdateView):
                 GroupVacancy.objects.create(
                     **form.cleaned_data
                 )
+                messages.success(request, 'Вакансия создана')
 
     def profile_form(self, request, group):
         if group.owner == request.user:
@@ -143,6 +146,7 @@ class EditGroupView(UpdateView):
                         if os.path.exists(image_path):
                             os.remove(image_path)
                 form.save()
+                messages.success(request, 'Изменения успешно сохранены')
 
 
 class DeleteGroupView(DeleteView):
@@ -157,5 +161,6 @@ class DeleteGroupView(DeleteView):
             pk=pk,
         )
         if group.owner == self.request.user:
+            messages.success(request, 'Группа удалена')
             return super().post(request, pk)
         return redirect('groups:group_detail', pk)
