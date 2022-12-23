@@ -2,7 +2,6 @@ pyc
 .vscode/
 .idea/
 .env
-*/media/*
 yacareer/send_mail/
 # Byte-compiled / optimized / DLL files
 __pycache__/
