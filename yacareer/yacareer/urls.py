@@ -26,7 +26,7 @@ urlpatterns = [
     path('groups/', include('groups.urls', namespace='groups')),
     path('vacancies/', include('vacancies.urls', namespace='vacancies')),
     path('auth/', include('users.urls_auth', namespace='auth')),
-    path('auth/', include('django.contrib.auth.urls', namespace='auth')),
+    path('auth/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:
