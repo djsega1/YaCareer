@@ -3,7 +3,21 @@ from django.db import models
 from groups.models import Group
 
 
+class GroupVacancyManager(models.Manager):
+    queryset = None
+
+    def get_queryset(self):
+        if self.queryset is None:
+            self.queryset = (
+                super().get_queryset()
+                .select_related('group__owner',)
+            )
+        return self.queryset
+
+
 class GroupVacancy(models.Model):
+    objects = GroupVacancyManager()
+
     vacancy_name = models.CharField(
         'название',
         max_length=70,

@@ -48,6 +48,9 @@ class UserDetailView(DetailView, FormMixin):
     form_class = FollowsU2UForm
     context_object_name = 'user'
 
+    def get_queryset(self):
+        return self.model.objects.get_full_info()
+
     def get_success_url(self):
         return reverse_lazy(
             'users:user_detail',

@@ -4,7 +4,22 @@ from core.models import BaseModelImage, BaseModelMedia
 from users.models import User
 
 
+class GroupManager(models.Manager):
+    queryset = None
+
+    def get_queryset(self):
+        if self.queryset is None:
+            self.queryset = (
+                super().get_queryset()
+                .select_related('owner',)
+                .prefetch_related('members',)
+            )
+        return self.queryset
+
+
 class Group(BaseModelImage):
+    objects = GroupManager()
+
     name = models.CharField(
         'название',
         max_length=256,

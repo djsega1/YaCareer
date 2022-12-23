@@ -34,18 +34,27 @@ class UserManager(BaseUserManager):
 
     def get_queryset(self):
         if self.queryset is None:
-            self.queryset = (
-                super().get_queryset()
-                .prefetch_related(
+            self.queryset = super().get_queryset().only(
+                'email',
+                'first_name',
+                'last_name',
+                'photo',
+                'is_open_to_work',
+            )
+        return self.queryset
+
+    def get_full_info(self):
+        return (
+            super().get_queryset()
+            .prefetch_related(
                     'media',
-                    'links',
+                    'links__service',
                     'user_follows__to_user',
                     'user_followed__from_user',
                     'members',
                     'owner',
-                )
             )
-        return self.queryset
+        )
 
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModelImage):
