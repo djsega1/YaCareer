@@ -39,10 +39,7 @@ class GroupDetailView(DetailView):
     context_object_name = 'group'
 
     def get_context_data(self, **kwargs):
-        group = get_object_or_404(
-            self.model.objects,
-            pk=self.kwargs['pk'],
-        )
+        group = self.object
         return {
             'group': group,
         }
@@ -85,10 +82,7 @@ class EditGroupView(UpdateView):
     form_class = GroupForm
 
     def get_context_data(self, **kwargs):
-        group = get_object_or_404(
-            self.model.objects,
-            pk=self.kwargs['pk'],
-        )
+        group = self.object
         vacancy = GroupVacancyForm()
         form = self.form_class(
             initial=self.initial,
@@ -113,17 +107,17 @@ class EditGroupView(UpdateView):
             'group_vacancy_form': self.vacancy_form,
             'group_profile_form': self.profile_form,
         }
-        for endpoint, form in forms_points.items():
-            if endpoint in request.POST:
-                form(request, pk)
-                break
-        return redirect('groups:group_detail', pk)
-
-    def vacancy_form(self, request, pk):
         group = get_object_or_404(
             self.model.objects,
             pk=pk,
         )
+        for endpoint, form in forms_points.items():
+            if endpoint in request.POST:
+                form(request, group)
+                break
+        return redirect('groups:group_detail', pk)
+
+    def vacancy_form(self, request, group):
         if group.owner == request.user:
             form = GroupVacancyForm(
                 *(request.POST, request.FILES) or None,
@@ -134,11 +128,7 @@ class EditGroupView(UpdateView):
                     **form.cleaned_data
                 )
 
-    def profile_form(self, request, pk):
-        group = get_object_or_404(
-            self.model.objects,
-            pk=pk,
-        )
+    def profile_form(self, request, group):
         if group.owner == request.user:
             form = self.form_class(
                 *(request.POST, request.FILES) or None,

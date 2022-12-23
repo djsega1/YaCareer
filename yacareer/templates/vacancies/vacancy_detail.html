@@ -41,7 +41,7 @@
               </div>
             </div>
 
-            {% if user.id == vacancy.group.owner.id %}
+            {% if request.user == vacancy.group.owner %}
               <form method="post">
                 {% csrf_token %}
                 <button type="submit" name="del_vacancy" class="btn btn-primary border border-dark mt-2">Удалить</button>

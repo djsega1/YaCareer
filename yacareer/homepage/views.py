@@ -2,7 +2,7 @@ import os
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 
@@ -32,7 +32,18 @@ class ProfileView(LoginRequiredMixin, FormView):
             'del_links_form': del_links_form,
         }
 
+    def get(self, request):
+        request.user = get_object_or_404(
+            User.objects.get_full_info(),
+            id=request.user.id
+        )
+        return super().get(request)
+
     def post(self, request):
+        request.user = get_object_or_404(
+            User.objects.get_full_info(),
+            id=request.user.id
+        )
         forms_points = {
             'profile_submit': self.profile_form,
             'media_submit': self.media_form,
