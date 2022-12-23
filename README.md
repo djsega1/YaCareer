@@ -28,6 +28,9 @@ cd yacareer
 | :--------------- | :------------------------------ |
 |`python manage.py runserver`|`python3 manage.py runserver`|
 
+## Данные тестового админа:
+#### Почта: admin@gmail.com
+#### Пароль: admin
 
 ## Настройка .env:
 ##### Примечание: это необязательно
