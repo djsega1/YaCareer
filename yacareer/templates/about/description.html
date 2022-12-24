@@ -1,61 +1,48 @@
-{% extends "base.html" %}
-
 {% load static %}
 
-{% block content %}
+<button class="btn btn-light " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">О нас</button>
 
-<form method="post">
-  {% csrf_token %}
-  <div class="card mb-3">
-    <div class="row g-0">
-      <div class="col-md-6">
-        <img src="{% static 'img/about.jpg' %}" class="img-fluid rounded-start" alt="signin">
-      </div>
-      <div class="col-md-6">
-        <div class="card-body">
-          <div class="accordion" id="accordionExample">
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header">
+    <h1 class="offcanvas-title" id="offcanvasScrollingLabel">Описание</h1>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="accordion" id="accordionExample">
             
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button
-                  class="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="true"
-                  aria-controls="collapseOne"
-                >
-                  <h1>Что такое YaCareer?</h1>
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <h5>YaCareer — социальная сеть для поиска и установления деловых контактов.</h5>
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    <h4>Основных преимуществ YaCareer:</h4>
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <p>возможность расширить каналы сбыта и пространство для позиционирования бренда, компании, онлайн-магазина в интернете;</p>
-                  <p>поиск сотрудников (соискатели тоже имеют возможность размещать резюме), бывших коллег, однокурсников и друзей, представляющих интерес для развития бизнеса;</p>
-                  <p>профиль специалиста или компании, выполняющий функцию открытого резюме.</p>
-                </div>
-              </div>
-            </div>
-
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button
+            class="accordion-button"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseOne"
+            aria-expanded="true"
+            aria-controls="collapseOne"
+          >
+            <h3>Что такое YaCareer?</h3>
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <h5>YaCareer — социальная сеть для поиска и установления деловых контактов.</h5>
           </div>
         </div>
       </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <h3>Что такое YaCareer?</h3>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <h5>YaCareer — социальная сеть для поиска и установления деловых контактов.</h5>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-</form>
-
-{% endblock %}
-
+</div>

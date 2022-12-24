@@ -45,7 +45,7 @@
     >
       Редактировать
     </a>
-  {% else %}
+  {% elif request.user.is_authenticated %}
     <form method="post" class="text-center">
       {% csrf_token %}
       <button type="submit" class="btn btn-primary border border-dark">

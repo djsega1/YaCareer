@@ -1,5 +1,7 @@
 import os
+
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
@@ -65,7 +67,7 @@ class GroupDetailView(DetailView):
         return redirect('groups:group_detail', pk)
 
 
-class CreateGroupView(CreateView):
+class CreateGroupView(CreateView, LoginRequiredMixin):
     template_name = 'groups/create.html'
     model = Group
     form_class = GroupForm
@@ -79,7 +81,7 @@ class CreateGroupView(CreateView):
         return redirect('groups:group_detail', new_group.id)
 
 
-class EditGroupView(UpdateView):
+class EditGroupView(UpdateView, LoginRequiredMixin):
     template_name = 'groups/edit.html'
     model = Group
     form_class = GroupForm
@@ -149,7 +151,7 @@ class EditGroupView(UpdateView):
                 messages.success(request, 'Изменения успешно сохранены')
 
 
-class DeleteGroupView(DeleteView):
+class DeleteGroupView(DeleteView, LoginRequiredMixin):
     template_name = 'groups/delete.html'
     model = Group
     form_class = GroupForm

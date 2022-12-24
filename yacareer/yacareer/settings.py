@@ -33,7 +33,6 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',
-    'about.apps.AboutConfig',
     'core.apps.CoreConfig',
     'groups.apps.GroupsConfig',
     'homepage.apps.HomepageConfig',

@@ -46,8 +46,10 @@
                 {% csrf_token %}
                 <button type="submit" name="del_vacancy" class="btn btn-primary border border-dark mt-2">Удалить</button>
               </form>
-            {% else %}
+            {% elif request.user.is_authenticated %}
               {% include 'vacancies/includes/modal/respond.html' %}
+            {% else %}
+              <p>Чтобы откликнуться на вакансию, надо авторизоваться</p>
             {% endif %}
           </div>
         </div>

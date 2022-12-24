@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.db.models import Q
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import FormMixin
 
@@ -72,8 +72,8 @@ class VacancyListView(ListView):
             queryset = (
                 queryset.
                 filter(
-                    Q(vacancy_name__unaccent__lower__trigram_similar=searched)
-                    | Q(text__unaccent__lower__trigram_similar=searched)
+                    Q(vacancy_name__lower=searched)
+                    | Q(text__lower=searched)
                     )
             )
         return queryset
