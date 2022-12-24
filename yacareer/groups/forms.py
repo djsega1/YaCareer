@@ -7,3 +7,8 @@ class GroupForm(BaseModelForm):
     class Meta:
         model = Group
         fields = ('name', 'photo', 'about')
+        labels = {
+            'name': 'Название',
+            'photo': 'Фото группы',
+            'about': 'О группе',
+        }

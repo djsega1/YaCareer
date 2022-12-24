@@ -28,6 +28,15 @@ class UpdateProfileForm(UserChangeForm, BaseModelForm):
             'about',
             'is_open_to_work',
         )
+        labels = {
+            'email': 'Почта',
+            'first_name': 'Имя',
+            'last_name': 'Фамилия',
+            'birthday': 'Дата рождения',
+            'photo': 'Фото профиля',
+            'about': 'О себе',
+            'is_open_to_work': 'В поисках работы',
+        }
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'}),
             'is_open_to_work': forms.Select(choices=BOOLEAN_CHOICES),
@@ -39,6 +48,11 @@ class ProfileMediaForm(BaseModelForm):
     class Meta:
         model = UserMedia
         fields = ('name', 'description', 'file')
+        labels = {
+           'name': 'Название медиаматериала',
+           'file': 'Файл',
+           'description': 'Описание файла',
+        }
 
 
 class DeleteProfileMediaForm(forms.Form):
@@ -58,6 +72,10 @@ class ProfileLinksForm(BaseModelForm):
     class Meta:
         model = UserLinks
         fields = ('service', 'slug')
+        labels = {
+           'service': 'Название сервиса',
+           'slug': 'Ссылка',
+        }
 
 
 class DeleteProfileLinksForm(forms.Form):
@@ -77,3 +95,7 @@ class FollowsU2UForm(BaseModelForm):
     class Meta:
         model = FollowsU2U
         fields = ('to_user', 'from_user')
+        labels = {
+           'to_user': 'На пользователя',
+           'from_user': 'Пользователь',
+        }

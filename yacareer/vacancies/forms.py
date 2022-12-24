@@ -9,6 +9,10 @@ class GroupVacancyForm(BaseModelForm):
     class Meta:
         model = GroupVacancy
         fields = ('vacancy_name', 'text',)
+        labels = {
+            'vacancy_name': 'Название вакансии',
+            'text': 'Описание обязанностей и требований',
+        }
 
 
 class RespondForm(forms.Form):
