@@ -167,14 +167,14 @@ class UserMedia(models.Model):
     )
     user = models.ForeignKey(
         User,
-        verbose_name='медиа',
+        verbose_name='пользователь',
         on_delete=models.CASCADE,
     )
 
     class Meta:
         default_related_name = 'media'
-        verbose_name = 'файл'
-        verbose_name_plural = 'файлы'
+        verbose_name = 'медиаматериалы'
+        verbose_name_plural = 'медиаматериалы'
 
     def __str__(self):
         return self.name
