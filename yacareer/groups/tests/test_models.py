@@ -11,11 +11,11 @@ class TestsForModels(TestCase):
         test_data = (
             {
                 'name': 'Компания 3',
-                'owner_id': 1,
+                'owner_id': 1323,
             },
             {
                 'name': '123',
-                'owner_id': 0,
+                'owner_id': 1233,
             },
         )
         group_count = Group.objects.count()
