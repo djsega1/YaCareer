@@ -9,7 +9,11 @@
   <div class="card mb-3">
     <div class="row g-0">
       <div class="col-md-6">
-        <img src="{% static 'img/signup.jpg' %}" class="img-fluid rounded-start" alt="password_reset">
+        <img
+          src="{% static 'img/signup.jpg' %}"
+          class="img-fluid rounded-start"
+          alt="password_reset"
+        >
       </div>
       <div class="col-md-6">
         <div class="card-body">
@@ -17,7 +21,12 @@
           {% for field in form %}
             {% include "users/includes/field.html" %}
           {% endfor %}
-          <button type="submit" class="btn btn-primary border border-dark mt-2">Далее</button>
+          <button
+            type="submit"
+            class="btn btn-primary border border-dark mt-2"
+          >
+            Далее
+          </button>
         </div>
       </div>
     </div>
