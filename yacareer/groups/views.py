@@ -57,13 +57,11 @@ class GroupDetailView(DetailView):
         )
         if followu2g:
             followu2g.delete()
-            messages.success(request, 'Вы отписались от группы')
         else:
             GroupMembers.objects.create(
                 group=group,
                 user=request.user,
             )
-            messages.success(request, 'Вы подписались на группу')
         return redirect('groups:group_detail', pk)
 
 
@@ -163,6 +161,5 @@ class DeleteGroupView(DeleteView, LoginRequiredMixin):
             pk=pk,
         )
         if group.owner == self.request.user:
-            messages.success(request, 'Группа удалена')
             return super().post(request, pk)
         return redirect('groups:group_detail', pk)
