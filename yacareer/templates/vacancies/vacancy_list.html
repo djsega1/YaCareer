@@ -1,22 +1,21 @@
+
 {% extends "base.html" %}
 
 {% load static %}
 
 {% block content %}
-  
+<div class='container-fluid text-center'>
+  <h1 class="text-start">Вакансии</h1>
+  {% include 'includes/search.html' %}
   {% if vacancy_list %}
-    <div class='container-fluid text-center'>
-      <h1 class="text-start">Вакансии</h1>
-      {% include 'includes/search.html' %}
-      <div class='row'>
-        {% for vacancy in vacancy_list %}
-          <tr>
-            <div class='col-xs-12 col-md-4 py-2'>
-              {% include "vacancies/includes/vacancy_card.html" %}
-            </div>
-          </tr>
-        {% endfor %}
-      </div>
+    <div class='row'>
+      {% for vacancy in vacancy_list %}
+        <tr>
+          <div class='col-xs-12 col-md-4 py-2'>
+            {% include "vacancies/includes/vacancy_card.html" %}
+          </div>
+        </tr>
+      {% endfor %}
     </div>
     {% if request.resolver_match.view_name == 'vacancies:vacancy_list' %}
       {% include "includes/pagination.html" %}
@@ -51,5 +50,5 @@
   {% else %}
     <h3 class="text-center">Вакансий нет.</h3>
   {% endif %}
-
+</div>
 {% endblock %}
