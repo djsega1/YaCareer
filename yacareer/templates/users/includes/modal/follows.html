@@ -28,9 +28,9 @@
       <div class="modal-body">
         <div>
             {% for follower in user.user_followed.all %}
-                {% include "users/includes/user_card.html" with follower=follower.from_user %}
+              {% include "users/includes/user_card.html" with follower=follower.from_user %}
             {% empty %}
-                Здесь пока никого нет
+              Здесь пока никого нет
             {% endfor %}
         </div>
       </div>
@@ -66,9 +66,9 @@
       <div class="modal-body">
         <div>
             {% for follower in user.user_follows.all %}
-                {% include "users/includes/user_card.html" with follower=follower.to_user %}
+              {% include "users/includes/user_card.html" with follower=follower.to_user %}
             {% empty %}
-                Здесь пока никого нет
+              Здесь пока никого нет
             {% endfor %}
         </div>
       </div>

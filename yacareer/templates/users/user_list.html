@@ -11,7 +11,11 @@
     <div class='row'>
       {% for user in user_list %}
         <tr>
-          <div class='col-xs-12 col-md-4 py-2'>{% include "users/includes/user_card.html" with follower=user %}</div>
+          <div
+            class='col-xs-12 col-md-4 py-2'
+          >
+            {% include "users/includes/user_card.html" with follower=user %}
+          </div>
         </tr>
       {% endfor %}
     </v>

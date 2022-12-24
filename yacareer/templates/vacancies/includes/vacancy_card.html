@@ -9,6 +9,13 @@
       </div>
       <p class="text-break text-center mb-2">{{ vacancy.group.name }}</p>
     </div>
-    <a href="{% url 'vacancies:vacancy_detail' vacancy.id %}"><button type="submit" class="btn btn-primary border border-dark mt-2">Подробнее</button></a>
+    <a href="{% url 'vacancies:vacancy_detail' vacancy.id %}">
+      <button
+        type="submit"
+        class="btn btn-primary border border-dark mt-2"
+      >
+        Подробнее
+      </button>
+    </a>
   </div>
 </div>

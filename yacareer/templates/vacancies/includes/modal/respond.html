@@ -33,7 +33,13 @@
         <form method="post">
           {% csrf_token %}
           {% include 'includes/form.html' %}
-          <button type="submit" name="respond" class="btn btn-primary border border-dark mt-2">Отправить</button>
+          <button
+            type="submit"
+            name="respond"
+            class="btn btn-primary border border-dark mt-2"
+          >
+            Отправить
+          </button>
         </form>
 
       </div>

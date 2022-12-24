@@ -8,15 +8,26 @@
             <img src="{% static 'img/main_logo.png' %}" alt="Cat" id="header_logo">
             YaCareer
           </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse flex-wrap align-content-center" id="navbarSupportedContent">
+          <div
+            class="collapse navbar-collapse flex-wrap align-content-center"
+            id="navbarSupportedContent"
+          >
             <ul class="d-flex navbar-nav me-auto mb-2 mb-lg-0 top-menu">
-    
+
               <li class="nav-item">
                 <a 
-                class="{% if view_name == 'groups:group_list' %}nav-link disabled{% else %}nav-link{% endif %} text-center"
+                  class="{% if view_name == 'groups:group_list' %}nav-link disabled{% else %}nav-link{% endif %} text-center"
                   href="{% url 'groups:group_list' %}"
                 >Группы</a>
               </li>
@@ -54,7 +65,11 @@
                     </li>
                 {% else %}
                   {% if view_name != 'auth:login' %}
-                    <li><a class="nav-link text-center" href="{% url 'auth:login' %}"><h5 class="m-0">Войти</h5></a></li>
+                    <li>
+                      <a class="nav-link text-center" href="{% url 'auth:login' %}">
+                        <h5 class="m-0">Войти</h5>
+                      </a>
+                    </li>
                   {% endif %}
                 {% endif %}
               </ul>
