@@ -67,13 +67,13 @@ class VacancyListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        searched = self.request.GET.get('searched', '')
+        searched = self.request.GET.get('searched', '').lower()
         if searched:
             queryset = (
                 queryset.
                 filter(
-                    Q(vacancy_name__lower=searched)
-                    | Q(text__lower=searched)
+                    Q(vacancy_name__icontains=searched)
+                    | Q(text__icontains=searched)
                     )
             )
         return queryset

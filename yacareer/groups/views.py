@@ -23,13 +23,13 @@ class GroupListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        searched = self.request.GET.get('searched', '')
+        searched = self.request.GET.get('searched', '').lower()
         if searched:
             queryset = (
                 queryset.
                 filter(
-                    Q(name__lower__contains=searched)
-                    | Q(about__lower__contains=searched)
+                    Q(name__icontains=searched)
+                    | Q(about__icontains=searched)
                     )
             )
         return queryset
